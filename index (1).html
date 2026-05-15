@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Begye Akazon — Ghana's Real Estate Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.2.0/dist/tabler-icons.min.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   TOKENS & RESET
+═══════════════════════════════════════════════════════════ */
+:root{
+  --red:#C8192A; --red-deep:#8B0F1A; --red-soft:rgba(200,25,42,0.1);
+  --gold:#C4922A; --gold-l:#E8B84B; --gold-soft:rgba(196,146,42,0.12);
+  --white:#FFFFFF; --off:#F8F5F0; --cream:#F2EDE4;
+  --dark:#0F1410; --dark2:#171E14; --dark3:#1F2B1C;
+  --green:#0D4A28; --green2:#166534; --green-l:#22C55E;
+  --text:#1A1A18; --text2:#52524E; --text3:#8A8A84;
+  --border:#E5E0D8; --border-d:rgba(255,255,255,0.09);
+  --r4:4px; --r8:8px; --r12:12px; --r16:16px; --r24:24px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.14);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--off);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:var(--font-body);border:none;background:none}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE TOGGLE (homepage vs admin)
+═══════════════════════════════════════════════════════════ */
+#admin-page{display:none}
+#home-page{display:block}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════════════ */
+.nav{
+  background:var(--dark);
+  height:56px;display:flex;align-items:center;
+  padding:0 20px;position:sticky;top:0;z-index:200;
+  border-bottom:1px solid var(--border-d);
+  gap:0;
+}
+.nav-logo{
+  font-family:var(--font-display);font-size:19px;color:var(--gold);
+  letter-spacing:0.03em;font-weight:600;white-space:nowrap;margin-right:24px;
+}
+.nav-logo em{color:var(--red);font-style:normal}
+.nav-logo small{display:block;font-size:8px;letter-spacing:0.18em;color:rgba(255,255,255,0.32);
+  font-family:var(--font-body);font-weight:400;text-transform:uppercase;margin-top:-3px}
+.nav-links{display:flex;gap:0;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nl{
+  font-size:11.5px;color:rgba(255,255,255,0.46);
+  padding:0 11px;height:56px;display:flex;align-items:center;
+  border-bottom:2.5px solid transparent;
+  white-space:nowrap;cursor:pointer;transition:all 0.15s;
+}
+.nl:hover,.nl.act{color:#fff;border-bottom-color:var(--gold)}
+.nl.red{color:var(--red)!important}
+.nav-r{display:flex;gap:8px;align-items:center;margin-left:16px;flex-shrink:0}
+.btn-ghost{font-size:11px;color:rgba(255,255,255,0.54);border:1px solid rgba(255,255,255,0.16);
+  padding:5px 13px;border-radius:var(--r4);cursor:pointer;transition:all 0.15s;background:none}
+.btn-ghost:hover{background:rgba(255,255,255,0.07)}
+.btn-red{font-size:11px;color:#fff;background:var(--red);
+  padding:5px 14px;border-radius:var(--r4);font-weight:500;cursor:pointer;transition:all 0.15s}
+.btn-red:hover{background:var(--red-deep)}
+.btn-gold{font-size:11px;color:var(--dark);background:var(--gold);
+  padding:5px 14px;border-radius:var(--r4);font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-gold:hover{background:var(--gold-l)}
+/* Agent icon on search bar */
+.agent-icon{
+  width:32px;height:32px;border-radius:50%;border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--gold);font-size:14px;transition:all 0.15s;background:var(--gold-soft);
+}
+.agent-icon:hover{background:var(--gold);color:var(--dark)}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+.hero{
+  background:var(--dark2);
+  padding:40px 20px 32px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 40%,rgba(200,25,42,0.06) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%,rgba(196,146,42,0.07) 0%,transparent 70%);
+}
+.hero-eyebrow{
+  font-size:10px;letter-spacing:0.2em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold)}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(22px,5vw,36px);
+  color:#F0EDE6;font-weight:600;line-height:1.25;margin-bottom:6px;
+}
+.hero-title .accent{color:var(--gold)}
+.hero-sub{font-size:11.5px;color:rgba(255,255,255,0.38);margin-bottom:24px;line-height:1.75}
+
+/* listing type tabs */
+.lt-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.lt-tab{
+  font-size:10.5px;padding:5px 13px;border-radius:99px;
+  border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.42);
+  cursor:pointer;transition:all 0.15s;white-space:nowrap;
+}
+.lt-tab.act,.lt-tab:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.lt-tab.gold.act,.lt-tab.gold:hover{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+
+/* search bar */
+.search-wrap{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r12);padding:14px 16px;
+}
+.search-main{
+  display:flex;gap:10px;align-items:stretch;margin-bottom:12px;
+}
+.search-input-wrap{
+  flex:1;background:#fff;border-radius:var(--r8);
+  display:flex;align-items:center;gap:10px;padding:0 14px;
+  border:2px solid var(--border);transition:border-color 0.15s;
+  min-height:46px;
+}
+.search-input-wrap:focus-within{border-color:var(--red)}
+.search-input-wrap i{color:var(--text3);font-size:16px;flex-shrink:0}
+.search-input-wrap input{
+  flex:1;border:none;outline:none;font-size:13px;
+  font-family:var(--font-body);color:var(--text);background:transparent;
+  min-width:0;
+}
+.search-input-wrap input::placeholder{color:var(--text3)}
+.search-btn{
+  background:var(--red);color:#fff;font-size:13px;font-weight:600;
+  padding:0 22px;border-radius:var(--r8);cursor:pointer;
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+  border:none;transition:all 0.15s;flex-shrink:0;
+}
+.search-btn:hover{background:var(--red-deep)}
+/* property type chips */
+.pt-chips{display:flex;gap:5px;flex-wrap:wrap}
+.ptchip{
+  font-size:10px;padding:4px 11px;border-radius:99px;
+  border:1px solid rgba(255,255,255,0.13);color:rgba(255,255,255,0.38);
+  cursor:pointer;transition:all 0.15s;
+}
+.ptchip.act{background:var(--gold-soft);border-color:rgba(196,146,42,0.5);color:var(--gold-l)}
+.ptchip:hover{border-color:rgba(255,255,255,0.28);color:rgba(255,255,255,0.7)}
+
+/* ═══════════════════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════════════════ */
+.ticker{
+  background:rgba(200,25,42,0.08);border-bottom:1px solid rgba(200,25,42,0.18);
+  padding:8px 20px;display:flex;align-items:center;gap:10px;overflow:hidden;
+}
+.ticker-lbl{
+  font-size:9px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--red);white-space:nowrap;
+  border-right:1px solid rgba(200,25,42,0.3);padding-right:10px;flex-shrink:0;
+}
+.ticker-inner{overflow:hidden;flex:1}
+.ticker-text{
+  font-size:11px;color:rgba(255,255,255,0.46);white-space:nowrap;
+  animation:ticker 28s linear infinite;display:inline-block;
+}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════════════════════
+   STATS BAR
+═══════════════════════════════════════════════════════════ */
+.stats-bar{
+  background:#fff;display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--border);
+}
+.stat{
+  padding:14px 12px;text-align:center;
+  border-right:1px solid var(--border);cursor:pointer;
+  transition:background 0.15s;
+}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--cream)}
+.stat-n{font-size:21px;font-weight:700;color:var(--green);font-family:var(--font-display)}
+.stat-l{font-size:9.5px;color:var(--text3);margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════════════════════ */
+.sec{padding:24px 20px 0}
+.sec-dark{background:var(--dark);padding:24px 20px;margin:0 0 0 0}
+.sec-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-size:15px;font-weight:600;color:var(--text)}
+.sec-title-white{font-size:15px;font-weight:600;color:#F0EDE6}
+.sec-sub{font-size:10.5px;color:var(--text3);margin-top:2px}
+.sec-sub-white{font-size:10.5px;color:rgba(255,255,255,0.38);margin-top:2px}
+.see-all{font-size:11px;color:var(--green2);cursor:pointer;white-space:nowrap;margin-left:10px;font-weight:500}
+.see-all-gold{font-size:11px;color:var(--gold);cursor:pointer;white-space:nowrap;margin-left:10px;font-weight:500}
+.sec-divider{height:8px;background:var(--cream)}
+
+/* ═══════════════════════════════════════════════════════════
+   FEATURED ADS CAROUSEL (auto-rotate 10s)
+═══════════════════════════════════════════════════════════ */
+.featured-carousel{position:relative;overflow:hidden;border-radius:var(--r12);margin-bottom:0}
+.fc-slides{display:flex;transition:transform 0.6s cubic-bezier(.77,0,.18,1)}
+.fc-slide{
+  min-width:100%;height:180px;border-radius:var(--r12);
+  background-size:cover;background-position:center;position:relative;
+  overflow:hidden;cursor:pointer;flex-shrink:0;
+}
+@media(min-width:768px){.fc-slide{height:240px}}
+.fc-slide-inner{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.3) 60%,transparent 100%);
+  display:flex;align-items:center;padding:24px 28px;
+}
+.fc-content{max-width:340px}
+.fc-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-l);margin-bottom:6px}
+.fc-title{font-family:var(--font-display);font-size:clamp(16px,4vw,24px);color:#fff;font-weight:600;line-height:1.2;margin-bottom:4px}
+.fc-price{font-size:18px;font-weight:700;color:var(--gold-l);margin-bottom:8px}
+.fc-loc{font-size:11px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:5px;margin-bottom:14px}
+.fc-btns{display:flex;gap:8px}
+.fc-btn-primary{
+  background:var(--red);color:#fff;font-size:11px;font-weight:600;
+  padding:8px 16px;border-radius:var(--r4);cursor:pointer;border:none;
+  font-family:var(--font-body);transition:background 0.15s;
+}
+.fc-btn-primary:hover{background:var(--red-deep)}
+.fc-btn-outline{
+  background:rgba(255,255,255,0.1);color:#fff;font-size:11px;font-weight:500;
+  padding:8px 16px;border-radius:var(--r4);cursor:pointer;border:1px solid rgba(255,255,255,0.25);
+  font-family:var(--font-body);backdrop-filter:blur(4px);
+}
+.fc-dots{display:flex;gap:5px;position:absolute;bottom:12px;left:50%;transform:translateX(-50%)}
+.fc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.2s}
+.fc-dot.act{background:#fff;width:18px;border-radius:3px}
+.fc-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:32px;height:32px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:#fff;font-size:14px;backdrop-filter:blur(4px);
+  transition:background 0.15s;z-index:2;
+}
+.fc-arrow:hover{background:rgba(0,0,0,0.7)}
+.fc-arrow.left{left:10px}
+.fc-arrow.right{right:10px}
+.fc-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--dark);font-size:8px;font-weight:700;letter-spacing:0.1em;padding:3px 8px;border-radius:99px;text-transform:uppercase}
+
+/* ═══════════════════════════════════════════════════════════
+   LISTING CARDS
+═══════════════════════════════════════════════════════════ */
+.listings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:600px){.listings-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.listings-grid{grid-template-columns:repeat(4,1fr)}}
+.lcard{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  overflow:hidden;cursor:pointer;transition:all 0.18s;
+}
+.lcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--red)}
+.lcard-img{
+  height:110px;position:relative;
+  background-size:cover;background-position:center;
+}
+@media(min-width:600px){.lcard-img{height:130px}}
+.lcard-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);
+}
+.lcard-badges{
+  position:absolute;top:7px;left:7px;display:flex;gap:4px;flex-wrap:wrap;
+}
+.badge{font-size:8px;padding:2px 7px;border-radius:99px;font-weight:600;letter-spacing:0.04em}
+.badge-sale{background:var(--red);color:#fff}
+.badge-rent{background:var(--green);color:#fff}
+.badge-lux{background:var(--gold);color:var(--dark)}
+.badge-new{background:var(--dark);color:#fff}
+.badge-priv{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px)}
+.badge-jv{background:#6B21A8;color:#fff}
+.badge-offplan{background:#0C4A6E;color:#fff}
+.badge-flip{background:#92400E;color:#fff}
+.lcard-score{position:absolute;bottom:7px;right:7px;background:var(--gold);color:var(--dark);font-size:9px;font-weight:700;padding:2px 6px;border-radius:var(--r4);font-family:var(--font-mono)}
+.lcard-body{padding:9px 11px 10px}
+.lcard-type{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.09em}
+.lcard-title{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0}
+.lcard-loc{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:3px}
+.lcard-price{font-size:13px;font-weight:700;color:var(--green);margin-top:5px}
+.lcard-price span{font-size:9px;font-weight:400;color:var(--text3)}
+.lcard-specs{font-size:9.5px;color:var(--text3);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+.lcard-code{font-family:var(--font-mono);font-size:8px;color:rgba(0,0,0,0.22);margin-top:4px}
+.lcard-footer{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.lcard-verified{display:flex;align-items:center;gap:3px;font-size:8.5px;color:var(--green2)}
+.lcard-action{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text3);cursor:pointer;transition:all 0.15s}
+.lcard-action:hover{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+
+/* Horizontal scroll row */
+.scroll-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.scroll-row::-webkit-scrollbar{display:none}
+.scroll-row .lcard{flex:0 0 200px}
+@media(min-width:600px){.scroll-row .lcard{flex:0 0 240px}}
+
+/* ═══════════════════════════════════════════════════════════
+   VIDEO PROPERTY BOARD
+═══════════════════════════════════════════════════════════ */
+.vpod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.vpod-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.vpod-grid{grid-template-columns:repeat(4,1fr)}}
+.vcard{
+  border-radius:var(--r12);overflow:hidden;position:relative;cursor:pointer;
+  aspect-ratio:4/3;background-size:cover;background-position:center;
+  border:1px solid var(--border);transition:transform 0.18s;
+}
+.vcard:hover{transform:scale(1.02)}
+.vcard-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.1) 60%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:10px;
+}
+.vcard-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.9);
+  display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--red);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+}
+.vcard-title{font-size:10.5px;color:#fff;font-weight:600;line-height:1.3}
+.vcard-sub{font-size:9px;color:rgba(255,255,255,0.65);margin-top:1px}
+.vcard-price{font-size:11px;color:var(--gold-l);font-weight:600;margin-top:3px}
+
+/* ═══════════════════════════════════════════════════════════
+   PROPERTY CATEGORIES
+═══════════════════════════════════════════════════════════ */
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(min-width:600px){.cats-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:900px){.cats-grid{grid-template-columns:repeat(6,1fr)}}
+.cat-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.15s;
+}
+.cat-card:hover{border-color:var(--red);background:var(--cream)}
+.cat-icon{
+  width:38px;height:38px;border-radius:var(--r8);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:18px;
+}
+.cat-name{font-size:11px;font-weight:600;color:var(--text)}
+.cat-count{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════════
+   ALL LISTINGS (comprehensive grid)
+═══════════════════════════════════════════════════════════ */
+.all-listings-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.al-tab{font-size:11px;padding:5px 14px;border-radius:99px;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all 0.15s}
+.al-tab.act{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* ═══════════════════════════════════════════════════════════
+   PRIVATE LISTINGS
+═══════════════════════════════════════════════════════════ */
+.priv-section{background:var(--dark2);padding:24px 20px}
+.priv-tabs{display:flex;gap:6px;margin-bottom:14px}
+.priv-tab{font-size:11px;padding:5px 18px;border-radius:99px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.45);cursor:pointer;transition:all 0.15s}
+.priv-tab.act{background:var(--gold);color:var(--dark);border-color:var(--gold);font-weight:600}
+.priv-card{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(196,146,42,0.2);
+  border-radius:var(--r12);padding:14px 16px;display:flex;gap:14px;
+  align-items:center;margin-bottom:9px;cursor:pointer;
+  transition:background 0.15s;
+}
+.priv-card:hover{background:rgba(196,146,42,0.06)}
+.priv-icon{
+  width:48px;height:48px;border-radius:var(--r8);
+  background:rgba(196,146,42,0.1);border:1px solid rgba(196,146,42,0.3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;
+}
+.priv-body{flex:1;min-width:0}
+.priv-label{font-size:9px;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:3px}
+.priv-title{font-size:13px;font-weight:600;color:#F0EDE6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.priv-meta{font-size:10px;color:rgba(255,255,255,0.38);display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
+.priv-type{font-size:9px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);margin-top:4px;display:inline-block}
+.priv-cta{
+  background:var(--gold);color:var(--dark);font-size:10.5px;font-weight:600;
+  padding:7px 14px;border-radius:var(--r4);cursor:pointer;white-space:nowrap;
+  flex-shrink:0;border:none;font-family:var(--font-body);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRENDING SECTIONS
+═══════════════════════════════════════════════════════════ */
+.trending-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.trending-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.trending-grid{grid-template-columns:repeat(5,1fr)}}
+.t-card{
+  border-radius:var(--r12);overflow:hidden;cursor:pointer;
+  position:relative;aspect-ratio:3/2;background-size:cover;background-position:center;
+  border:1px solid var(--border);transition:transform 0.18s;
+}
+.t-card:hover{transform:translateY(-3px)}
+.t-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 60%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:10px;
+}
+.t-rank{position:absolute;top:8px;left:8px;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.t-name{font-size:11.5px;color:#fff;font-weight:600}
+.t-meta{font-size:9px;color:rgba(255,255,255,0.6);margin-top:2px}
+
+.town-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.town-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.town-grid{grid-template-columns:repeat(6,1fr)}}
+.town-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:14px 12px;text-align:center;cursor:pointer;transition:all 0.15s;
+}
+.town-card:hover{border-color:var(--red);background:var(--cream)}
+.town-flag{font-size:20px;margin-bottom:4px}
+.town-name{font-size:11.5px;font-weight:600;color:var(--text)}
+.town-count{font-size:9px;color:var(--text3);margin-top:2px}
+.town-tag{font-size:8px;padding:2px 7px;border-radius:99px;background:var(--cream);color:var(--text2);margin-top:5px;display:inline-block}
+
+/* ═══════════════════════════════════════════════════════════
+   WHY BEGYE
+═══════════════════════════════════════════════════════════ */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.why-grid{grid-template-columns:repeat(4,1fr)}}
+.why-card{background:#fff;border:1px solid var(--border);border-radius:var(--r12);padding:16px}
+.why-icon{width:36px;height:36px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:17px}
+.why-title{font-size:12.5px;font-weight:600;margin-bottom:4px}
+.why-desc{font-size:10.5px;color:var(--text3);line-height:1.65}
+
+/* ═══════════════════════════════════════════════════════════
+   PROPERTIES SOLD / PLATFORM STATS
+═══════════════════════════════════════════════════════════ */
+.sold-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.sold-grid{grid-template-columns:repeat(4,1fr)}}
+.sold-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:16px;text-align:center;cursor:pointer;transition:all 0.15s;
+}
+.sold-card:hover{border-color:var(--red);transform:translateY(-2px)}
+.sold-n{font-size:26px;font-weight:700;color:var(--green);font-family:var(--font-display)}
+.sold-label{font-size:10.5px;color:var(--text3);margin-top:3px}
+.sold-sub{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* ═══════════════════════════════════════════════════════════
+   MARKETPLACE / SERVICES
+═══════════════════════════════════════════════════════════ */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+@media(min-width:600px){.svc-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:900px){.svc-grid{grid-template-columns:repeat(5,1fr)}}
+.svc-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.15s;
+}
+.svc-card:hover{border-color:var(--green2);background:var(--cream)}
+.svc-icon{font-size:22px;margin-bottom:5px}
+.svc-name{font-size:10.5px;font-weight:600;color:var(--text)}
+.svc-desc{font-size:9px;color:var(--text3);margin-top:2px;line-height:1.5}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOG CAROUSEL
+═══════════════════════════════════════════════════════════ */
+.blog-carousel{position:relative;overflow:hidden}
+.blog-slides{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;scroll-snap-type:x mandatory}
+.blog-slides::-webkit-scrollbar{display:none}
+.blog-card{
+  flex:0 0 260px;scroll-snap-align:start;border-radius:var(--r12);
+  background:#fff;border:1px solid var(--border);overflow:hidden;cursor:pointer;
+  transition:all 0.18s;
+}
+@media(min-width:600px){.blog-card{flex:0 0 300px}}
+.blog-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.blog-img{height:130px;background-size:cover;background-position:center;position:relative}
+.blog-cat{
+  position:absolute;top:8px;left:8px;
+  background:var(--red);color:#fff;font-size:8px;font-weight:600;
+  padding:3px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:0.08em;
+}
+.blog-body{padding:12px}
+.blog-title{font-size:12.5px;font-weight:600;line-height:1.4;color:var(--text);margin-bottom:5px}
+.blog-excerpt{font-size:10px;color:var(--text3);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.blog-meta{font-size:9px;color:var(--text3);margin-top:8px;display:flex;gap:8px;align-items:center}
+
+/* ═══════════════════════════════════════════════════════════
+   SOCIAL ICONS SECTION
+═══════════════════════════════════════════════════════════ */
+.social-sec{background:var(--dark);padding:28px 20px;text-align:center}
+.social-title{font-family:var(--font-display);font-size:18px;color:#F0EDE6;font-weight:600;margin-bottom:4px}
+.social-sub{font-size:11px;color:rgba(255,255,255,0.38);margin-bottom:22px}
+.social-icons{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
+.soc-btn{
+  width:62px;height:62px;border-radius:var(--r12);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.1);transition:all 0.18s;
+  font-size:24px;text-decoration:none;
+}
+.soc-btn:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.3)}
+.soc-btn small{font-size:8px;color:rgba(255,255,255,0.45);font-family:var(--font-body)}
+.soc-fb{background:rgba(24,119,242,0.15);color:#1877F2}
+.soc-ig{background:rgba(225,48,108,0.15);color:#E1306C}
+.soc-wa{background:rgba(37,211,102,0.15);color:#25D366}
+.soc-yt{background:rgba(255,0,0,0.15);color:#FF0000}
+.soc-tw{background:rgba(29,161,242,0.15);color:#1DA1F2}
+.soc-li{background:rgba(10,102,194,0.15);color:#0A66C2}
+.soc-tt{background:rgba(0,0,0,0.3);color:#fff}
+
+/* ═══════════════════════════════════════════════════════════
+   LIST PROPERTY CTA
+═══════════════════════════════════════════════════════════ */
+.list-cta{
+  background:var(--dark3);border-radius:var(--r16);margin:20px;
+  padding:24px 20px;display:flex;flex-direction:column;gap:16px;
+  border:1px solid rgba(255,255,255,0.06);
+}
+@media(min-width:600px){.list-cta{flex-direction:row;align-items:center;justify-content:space-between}}
+.list-cta-text h3{font-family:var(--font-display);font-size:18px;color:#F0EDE6;font-weight:600;margin-bottom:6px}
+.list-cta-text p{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:380px}
+.list-cta-steps{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.lc-step{display:flex;align-items:center;gap:7px}
+.lc-num{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--dark);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lc-text{font-size:10px;color:rgba(255,255,255,0.5)}
+.list-cta-btns{display:flex;gap:8px;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════════════════
+   NEWSLETTER
+═══════════════════════════════════════════════════════════ */
+.newsletter{background:var(--red);padding:28px 20px;text-align:center}
+.newsletter h3{font-family:var(--font-display);font-size:18px;color:#fff;font-weight:600;margin-bottom:6px}
+.newsletter p{font-size:11px;color:rgba(255,255,255,0.75);margin-bottom:18px}
+.nl-form{display:flex;gap:8px;max-width:480px;margin:0 auto;flex-wrap:wrap}
+.nl-input{
+  flex:1;background:#fff;border:none;border-radius:var(--r8);
+  padding:10px 14px;font-size:12px;font-family:var(--font-body);
+  color:var(--text);outline:none;min-width:180px;
+}
+.nl-btn{
+  background:var(--dark);color:#fff;border:none;border-radius:var(--r8);
+  padding:10px 20px;font-size:12px;font-weight:600;cursor:pointer;
+  font-family:var(--font-body);white-space:nowrap;transition:background 0.15s;
+}
+.nl-btn:hover{background:var(--dark2)}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+.footer{background:var(--dark);padding:28px 20px 16px}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(min-width:600px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+.footer-brand{font-family:var(--font-display);font-size:17px;color:var(--gold);margin-bottom:8px}
+.footer-tagline{font-size:10px;color:rgba(255,255,255,0.3);line-height:1.75;max-width:200px}
+.footer-contact{margin-top:12px}
+.footer-contact a{display:flex;align-items:center;gap:6px;font-size:10.5px;color:rgba(255,255,255,0.4);margin-bottom:5px;text-decoration:none;transition:color 0.15s}
+.footer-contact a:hover{color:var(--gold)}
+.footer-heading{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:10px;font-weight:500}
+.footer-link{display:block;font-size:11px;color:rgba(255,255,255,0.42);margin-bottom:5px;cursor:pointer;transition:color 0.15s;text-decoration:none}
+.footer-link:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;align-items:center}}
+.footer-copy{font-size:9.5px;color:rgba(255,255,255,0.2)}
+.footer-wa{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.22);
+  border-radius:20px;padding:6px 14px;cursor:pointer;text-decoration:none;
+}
+.footer-wa span{font-size:10.5px;color:#25D366;font-weight:500}
+.footer-codes{font-size:9px;color:rgba(255,255,255,0.2);font-family:var(--font-mono);margin-top:4px}
+
+/* ═══════════════════════════════════════════════════════════
+   BOTTOM NAV (mobile)
+═══════════════════════════════════════════════════════════ */
+.bottom-nav{
+  position:sticky;bottom:0;background:#fff;
+  border-top:1px solid var(--border);
+  display:flex;padding:7px 0 12px;z-index:100;
+}
+.bnav{flex:1;text-align:center;cursor:pointer;padding:4px 0}
+.bnav i{font-size:19px;color:var(--text3);display:block;margin-bottom:2px}
+.bnav span{font-size:8.5px;color:var(--text3)}
+.bnav.act i,.bnav.act span{color:var(--red)}
+
+/* ═══════════════════════════════════════════════════════════
+   SPACER
+═══════════════════════════════════════════════════════════ */
+.spacer{height:20px}
+
+/* ═══════════════════════════════════════════════════════════
+   ████████  ADMIN PAGE  ████████
+═══════════════════════════════════════════════════════════ */
+.admin-wrap{display:flex;min-height:100vh;background:var(--off)}
+/* Sidebar */
+.admin-sidebar{
+  width:220px;background:var(--dark);flex-shrink:0;
+  display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;
+  z-index:300;overflow-y:auto;transition:transform 0.3s;
+}
+@media(max-width:768px){
+  .admin-sidebar{transform:translateX(-100%)}
+  .admin-sidebar.open{transform:translateX(0)}
+}
+.admin-logo{padding:18px 20px 14px;border-bottom:1px solid var(--border-d)}
+.admin-logo-text{font-family:var(--font-display);font-size:16px;color:var(--gold)}
+.admin-logo-text em{color:var(--red);font-style:normal}
+.admin-logo-sub{font-size:9px;color:rgba(255,255,255,0.28);letter-spacing:0.12em;text-transform:uppercase;margin-top:2px}
+.admin-nav{padding:14px 0;flex:1}
+.admin-nav-group{margin-bottom:18px}
+.admin-nav-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:0 20px;margin-bottom:4px;font-weight:500}
+.admin-nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 20px;
+  font-size:12px;color:rgba(255,255,255,0.48);cursor:pointer;
+  transition:all 0.15s;position:relative;
+}
+.admin-nav-item:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.8)}
+.admin-nav-item.act{
+  background:rgba(200,25,42,0.12);color:#fff;
+  border-right:3px solid var(--red);
+}
+.admin-nav-item i{font-size:16px;flex-shrink:0}
+.admin-nav-badge{
+  margin-left:auto;background:var(--red);color:#fff;
+  font-size:8px;font-weight:700;padding:2px 6px;border-radius:99px;
+}
+.admin-user{padding:14px 20px;border-top:1px solid var(--border-d)}
+.admin-user-name{font-size:12px;color:rgba(255,255,255,0.7);font-weight:500}
+.admin-user-role{font-size:9.5px;color:rgba(255,255,255,0.3)}
+.admin-user-avatar{width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0}
+/* Main admin area */
+.admin-main{margin-left:220px;flex:1;min-height:100vh;background:var(--off)}
+@media(max-width:768px){.admin-main{margin-left:0}}
+.admin-topbar{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.admin-topbar-left{display:flex;align-items:center;gap:12px}
+.admin-page-title{font-size:15px;font-weight:600;color:var(--text)}
+.admin-topbar-right{display:flex;align-items:center;gap:10px}
+.admin-search-mini{
+  background:var(--off);border:1px solid var(--border);border-radius:var(--r8);
+  padding:7px 12px;font-size:12px;font-family:var(--font-body);
+  color:var(--text);outline:none;width:200px;
+}
+@media(max-width:600px){.admin-search-mini{display:none}}
+.notif-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  color:var(--text3);cursor:pointer;position:relative;
+}
+.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid #fff}
+/* Admin content */
+.admin-content{padding:24px}
+/* Metric cards */
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+@media(min-width:600px){.metrics-grid{grid-template-columns:repeat(4,1fr)}}
+.metric-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:16px;cursor:pointer;transition:all 0.15s;
+}
+.metric-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:var(--shadow)}
+.metric-label{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.metric-n{font-size:24px;font-weight:700;color:var(--text);font-family:var(--font-display)}
+.metric-change{font-size:10px;margin-top:4px;display:flex;align-items:center;gap:3px}
+.metric-up{color:var(--green2)}
+.metric-down{color:var(--red)}
+.metric-icon{width:32px;height:32px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:15px}
+/* Admin sections */
+.admin-sec{background:#fff;border:1px solid var(--border);border-radius:var(--r12);margin-bottom:18px;overflow:hidden}
+.admin-sec-head{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.admin-sec-title{font-size:13px;font-weight:600;color:var(--text)}
+/* Table */
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th{
+  font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--text3);padding:10px 18px;background:var(--off);
+  border-bottom:1px solid var(--border);text-align:left;
+}
+.admin-table td{
+  padding:11px 18px;font-size:12px;color:var(--text);
+  border-bottom:1px solid var(--border);vertical-align:middle;
+}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:var(--cream)}
+.tbl-code{font-family:var(--font-mono);font-size:10px;color:var(--text3)}
+.tbl-badge{font-size:9px;padding:2px 8px;border-radius:99px;font-weight:600}
+.tbl-pending{background:rgba(196,146,42,0.12);color:var(--gold)}
+.tbl-approved{background:rgba(34,197,94,0.12);color:var(--green2)}
+.tbl-rejected{background:rgba(200,25,42,0.12);color:var(--red)}
+.tbl-review{background:rgba(99,102,241,0.12);color:#4F46E5}
+.tbl-actions{display:flex;gap:5px}
+.tbl-btn{font-size:10px;padding:4px 10px;border-radius:var(--r4);cursor:pointer;font-family:var(--font-body);border:1px solid;transition:all 0.15s}
+.tbl-btn-approve{color:var(--green2);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)}
+.tbl-btn-approve:hover{background:var(--green2);color:#fff;border-color:var(--green2)}
+.tbl-btn-reject{color:var(--red);border-color:rgba(200,25,42,0.3);background:rgba(200,25,42,0.06)}
+.tbl-btn-reject:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.tbl-btn-view{color:var(--text3);border-color:var(--border);background:#fff}
+.tbl-btn-view:hover{background:var(--off)}
+/* Agent score bar */
+.score-bar-wrap{display:flex;align-items:center;gap:8px}
+.score-bar{height:5px;border-radius:99px;background:var(--border);flex:1;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:99px;background:var(--green2)}
+/* Lead heat */
+.lead-hot{color:var(--red);font-size:10px;font-weight:600;display:flex;align-items:center;gap:3px}
+.lead-warm{color:var(--gold);font-size:10px;font-weight:600;display:flex;align-items:center;gap:3px}
+.lead-cold{color:var(--text3);font-size:10px;font-weight:600;display:flex;align-items:center;gap:3px}
+/* Begye Score donut - fake CSS */
+.bscore{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--font-mono)}
+.bscore-high{background:rgba(34,197,94,0.12);color:var(--green2);border:2px solid var(--green2)}
+.bscore-mid{background:rgba(196,146,42,0.12);color:var(--gold);border:2px solid var(--gold)}
+.bscore-low{background:rgba(200,25,42,0.12);color:var(--red);border:2px solid var(--red)}
+/* CRM mini card */
+.crm-card{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.15s}
+.crm-card:hover{background:var(--cream)}
+.crm-card:last-child{border-bottom:none}
+.crm-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.crm-body{flex:1;min-width:0}
+.crm-name{font-size:12px;font-weight:600;color:var(--text)}
+.crm-meta{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crm-right{text-align:right;flex-shrink:0}
+.crm-time{font-size:9.5px;color:var(--text3);margin-bottom:4px}
+/* Admin charts (fake bars) */
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:80px;padding:0 18px 14px}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.chart-bar{width:100%;border-radius:var(--r4) var(--r4) 0 0;background:var(--red);opacity:0.8;transition:opacity 0.15s;cursor:pointer}
+.chart-bar:hover{opacity:1}
+.chart-bar-lbl{font-size:8px;color:var(--text3)}
+/* Toggle mobile sidebar */
+.sidebar-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--text);font-size:20px;padding:0}
+@media(max-width:768px){.sidebar-toggle{display:flex}}
+/* Admin nav mobile overlay */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:299}
+.sidebar-overlay.open{display:block}
+/* quick action */
+.qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:600px){.qa-grid{grid-template-columns:repeat(4,1fr)}}
+.qa-btn{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r12);
+  padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;transition:all 0.15s;text-align:center;
+}
+.qa-btn:hover{border-color:var(--red);background:var(--cream)}
+.qa-btn i{font-size:22px;color:var(--text2)}
+.qa-btn span{font-size:10.5px;font-weight:600;color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="home-page">
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-logo">Begye<em>.</em>com <small>Real Estate · Ghana</small></div>
+  <div class="nav-links">
+    <div class="nl act">Buy</div>
+    <div class="nl">Rent</div>
+    <div class="nl">Invest</div>
+    <div class="nl">Services</div>
+    <div class="nl">Agents</div>
+    <div class="nl">Blog</div>
+    <div class="nl" style="color:var(--gold)">Private</div>
+    <div class="nl">Newsletter</div>
+  </div>
+  <div class="nav-r">
+    <div class="btn-ghost">Login</div>
+    <div class="btn-gold" onclick="showAdmin()">Admin ↗</div>
+    <div class="btn-red">List Property</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">Ghana's verified real estate intelligence platform</div>
+  <h1 class="hero-title">Find, invest & own<br>property across <span class="accent">Ghana</span></h1>
+  <p class="hero-sub">For Sale · For Rent · Short-Stay · JV · Auction · Mortgage · Off-Plan · Fix &amp; Flip</p>
+
+  <!-- Listing type tabs -->
+  <div class="lt-tabs">
+    <div class="lt-tab act">For Sale</div>
+    <div class="lt-tab">For Rent</div>
+    <div class="lt-tab">Short-Let</div>
+    <div class="lt-tab">Joint Venture</div>
+    <div class="lt-tab">Auction</div>
+    <div class="lt-tab">Mortgage</div>
+    <div class="lt-tab">Off-Plan</div>
+    <div class="lt-tab">Fix &amp; Flip</div>
+  </div>
+
+  <!-- Search bar -->
+  <div class="search-wrap">
+    <div class="search-main">
+      <div class="search-input-wrap">
+        <i class="ti ti-map-pin"></i>
+        <input type="text" placeholder="Search by area, landmark, property code… e.g. BGY-GAR-LDK-ELG-00421">
+        <div class="agent-icon" title="Agent Login / Dashboard" onclick="showAdmin()">
+          <i class="ti ti-user"></i>
+        </div>
+      </div>
+      <button class="search-btn"><i class="ti ti-search"></i>Search</button>
+    </div>
+    <!-- Property type chips -->
+    <div class="pt-chips">
+      <div class="ptchip act">All Types</div>
+      <div class="ptchip">Land</div>
+      <div class="ptchip">Residential</div>
+      <div class="ptchip">Commercial</div>
+      <div class="ptchip">Industrial</div>
+      <div class="ptchip">Luxury</div>
+      <div class="ptchip">Farm / Agricultural</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-lbl">🔴 Live</div>
+  <div class="ticker-inner">
+    <span class="ticker-text">
+      NEW: 4-Bed Luxury, East Legon — GH₵2.8M &nbsp;|&nbsp; 
+      SOLD: Land at Tema Comm 25 — GH₵450K &nbsp;|&nbsp; 
+      HOT: Off-Plan 3-Bed, Trassaco — GH₵1.2M &nbsp;|&nbsp; 
+      NEW: Warehouse Tema Industrial — $480K &nbsp;|&nbsp; 
+      INVESTMENT: Beachfront Keta — GH₵620K &nbsp;|&nbsp; 
+      JV OPPORTUNITY: 1.2 Acres, Spintex Road &nbsp;|&nbsp; 
+      MORTGAGE-READY: 2-Bed Apartment Oyarifa — GH₵385K &nbsp;|&nbsp; 
+      NEW: 4-Bed Luxury, East Legon — GH₵2.8M &nbsp;|&nbsp; 
+      SOLD: Land at Tema Comm 25 — GH₵450K &nbsp;|&nbsp; 
+      HOT: Off-Plan 3-Bed, Trassaco — GH₵1.2M &nbsp;|&nbsp; 
+      NEW: Warehouse Tema Industrial — $480K &nbsp;|&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-n">2,840+</div><div class="stat-l">Verified Listings</div></div>
+  <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Properties Sold</div></div>
+  <div class="stat"><div class="stat-n">340+</div><div class="stat-l">Active Agents</div></div>
+  <div class="stat"><div class="stat-n">16</div><div class="stat-l">Regions Covered</div></div>
+</div>
+
+<!-- FEATURED ADS CAROUSEL -->
+<section class="sec">
+  <div class="sec-head">
+    <div>
+      <div class="sec-title">Featured Ads</div>
+      <div class="sec-sub">Premium listings — auto-rotating every 10 seconds</div>
+    </div>
+    <span class="see-all">All Ads →</span>
+  </div>
+  <div class="featured-carousel" id="featuredCarousel">
+    <div class="fc-slides" id="fcSlides">
+      <!-- Slide 1 -->
+      <div class="fc-slide" style="background-image:linear-gradient(135deg,#0D4A28 0%,#1A7A46 100%)">
+        <div class="fc-slide-inner">
+          <div class="fc-content">
+            <div class="fc-label">Featured Property · East Legon</div>
+            <div class="fc-title">4-Bedroom Luxury Villa with Pool</div>
+            <div class="fc-price">GH₵ 2,800,000</div>
+            <div class="fc-loc"><i class="ti ti-map-pin"></i> East Legon, Greater Accra</div>
+            <div class="fc-btns">
+              <button class="fc-btn-primary">Book Inspection</button>
+              <button class="fc-btn-outline">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="fc-badge">LUXURY</div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="fc-slide" style="background-image:linear-gradient(135deg,#1E3A5F 0%,#2E6B9E 100%)">
+        <div class="fc-slide-inner">
+          <div class="fc-content">
+            <div class="fc-label">Waterfront Investment · Keta</div>
+            <div class="fc-title">Beachfront Land — 1.5 Acres</div>
+            <div class="fc-price">GH₵ 620,000</div>
+            <div class="fc-loc"><i class="ti ti-map-pin"></i> Keta, Volta Region</div>
+            <div class="fc-btns">
+              <button class="fc-btn-primary">Book Inspection</button>
+              <button class="fc-btn-outline">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="fc-badge">HOT</div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="fc-slide" style="background-image:linear-gradient(135deg,#5B1A1A 0%,#C8192A 100%)">
+        <div class="fc-slide-inner">
+          <div class="fc-content">
+            <div class="fc-label">Off-Plan · Trassaco Valley</div>
+            <div class="fc-title">3-Bed Apartment — Off-Plan Deal</div>
+            <div class="fc-price">GH₵ 1,200,000</div>
+            <div class="fc-loc"><i class="ti ti-map-pin"></i> Trassaco, Accra</div>
+            <div class="fc-btns">
+              <button class="fc-btn-primary">Book Inspection</button>
+              <button class="fc-btn-outline">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="fc-badge">OFF-PLAN</div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="fc-slide" style="background-image:linear-gradient(135deg,#3D2C00 0%,#C4922A 100%)">
+        <div class="fc-slide-inner">
+          <div class="fc-content">
+            <div class="fc-label">Industrial Investment · Tema</div>
+            <div class="fc-title">5,000 sqm Warehouse — Tema Comm 5</div>
+            <div class="fc-price">$480,000</div>
+            <div class="fc-loc"><i class="ti ti-map-pin"></i> Tema, Greater Accra</div>
+            <div class="fc-btns">
+              <button class="fc-btn-primary">Book Inspection</button>
+              <button class="fc-btn-outline">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="fc-badge">INDUSTRIAL</div>
+      </div>
+      <!-- Slide 5 -->
+      <div class="fc-slide" style="background-image:linear-gradient(135deg,#1A3C2A 0%,#166534 100%)">
+        <div class="fc-slide-inner">
+          <div class="fc-content">
+            <div class="fc-label">Fix &amp; Flip Deal · Kumasi</div>
+            <div class="fc-title">Renovatable 3-Bed — High ROI Zone</div>
+            <div class="fc-price">GH₵ 285,000</div>
+            <div class="fc-loc"><i class="ti ti-map-pin"></i> Asokwa, Kumasi</div>
+            <div class="fc-btns">
+              <button class="fc-btn-primary">View Deal</button>
+              <button class="fc-btn-outline">ROI Estimate</button>
+            </div>
+          </div>
+        </div>
+        <div class="fc-badge">FIX &amp; FLIP</div>
+      </div>
+    </div>
+    <div class="fc-arrow left" id="fcPrev"><i class="ti ti-chevron-left"></i></div>
+    <div class="fc-arrow right" id="fcNext"><i class="ti ti-chevron-right"></i></div>
+    <div class="fc-dots" id="fcDots"></div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- PROPERTY CATEGORIES -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">Browse by Category</div><div class="sec-sub">All property types across Ghana</div></div>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(200,25,42,0.1);color:var(--red)">🏠</div><div class="cat-name">Residential</div><div class="cat-count">1,240 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(196,146,42,0.1);color:var(--gold)">🌍</div><div class="cat-name">Land Banking</div><div class="cat-count">480 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(13,74,40,0.1);color:var(--green)">🏢</div><div class="cat-name">Commercial</div><div class="cat-count">310 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(99,102,241,0.1);color:#4F46E5">🏭</div><div class="cat-name">Industrial</div><div class="cat-count">145 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(34,197,94,0.1);color:#16A34A">🌾</div><div class="cat-name">Farm / Agri</div><div class="cat-count">98 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(196,146,42,0.15);color:var(--gold)">💎</div><div class="cat-name">Luxury</div><div class="cat-count">62 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(200,25,42,0.1);color:var(--red)">🔨</div><div class="cat-name">Fix &amp; Flip</div><div class="cat-count">74 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(14,74,120,0.1);color:#0C4A6E">📐</div><div class="cat-name">Off-Plan</div><div class="cat-count">120 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(107,33,168,0.1);color:#6B21A8">🤝</div><div class="cat-name">Joint Venture</div><div class="cat-count">38 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(13,74,40,0.1);color:var(--green)">🏡</div><div class="cat-name">Short Stay</div><div class="cat-count">210 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(146,64,14,0.1);color:#92400E">⚒️</div><div class="cat-name">Mining</div><div class="cat-count">18 listings</div></div>
+    <div class="cat-card"><div class="cat-icon" style="background:rgba(200,25,42,0.1);color:var(--red)">🏦</div><div class="cat-name">Auction</div><div class="cat-count">45 listings</div></div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- VIDEO PROPERTY BOARD (VPOD) -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">🎬 Property Video Board</div><div class="sec-sub">Watch properties in action — VPOD</div></div>
+    <span class="see-all">See All →</span>
+  </div>
+  <div class="vpod-grid">
+    <div class="vcard" style="background-image:linear-gradient(135deg,#0D4A28,#1A7A46)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">4-Bed Villa, East Legon</div>
+        <div class="vcard-sub">4 bed · 4 bath · Pool</div>
+        <div class="vcard-price">GH₵2.8M</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#1E3A5F,#2E75B6)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Beachfront Land, Keta</div>
+        <div class="vcard-sub">1.5 Acres · Coastal</div>
+        <div class="vcard-price">GH₵620K</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#3D2C00,#C4922A)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Warehouse, Tema</div>
+        <div class="vcard-sub">5,000 sqm · Industrial</div>
+        <div class="vcard-price">$480K</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#5B1A1A,#C8192A)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Off-Plan, Trassaco</div>
+        <div class="vcard-sub">3 bed · City views</div>
+        <div class="vcard-price">GH₵1.2M</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#1A3C2A,#166534)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Fix &amp; Flip, Kumasi</div>
+        <div class="vcard-sub">3 bed · High ROI</div>
+        <div class="vcard-price">GH₵285K</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#2D1A5B,#6B21A8)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">JV Land, Spintex</div>
+        <div class="vcard-sub">1.2 Acres · Prime zone</div>
+        <div class="vcard-price">GH₵980K</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#1A3C1A,#22C55E)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Farm Land, Nsawam</div>
+        <div class="vcard-sub">10 Acres · Agriculture</div>
+        <div class="vcard-price">GH₵340K</div>
+      </div>
+    </div>
+    <div class="vcard" style="background-image:linear-gradient(135deg,#1A1A3C,#2E75B6)">
+      <div class="vcard-overlay">
+        <div class="vcard-play"><i class="ti ti-player-play-filled" style="font-size:12px"></i></div>
+        <div class="vcard-title">Short Stay, Osu</div>
+        <div class="vcard-sub">2 bed · Fully furnished</div>
+        <div class="vcard-price">$180/night</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- ALL LISTINGS (comprehensive) -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">All Listings</div><div class="sec-sub">For Rent · For Sale · Mortgage · Off-Plan · Short-Stay · Commercial · Residential · Industrial · Land · Agricultural</div></div>
+    <span class="see-all">Filter →</span>
+  </div>
+  <div class="all-listings-tabs">
+    <div class="al-tab act">All</div>
+    <div class="al-tab">For Sale</div>
+    <div class="al-tab">For Rent</div>
+    <div class="al-tab">Mortgage</div>
+    <div class="al-tab">Off-Plan</div>
+    <div class="al-tab">Short-Stay</div>
+    <div class="al-tab">Commercial</div>
+    <div class="al-tab">Industrial</div>
+    <div class="al-tab">Land</div>
+    <div class="al-tab">Agricultural</div>
+  </div>
+  <div class="listings-grid" id="mainListings">
+    <!-- Cards generated by JS -->
+  </div>
+  <div style="text-align:center;padding:20px 0 4px">
+    <button class="btn-red" style="padding:10px 28px;font-size:13px;border-radius:var(--r8);font-family:var(--font-body)">Load More Listings</button>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- PRIVATE LISTINGS -->
+<div class="priv-section">
+  <div class="sec-head">
+    <div>
+      <div class="sec-title-white">🔒 Private &amp; Off-Market Listings</div>
+      <div class="sec-sub-white">Verified investors only · NDA required · BPLS System</div>
+    </div>
+    <span class="see-all-gold">Request Access →</span>
+  </div>
+  <div class="priv-tabs">
+    <div class="priv-tab act">For Sale</div>
+    <div class="priv-tab">For Rent</div>
+  </div>
+  <!-- Private listing types: Residential, Commercial, Industrial, Agricultural, Land, Mortgage -->
+  <div class="priv-card">
+    <div class="priv-icon">🏡</div>
+    <div class="priv-body">
+      <div class="priv-label">Residential · For Sale</div>
+      <div class="priv-title">Executive 5-Bed Home — Airport Residential</div>
+      <div class="priv-meta"><span>5 bed</span><span>·</span><span>Private pool</span><span>·</span><span>Smart home</span></div>
+      <div class="priv-type">Residential</div>
+    </div>
+    <button class="priv-cta">Request Access</button>
+  </div>
+  <div class="priv-card">
+    <div class="priv-icon">🏢</div>
+    <div class="priv-body">
+      <div class="priv-label">Commercial · For Sale</div>
+      <div class="priv-title">Grade A Office Building — Cantonments</div>
+      <div class="priv-meta"><span>2,400 sqm</span><span>·</span><span>8 floors</span><span>·</span><span>Title: Freehold</span></div>
+      <div class="priv-type">Commercial</div>
+    </div>
+    <button class="priv-cta">Request Access</button>
+  </div>
+  <div class="priv-card">
+    <div class="priv-icon">🌍</div>
+    <div class="priv-body">
+      <div class="priv-label">Land · For Sale</div>
+      <div class="priv-title">10 Acres, Labone Extension — Prime Zone</div>
+      <div class="priv-meta"><span>10 Acres</span><span>·</span><span>Residential zone</span><span>·</span><span>Title ready</span></div>
+      <div class="priv-type">Land</div>
+    </div>
+    <button class="priv-cta">Request Access</button>
+  </div>
+  <div class="priv-card">
+    <div class="priv-icon">🏭</div>
+    <div class="priv-body">
+      <div class="priv-label">Industrial · For Sale</div>
+      <div class="priv-title">Factory Complex — Tema Industrial Area</div>
+      <div class="priv-meta"><span>8,000 sqm</span><span>·</span><span>Truck access</span><span>·</span><span>Power supply</span></div>
+      <div class="priv-type">Industrial</div>
+    </div>
+    <button class="priv-cta">Request Access</button>
+  </div>
+</div>
+
+<!-- WHY BEGYE -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">Why Choose Begye Akazon?</div></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon" style="background:rgba(200,25,42,0.1);color:var(--red)"><i class="ti ti-shield-check"></i></div>
+      <div class="why-title">Verified Listings</div>
+      <div class="why-desc">Every property is reviewed and approved by our team. No fake photos, no misrepresentation.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon" style="background:rgba(196,146,42,0.1);color:var(--gold)"><i class="ti ti-map-pin"></i></div>
+      <div class="why-title">Accurate Locations</div>
+      <div class="why-desc">GPS-pinned listings with landmark search. Find properties using real Ghanaian navigation.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon" style="background:rgba(13,74,40,0.1);color:var(--green)"><i class="ti ti-video"></i></div>
+      <div class="why-title">Real Videos Only</div>
+      <div class="why-desc">No stock footage. Every video is an actual walkthrough of the listed property.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon" style="background:rgba(99,102,241,0.1);color:#4F46E5"><i class="ti ti-star"></i></div>
+      <div class="why-title">No Fake Luxury</div>
+      <div class="why-desc">Our AI Begye Score (0–100) determines categories automatically. Agents cannot self-classify as luxury.</div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- TRENDING PROPERTIES -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">🔥 Trending Properties</div><div class="sec-sub">Most viewed & highest engagement this week</div></div>
+    <span class="see-all">See All →</span>
+  </div>
+  <div class="trending-grid">
+    <div class="t-card" style="background-image:linear-gradient(135deg,#0D4A28,#22C55E)">
+      <div class="t-rank">1</div>
+      <div class="t-card-overlay">
+        <div class="t-name">East Legon, 4-Bed Villa</div>
+        <div class="t-meta">GH₵2.8M · 487 views · For Sale</div>
+      </div>
+    </div>
+    <div class="t-card" style="background-image:linear-gradient(135deg,#1E3A5F,#2E75B6)">
+      <div class="t-rank">2</div>
+      <div class="t-card-overlay">
+        <div class="t-name">Trassaco Off-Plan, 3-Bed</div>
+        <div class="t-meta">GH₵1.2M · 362 views · Off-Plan</div>
+      </div>
+    </div>
+    <div class="t-card" style="background-image:linear-gradient(135deg,#3D2C00,#C4922A)">
+      <div class="t-rank">3</div>
+      <div class="t-card-overlay">
+        <div class="t-name">Spintex JV Land, 1.2 Acres</div>
+        <div class="t-meta">GH₵980K · 281 views · JV</div>
+      </div>
+    </div>
+    <div class="t-card" style="background-image:linear-gradient(135deg,#2D1A5B,#6B21A8)">
+      <div class="t-rank">4</div>
+      <div class="t-card-overlay">
+        <div class="t-name">Keta Beachfront Land</div>
+        <div class="t-meta">GH₵620K · 240 views · For Sale</div>
+      </div>
+    </div>
+    <div class="t-card" style="background-image:linear-gradient(135deg,#5B1A1A,#C8192A)">
+      <div class="t-rank">5</div>
+      <div class="t-card-overlay">
+        <div class="t-name">Oyarifa Mortgage, 2-Bed</div>
+        <div class="t-meta">GH₵385K · 210 views · Mortgage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- TRENDING TOWNS -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">📍 Trending Towns & Cities</div><div class="sec-sub">High-demand areas — click to explore</div></div>
+  </div>
+  <div class="town-grid">
+    <div class="town-card"><div class="town-flag">🏙️</div><div class="town-name">Accra</div><div class="town-count">840 listings</div><div class="town-tag">Prime</div></div>
+    <div class="town-card"><div class="town-flag">🌆</div><div class="town-name">Kumasi</div><div class="town-count">420 listings</div><div class="town-tag">Growth</div></div>
+    <div class="town-card"><div class="town-flag">⚓</div><div class="town-name">Tema</div><div class="town-count">310 listings</div><div class="town-tag">Industrial</div></div>
+    <div class="town-card"><div class="town-flag">🌊</div><div class="town-name">Keta</div><div class="town-count">88 listings</div><div class="town-tag">Coastal</div></div>
+    <div class="town-card"><div class="town-flag">🏔️</div><div class="town-name">Aburi</div><div class="town-count">64 listings</div><div class="town-tag">Tourism</div></div>
+    <div class="town-card"><div class="town-flag">🌾</div><div class="town-name">Nsawam</div><div class="town-count">52 listings</div><div class="town-tag">Logistics</div></div>
+    <div class="town-card"><div class="town-flag">⚡</div><div class="town-name">Takoradi</div><div class="town-count">148 listings</div><div class="town-tag">Oil &amp; Gas</div></div>
+    <div class="town-card"><div class="town-flag">🏛️</div><div class="town-name">Cape Coast</div><div class="town-count">76 listings</div><div class="town-tag">Tourism</div></div>
+    <div class="town-card"><div class="town-flag">🌿</div><div class="town-name">Ho</div><div class="town-count">44 listings</div><div class="town-tag">Eco</div></div>
+    <div class="town-card"><div class="town-flag">🏝️</div><div class="town-name">Elmina</div><div class="town-count">38 listings</div><div class="town-tag">Heritage</div></div>
+    <div class="town-card"><div class="town-flag">🚀</div><div class="town-name">Ejisu</div><div class="town-count">96 listings</div><div class="town-tag">Fast Growth</div></div>
+    <div class="town-card"><div class="town-flag">🌅</div><div class="town-name">Kasoa</div><div class="town-count">120 listings</div><div class="town-tag">Affordable</div></div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- PROPERTIES SOLD / PLATFORM STATS -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">Platform Performance</div><div class="sec-sub">Live platform data — click to explore</div></div>
+  </div>
+  <div class="sold-grid">
+    <div class="sold-card">
+      <div class="sold-n">1,248</div>
+      <div class="sold-label">Properties Sold</div>
+      <div class="sold-sub">GH₵ 480M+ total value</div>
+    </div>
+    <div class="sold-card">
+      <div class="sold-n">340+</div>
+      <div class="sold-label">Active Agents</div>
+      <div class="sold-sub">All 16 regions covered</div>
+    </div>
+    <div class="sold-card">
+      <div class="sold-n">12,400+</div>
+      <div class="sold-label">Investor Inquiries</div>
+      <div class="sold-sub">This year to date</div>
+    </div>
+    <div class="sold-card">
+      <div class="sold-n">98%</div>
+      <div class="sold-label">Verified Listings</div>
+      <div class="sold-sub">Title &amp; document checked</div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- REAL ESTATE SERVICES MARKETPLACE -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">Real Estate Services</div><div class="sec-sub">Everything you need for your property journey</div></div>
+    <span class="see-all">All Services →</span>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">🏗️</div><div class="svc-name">Construction</div><div class="svc-desc">Turnkey builds</div></div>
+    <div class="svc-card"><div class="svc-icon">🔧</div><div class="svc-name">Renovation</div><div class="svc-desc">Fix &amp; refurb</div></div>
+    <div class="svc-card"><div class="svc-icon">⚖️</div><div class="svc-name">Valuation</div><div class="svc-desc">Official appraisals</div></div>
+    <div class="svc-card"><div class="svc-icon">🧹</div><div class="svc-name">Cleaning</div><div class="svc-desc">Pre/post tenancy</div></div>
+    <div class="svc-card"><div class="svc-icon">🏠</div><div class="svc-name">Management</div><div class="svc-desc">Let us manage it</div></div>
+    <div class="svc-card"><div class="svc-icon">📋</div><div class="svc-name">Legal / Docs</div><div class="svc-desc">Title &amp; contracts</div></div>
+    <div class="svc-card"><div class="svc-icon">💡</div><div class="svc-name">Smart Home</div><div class="svc-desc">Automation install</div></div>
+    <div class="svc-card"><div class="svc-icon">🔒</div><div class="svc-name">Security</div><div class="svc-desc">CCTV &amp; guards</div></div>
+    <div class="svc-card"><div class="svc-icon">🏦</div><div class="svc-name">Mortgage</div><div class="svc-desc">Financing help</div></div>
+    <div class="svc-card"><div class="svc-icon">📐</div><div class="svc-name">Architecture</div><div class="svc-desc">Plans &amp; designs</div></div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- BLOG CAROUSEL -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="sec-title">Blog &amp; Real Estate News</div><div class="sec-sub">Market insights, investment guides &amp; property news</div></div>
+    <span class="see-all">All Posts →</span>
+  </div>
+  <div class="blog-carousel">
+    <div class="blog-slides" id="blogSlides">
+      <div class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#0D4A28,#1A7A46)">
+          <div class="blog-cat">Investment Guide</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Top 10 Luxury Homes in Accra for 2026</div>
+          <div class="blog-excerpt">From East Legon to Cantonments, we review the most premium properties currently on the market...</div>
+          <div class="blog-meta"><span>May 14, 2026</span><span>·</span><span>5 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#1E3A5F,#2E75B6)">
+          <div class="blog-cat">Diaspora</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">How Diaspora Ghanaians Can Buy Property from Abroad</div>
+          <div class="blog-excerpt">A complete step-by-step guide to purchasing property in Ghana remotely — from legal checks to virtual tours...</div>
+          <div class="blog-meta"><span>May 12, 2026</span><span>·</span><span>8 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#3D2C00,#C4922A)">
+          <div class="blog-cat">Market Analysis</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Warehouse Investment in Tema: Why Now?</div>
+          <div class="blog-excerpt">Industrial properties in Tema are yielding 14–18% returns. Here is what you need to know before investing...</div>
+          <div class="blog-meta"><span>May 10, 2026</span><span>·</span><span>6 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#5B1A1A,#C8192A)">
+          <div class="blog-cat">Fix &amp; Flip</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Fix &amp; Flip Properties in Kumasi: A Beginner's ROI Guide</div>
+          <div class="blog-excerpt">Kumasi's renovation market is booming. We break down acquisition cost, renovation budget, and resale projections...</div>
+          <div class="blog-meta"><span>May 8, 2026</span><span>·</span><span>7 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#1A3C2A,#166534)">
+          <div class="blog-cat">Land Banking</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Best Land Banking Corridors in Eastern Region 2026</div>
+          <div class="blog-excerpt">Aburi, Nsawam and Suhum are showing strong appreciation signals. Here is the full investor breakdown...</div>
+          <div class="blog-meta"><span>May 6, 2026</span><span>·</span><span>5 min read</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div><div class="sec-divider"></div>
+
+<!-- LIST PROPERTY CTA -->
+<div class="list-cta">
+  <div class="list-cta-text">
+    <h3>List Your Property in 3 Steps</h3>
+    <p>Whether you are an agent or property owner, listing on Begye Akazon is fast, professional, and reaches thousands of verified buyers and investors across Ghana and the diaspora.</p>
+    <div class="list-cta-steps">
+      <div class="lc-step"><div class="lc-num">1</div><div class="lc-text">Submit details</div></div>
+      <div class="lc-step"><div class="lc-num">2</div><div class="lc-text">Begye reviews &amp; verifies</div></div>
+      <div class="lc-step"><div class="lc-num">3</div><div class="lc-text">Go live instantly</div></div>
+    </div>
+  </div>
+  <div class="list-cta-btns">
+    <button class="btn-gold" style="padding:12px 20px;font-size:13px;border-radius:var(--r8);font-family:var(--font-body)">I'm a Property Owner</button>
+    <button class="btn-red" style="padding:12px 20px;font-size:13px;border-radius:var(--r8);font-family:var(--font-body)">I'm an Agent</button>
+  </div>
+</div>
+
+<!-- SOCIAL MEDIA SECTION -->
+<div class="social-sec">
+  <div class="social-title">Follow Begye Akazon</div>
+  <p class="social-sub">Stay connected — property alerts, market updates &amp; investment opportunities daily</p>
+  <div class="social-icons">
+    <a href="#" class="soc-btn soc-fb"><i class="ti ti-brand-facebook"></i><small>Facebook</small></a>
+    <a href="#" class="soc-btn soc-ig"><i class="ti ti-brand-instagram"></i><small>Instagram</small></a>
+    <a href="https://wa.me/233506192097" class="soc-btn soc-wa"><i class="ti ti-brand-whatsapp"></i><small>WhatsApp</small></a>
+    <a href="#" class="soc-btn soc-yt"><i class="ti ti-brand-youtube"></i><small>YouTube</small></a>
+    <a href="#" class="soc-btn soc-tw"><i class="ti ti-brand-twitter"></i><small>X / Twitter</small></a>
+    <a href="#" class="soc-btn soc-li"><i class="ti ti-brand-linkedin"></i><small>LinkedIn</small></a>
+    <a href="#" class="soc-btn soc-tt"><i class="ti ti-brand-tiktok"></i><small>TikTok</small></a>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h3>Get Deals Before They Hit the Market</h3>
+  <p>Join 8,400+ subscribers receiving verified property deals, investment alerts &amp; market intelligence every week.</p>
+  <div class="nl-form">
+    <input class="nl-input" type="text" placeholder="Full Name">
+    <input class="nl-input" type="email" placeholder="Email Address">
+    <button class="nl-btn">Subscribe Free</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Begye<em style="color:var(--red);font-style:normal">.</em>com</div>
+      <div class="footer-tagline">Ghana's verified real estate intelligence platform. Connecting buyers, sellers, agents, and investors across all 16 regions.</div>
+      <div class="footer-contact">
+        <a href="mailto:hello@begye.com"><i class="ti ti-mail" style="font-size:13px"></i> hello@begye.com</a>
+        <a href="tel:+233506192097"><i class="ti ti-phone" style="font-size:13px"></i> +233 506 192 097</a>
+        <a href="tel:+233540469896"><i class="ti ti-phone" style="font-size:13px"></i> +233 540 469 896</a>
+        <a href="https://wa.me/233506192097"><i class="ti ti-brand-whatsapp" style="font-size:13px;color:#25D366"></i> <span style="color:#25D366">WhatsApp Us</span></a>
+      </div>
+      <div class="footer-codes" style="margin-top:8px">MoMo: 0248314210 · 0506192097</div>
+    </div>
+    <div>
+      <div class="footer-heading">Buy &amp; Invest</div>
+      <a class="footer-link" href="#">Properties for Sale</a>
+      <a class="footer-link" href="#">Land Banking</a>
+      <a class="footer-link" href="#">Off-Plan Projects</a>
+      <a class="footer-link" href="#">Luxury Listings</a>
+      <a class="footer-link" href="#">Auction Properties</a>
+      <a class="footer-link" href="#">Fix &amp; Flip</a>
+    </div>
+    <div>
+      <div class="footer-heading">Rent &amp; Stay</div>
+      <a class="footer-link" href="#">Properties for Rent</a>
+      <a class="footer-link" href="#">Short Stay / Airbnb</a>
+      <a class="footer-link" href="#">Furnished Apartments</a>
+      <a class="footer-link" href="#">Student Housing</a>
+      <div class="footer-heading" style="margin-top:14px">Company</div>
+      <a class="footer-link" href="#">About Begye</a>
+      <a class="footer-link" href="#">Blog &amp; News</a>
+      <a class="footer-link" href="#">Careers</a>
+    </div>
+    <div>
+      <div class="footer-heading">Agents &amp; Owners</div>
+      <a class="footer-link" href="#">List Your Property</a>
+      <a class="footer-link" href="#">Agent Registration</a>
+      <a class="footer-link" href="#">Agent Dashboard</a>
+      <div class="footer-heading" style="margin-top:14px">Legal</div>
+      <a class="footer-link" href="#">Privacy Policy</a>
+      <a class="footer-link" href="#">Terms of Service</a>
+      <a class="footer-link" href="#">Anti-Fraud Policy</a>
+      <a class="footer-link" href="#">Commission Structure</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Begye Akazon Limited. All rights reserved. Real Estate Intelligence Platform — Ghana.</div>
+    <a class="footer-wa" href="https://wa.me/233506192097">
+      <i class="ti ti-brand-whatsapp" style="color:#25D366;font-size:16px"></i>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bnav act"><i class="ti ti-home"></i><span>Home</span></div>
+  <div class="bnav"><i class="ti ti-search"></i><span>Search</span></div>
+  <div class="bnav"><i class="ti ti-heart"></i><span>Saved</span></div>
+  <div class="bnav"><i class="ti ti-news"></i><span>Blog</span></div>
+  <div class="bnav" onclick="showAdmin()"><i class="ti ti-layout-dashboard"></i><span>Admin</span></div>
+</nav>
+
+</div><!-- /#home-page -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMIN PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="admin-page">
+<div class="admin-wrap">
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <div class="admin-logo-text">Begye<em>.</em>com</div>
+      <div class="admin-logo-sub">Admin Control Panel</div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">Overview</div>
+        <div class="admin-nav-item act"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+        <div class="admin-nav-item"><i class="ti ti-chart-bar"></i>Analytics</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">Listings</div>
+        <div class="admin-nav-item"><i class="ti ti-building-estate"></i>All Listings</div>
+        <div class="admin-nav-item"><i class="ti ti-clock"></i>Pending Review <div class="admin-nav-badge">14</div></div>
+        <div class="admin-nav-item"><i class="ti ti-lock"></i>Private (BPLS)</div>
+        <div class="admin-nav-item"><i class="ti ti-star"></i>Featured Ads</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">CRM</div>
+        <div class="admin-nav-item"><i class="ti ti-flame"></i>Hot Leads <div class="admin-nav-badge">8</div></div>
+        <div class="admin-nav-item"><i class="ti ti-users"></i>All Leads</div>
+        <div class="admin-nav-item"><i class="ti ti-calendar"></i>Inspections</div>
+        <div class="admin-nav-item"><i class="ti ti-file-invoice"></i>Offers</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">People</div>
+        <div class="admin-nav-item"><i class="ti ti-id-badge"></i>Agents</div>
+        <div class="admin-nav-item"><i class="ti ti-briefcase"></i>Investors</div>
+        <div class="admin-nav-item"><i class="ti ti-user-circle"></i>Property Owners</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">Finance</div>
+        <div class="admin-nav-item"><i class="ti ti-cash"></i>Commissions</div>
+        <div class="admin-nav-item"><i class="ti ti-credit-card"></i>MoMo Payments</div>
+        <div class="admin-nav-item"><i class="ti ti-receipt"></i>Transactions</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">Content</div>
+        <div class="admin-nav-item"><i class="ti ti-news"></i>Blog / CMS</div>
+        <div class="admin-nav-item"><i class="ti ti-mail"></i>Newsletter</div>
+        <div class="admin-nav-item"><i class="ti ti-speakerphone"></i>Announcements</div>
+      </div>
+      <div class="admin-nav-group">
+        <div class="admin-nav-label">Settings</div>
+        <div class="admin-nav-item"><i class="ti ti-settings"></i>Platform Settings</div>
+        <div class="admin-nav-item"><i class="ti ti-shield"></i>Fraud Alerts <div class="admin-nav-badge" style="background:var(--gold);color:var(--dark)">3</div></div>
+      </div>
+    </nav>
+    <div class="admin-user" style="display:flex;align-items:center;gap:10px">
+      <div class="admin-user-avatar">A</div>
+      <div>
+        <div class="admin-user-name">Admin</div>
+        <div class="admin-user-role">Super Administrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <!-- Top bar -->
+    <div class="admin-topbar">
+      <div class="admin-topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
+        <div class="admin-page-title">Dashboard</div>
+      </div>
+      <div class="admin-topbar-right">
+        <input class="admin-search-mini" type="text" placeholder="Search listings, leads…">
+        <div class="notif-btn"><i class="ti ti-bell"></i><div class="notif-dot"></div></div>
+        <button class="btn-red" style="font-size:11px;padding:6px 14px;border-radius:var(--r4);font-family:var(--font-body)" onclick="showHome()">← Back to Site</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Metric cards -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Total Listings <div class="metric-icon" style="background:rgba(200,25,42,0.1);color:var(--red)"><i class="ti ti-building-estate"></i></div></div>
+          <div class="metric-n">2,840</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>+48 this week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Pending Review <div class="metric-icon" style="background:rgba(196,146,42,0.1);color:var(--gold)"><i class="ti ti-clock"></i></div></div>
+          <div class="metric-n">14</div>
+          <div class="metric-change metric-down"><i class="ti ti-alert-circle"></i>Action required</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Hot Leads <div class="metric-icon" style="background:rgba(200,25,42,0.1);color:var(--red)"><i class="ti ti-flame"></i></div></div>
+          <div class="metric-n">8</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>+3 today</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue (MTD) <div class="metric-icon" style="background:rgba(13,74,40,0.1);color:var(--green)"><i class="ti ti-cash"></i></div></div>
+          <div class="metric-n">GH₵84K</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>+12% vs last month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Inspections Booked <div class="metric-icon" style="background:rgba(99,102,241,0.1);color:#4F46E5"><i class="ti ti-calendar"></i></div></div>
+          <div class="metric-n">34</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>This week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Active Agents <div class="metric-icon" style="background:rgba(13,74,40,0.1);color:var(--green)"><i class="ti ti-id-badge"></i></div></div>
+          <div class="metric-n">340</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>+12 this month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Newsletter Subs <div class="metric-icon" style="background:rgba(196,146,42,0.1);color:var(--gold)"><i class="ti ti-mail"></i></div></div>
+          <div class="metric-n">8,412</div>
+          <div class="metric-change metric-up"><i class="ti ti-trending-up"></i>+180 this week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Fraud Alerts <div class="metric-icon" style="background:rgba(200,25,42,0.1);color:var(--red)"><i class="ti ti-shield-x"></i></div></div>
+          <div class="metric-n">3</div>
+          <div class="metric-change metric-down"><i class="ti ti-alert-triangle"></i>Review immediately</div>
+        </div>
+      </div>
+
+      <!-- Revenue chart -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">Revenue (Last 7 Days)</div>
+          <span style="font-size:11px;color:var(--green2);cursor:pointer">Full Report →</span>
+        </div>
+        <div class="chart-bars">
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:45%"></div><div class="chart-bar-lbl">Mon</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:62%"></div><div class="chart-bar-lbl">Tue</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:38%"></div><div class="chart-bar-lbl">Wed</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:80%"></div><div class="chart-bar-lbl">Thu</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:55%"></div><div class="chart-bar-lbl">Fri</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:90%"></div><div class="chart-bar-lbl">Sat</div></div>
+          <div class="chart-bar-wrap"><div class="chart-bar" style="height:70%"></div><div class="chart-bar-lbl">Sun</div></div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head"><div class="admin-sec-title">Quick Actions</div></div>
+        <div style="padding:14px">
+          <div class="qa-grid">
+            <div class="qa-btn"><i class="ti ti-plus-circle"></i><span>Add Listing</span></div>
+            <div class="qa-btn"><i class="ti ti-user-plus"></i><span>Add Agent</span></div>
+            <div class="qa-btn"><i class="ti ti-mail-forward"></i><span>Send Newsletter</span></div>
+            <div class="qa-btn"><i class="ti ti-star"></i><span>Feature Listing</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Listings -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">Pending Listings — Review Queue</div>
+          <span style="font-size:11px;color:var(--text3)">14 awaiting action</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Property Code</th>
+                <th>Title</th>
+                <th>Agent</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Begye Score</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tbl-code">BGY-GAR-LDK-ELG-00451</span></td>
+                <td>4-Bed Villa, East Legon</td>
+                <td>Kofi Mensah</td>
+                <td>Residential</td>
+                <td>GH₵2.8M</td>
+                <td><div class="bscore bscore-high">88</div></td>
+                <td><span class="tbl-badge tbl-review">Under Review</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Approve</button><button class="tbl-btn tbl-btn-reject">Reject</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-GAR-TMK-COM-00128</span></td>
+                <td>Warehouse, Tema Comm 5</td>
+                <td>Ama Boateng</td>
+                <td>Industrial</td>
+                <td>$480,000</td>
+                <td><div class="bscore bscore-high">76</div></td>
+                <td><span class="tbl-badge tbl-pending">Pending</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Approve</button><button class="tbl-btn tbl-btn-reject">Reject</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-ASH-KUM-AHO-00219</span></td>
+                <td>3-Bed Apartment, Ahodwo</td>
+                <td>Kwame Asante</td>
+                <td>Residential</td>
+                <td>GH₵620,000</td>
+                <td><div class="bscore bscore-mid">58</div></td>
+                <td><span class="tbl-badge tbl-pending">Pending</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Approve</button><button class="tbl-btn tbl-btn-reject">Reject</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-WR-TDI-EFK-00341</span></td>
+                <td>Showroom, Effiakuma</td>
+                <td>Abena Owusu</td>
+                <td>Commercial</td>
+                <td>GH₵840,000</td>
+                <td><div class="bscore bscore-mid">64</div></td>
+                <td><span class="tbl-badge tbl-review">Under Review</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Approve</button><button class="tbl-btn tbl-btn-reject">Reject</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-GAR-SPX-LND-00092</span></td>
+                <td>JV Land, Spintex Road</td>
+                <td>Nana Osei</td>
+                <td>Land / JV</td>
+                <td>GH₵980,000</td>
+                <td><div class="bscore bscore-low">34</div></td>
+                <td><span class="tbl-badge tbl-rejected">Incomplete</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Approve</button><button class="tbl-btn tbl-btn-reject">Reject</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Hot Leads CRM -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">🔥 Hot Leads — CRM</div>
+          <span style="font-size:11px;color:var(--text3)">8 hot leads requiring immediate follow-up</span>
+        </div>
+        <div>
+          <div class="crm-card">
+            <div class="crm-avatar" style="background:var(--red)">J</div>
+            <div class="crm-body">
+              <div class="crm-name">James Osei-Bonsu</div>
+              <div class="crm-meta">Interested in: 4-Bed East Legon · BGY-GAR-LDK-ELG-00451 · Booked inspection</div>
+            </div>
+            <div class="crm-right">
+              <div class="crm-time">2 hrs ago</div>
+              <div class="lead-hot"><i class="ti ti-flame"></i>HOT</div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-avatar" style="background:var(--green)">A</div>
+            <div class="crm-body">
+              <div class="crm-name">Akua Amponsah (Diaspora)</div>
+              <div class="crm-meta">Interested in: Luxury listings, East Legon + Airport Area · Budget $400K</div>
+            </div>
+            <div class="crm-right">
+              <div class="crm-time">4 hrs ago</div>
+              <div class="lead-hot"><i class="ti ti-flame"></i>HOT</div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-avatar" style="background:var(--gold);color:var(--dark)">K</div>
+            <div class="crm-body">
+              <div class="crm-name">Kojo Darko</div>
+              <div class="crm-meta">Submitted offer: GH₵2.5M on BGY-GAR-LDK-ELG-00451 · Awaiting response</div>
+            </div>
+            <div class="crm-right">
+              <div class="crm-time">6 hrs ago</div>
+              <div class="lead-warm"><i class="ti ti-flame"></i>WARM</div>
+            </div>
+          </div>
+          <div class="crm-card">
+            <div class="crm-avatar" style="background:#4F46E5">P</div>
+            <div class="crm-body">
+              <div class="crm-name">Peter Amoah (Investor)</div>
+              <div class="crm-meta">Downloaded warehouse brochure 3x · No contact yet · Tema Industrial</div>
+            </div>
+            <div class="crm-right">
+              <div class="crm-time">Yesterday</div>
+              <div class="lead-warm"><i class="ti ti-flame"></i>WARM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Performance -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">Top Agent Performance</div>
+          <span style="font-size:11px;color:var(--green2);cursor:pointer">All Agents →</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Agent</th><th>Listings</th><th>Deals Closed</th><th>Commission (MTD)</th><th>Response Rate</th><th>Performance</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Kofi Mensah</strong><br><span style="font-size:10px;color:var(--text3)">ID: BGY-AGT-00142</span></td>
+                <td>28</td>
+                <td>6</td>
+                <td>GH₵18,400</td>
+                <td>96%</td>
+                <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:96%"></div></div><span style="font-size:10px;color:var(--green2);font-weight:600">96</span></div></td>
+              </tr>
+              <tr>
+                <td><strong>Ama Boateng</strong><br><span style="font-size:10px;color:var(--text3)">ID: BGY-AGT-00087</span></td>
+                <td>22</td>
+                <td>4</td>
+                <td>GH₵12,200</td>
+                <td>88%</td>
+                <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:88%"></div></div><span style="font-size:10px;color:var(--green2);font-weight:600">88</span></div></td>
+              </tr>
+              <tr>
+                <td><strong>Kwame Asante</strong><br><span style="font-size:10px;color:var(--text3)">ID: BGY-AGT-00214</span></td>
+                <td>16</td>
+                <td>3</td>
+                <td>GH₵8,700</td>
+                <td>72%</td>
+                <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:72%;background:var(--gold)"></div></div><span style="font-size:10px;color:var(--gold);font-weight:600">72</span></div></td>
+              </tr>
+              <tr>
+                <td><strong>Abena Owusu</strong><br><span style="font-size:10px;color:var(--text3)">ID: BGY-AGT-00331</span></td>
+                <td>12</td>
+                <td>1</td>
+                <td>GH₵3,200</td>
+                <td>54%</td>
+                <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:54%;background:var(--red)"></div></div><span style="font-size:10px;color:var(--red);font-weight:600">54</span></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Approved Listings -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">Live Listings — Recently Approved</div>
+          <span style="font-size:11px;color:var(--green2);cursor:pointer">All Listings →</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Code</th><th>Title</th><th>Category</th><th>Price</th><th>Score</th><th>Status</th><th>Views</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tbl-code">BGY-GAR-LDK-ELG-00448</span></td>
+                <td>5-Bed Villa, Cantonments</td>
+                <td>Luxury Residential</td>
+                <td>GH₵4.2M</td>
+                <td><div class="bscore bscore-high">92</div></td>
+                <td><span class="tbl-badge tbl-approved">Live</span></td>
+                <td>487</td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-view">View</button><button class="tbl-btn tbl-btn-reject">Unpublish</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-VOL-KET-BCH-00512</span></td>
+                <td>Beachfront Land, Keta</td>
+                <td>Land · Coastal</td>
+                <td>GH₵620K</td>
+                <td><div class="bscore bscore-high">78</div></td>
+                <td><span class="tbl-badge tbl-approved">Live</span></td>
+                <td>362</td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-view">View</button><button class="tbl-btn tbl-btn-reject">Unpublish</button></div></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-code">BGY-GAR-TMA-WRH-00098</span></td>
+                <td>Warehouse, Tema Comm 5</td>
+                <td>Industrial</td>
+                <td>$480K</td>
+                <td><div class="bscore bscore-high">81</div></td>
+                <td><span class="tbl-badge tbl-approved">Live</span></td>
+                <td>281</td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-view">View</button><button class="tbl-btn tbl-btn-reject">Unpublish</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Inspections table -->
+      <div class="admin-sec" style="margin-bottom:18px">
+        <div class="admin-sec-head">
+          <div class="admin-sec-title">Upcoming Inspections</div>
+          <span style="font-size:11px;color:var(--text3)">34 this week</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Buyer</th><th>Property</th><th>Agent</th><th>Date &amp; Time</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>James Osei-Bonsu</td>
+                <td>4-Bed Villa, East Legon</td>
+                <td>Kofi Mensah</td>
+                <td>May 16, 2026 · 10:00 AM</td>
+                <td><span class="tbl-badge tbl-approved">Confirmed</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td>Akua Amponsah</td>
+                <td>Luxury Villa, Airport Area</td>
+                <td>Ama Boateng</td>
+                <td>May 17, 2026 · 2:00 PM</td>
+                <td><span class="tbl-badge tbl-pending">Pending</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-approve">Confirm</button><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+              <tr>
+                <td>Nana Osei</td>
+                <td>Warehouse, Tema</td>
+                <td>Kwame Asante</td>
+                <td>May 18, 2026 · 9:00 AM</td>
+                <td><span class="tbl-badge tbl-approved">Confirmed</span></td>
+                <td><div class="tbl-actions"><button class="tbl-btn tbl-btn-view">View</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:4px 0 8px;font-size:10px;color:var(--text3)">
+        Begye Akazon Admin Panel · © 2026 · All actions are logged
+      </div>
+
+    </div><!-- /.admin-content -->
+  </main>
+</div><!-- /.admin-wrap -->
+</div><!-- /#admin-page -->
+
+<script>
+// ═══════════════════════════════════════════
+// Page toggle
+// ═══════════════════════════════════════════
+function showAdmin(){
+  document.getElementById('home-page').style.display='none';
+  document.getElementById('admin-page').style.display='block';
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.getElementById('admin-page').style.display='none';
+  document.getElementById('home-page').style.display='block';
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════
+// Featured carousel (auto-rotate 10s)
+// ═══════════════════════════════════════════
+(function(){
+  const slides = document.querySelectorAll('.fc-slide');
+  const track  = document.getElementById('fcSlides');
+  const dotsEl = document.getElementById('fcDots');
+  let cur = 0, timer;
+
+  // Build dots
+  slides.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className='fc-dot'+(i===0?' act':'');
+    d.onclick=()=>goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n){
+    cur=n;
+    track.style.transform=`translateX(-${cur*100}%)`;
+    document.querySelectorAll('.fc-dot').forEach((d,i)=>d.classList.toggle('act',i===cur));
+  }
+  function next(){ goTo((cur+1)%slides.length); }
+  function prev(){ goTo((cur-1+slides.length)%slides.length); }
+
+  document.getElementById('fcNext').onclick=()=>{next();resetTimer()};
+  document.getElementById('fcPrev').onclick=()=>{prev();resetTimer()};
+
+  function resetTimer(){ clearInterval(timer); timer=setInterval(next,10000); }
+  timer=setInterval(next,10000);
+})();
+
+// ═══════════════════════════════════════════
+// Listing tab filters
+// ═══════════════════════════════════════════
+document.querySelectorAll('.lt-tab').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.lt-tab').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.ptchip').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.ptchip').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.al-tab').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.al-tab').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.priv-tab').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.priv-tab').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.nav-links .nl').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.nl').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.bnav').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.bnav').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+document.querySelectorAll('.admin-nav-item').forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll('.admin-nav-item').forEach(x=>x.classList.remove('act')); t.classList.add('act'); };
+});
+
+// ═══════════════════════════════════════════
+// Admin sidebar mobile toggle
+// ═══════════════════════════════════════════
+function toggleSidebar(){
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+function closeSidebar(){
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════
+// Generate listing cards
+// ═══════════════════════════════════════════
+const listings=[
+  {code:'BGY-GAR-LDK-ELG-00451',type:'Residential',title:'4-Bed Luxury Villa, East Legon',loc:'East Legon, Accra',price:'GH₵ 2,800,000',specs:'4 bd · 4 ba · Pool',badges:['sale','lux'],score:88,bg:'linear-gradient(135deg,#0D4A28,#1A7A46)'},
+  {code:'BGY-VOL-KET-BCH-00512',type:'Land',title:'Beachfront Land — 1.5 Acres',loc:'Keta, Volta Region',price:'GH₵ 620,000',specs:'1.5 Acres · Coastal',badges:['sale','new'],score:74,bg:'linear-gradient(135deg,#1E3A5F,#2E75B6)'},
+  {code:'BGY-GAR-TMA-WRH-00098',type:'Industrial',title:'5,000sqm Warehouse, Tema',loc:'Tema Comm 5, Greater Accra',price:'$480,000',specs:'5,000sqm · Industrial',badges:['sale'],score:81,bg:'linear-gradient(135deg,#3D2C00,#C4922A)'},
+  {code:'BGY-GAR-TRS-OPL-00214',type:'Off-Plan',title:'3-Bed Apartment, Trassaco',loc:'Trassaco Valley, Accra',price:'GH₵ 1,200,000',specs:'3 bd · 2 ba · City view',badges:['offplan'],score:79,bg:'linear-gradient(135deg,#5B1A1A,#C8192A)'},
+  {code:'BGY-ASH-KUM-KJV-00341',type:'Residential',title:'2-Bed Apartment, Ahodwo',loc:'Ahodwo, Kumasi',price:'GH₵ 385,000',specs:'2 bd · 2 ba · Furnished',badges:['rent'],score:62,bg:'linear-gradient(135deg,#1A3C2A,#166534)'},
+  {code:'BGY-GAR-SPX-JVL-00092',type:'Land / JV',title:'JV Opportunity — 1.2 Acres',loc:'Spintex Road, Accra',price:'GH₵ 980,000',specs:'1.2 Acres · JV Zone',badges:['jv'],score:70,bg:'linear-gradient(135deg,#2D1A5B,#6B21A8)'},
+  {code:'BGY-ER-ABU-ECO-00128',type:'Farm Land',title:'10-Acre Farm Land, Nsawam',loc:'Nsawam, Eastern Region',price:'GH₵ 340,000',specs:'10 Acres · Agriculture',badges:['sale'],score:55,bg:'linear-gradient(135deg,#1A3C1A,#22C55E)'},
+  {code:'BGY-GAR-OSU-STY-00187',type:'Short Stay',title:'2-Bed Short Stay, Osu',loc:'Osu, Accra',price:'$180 / night',specs:'2 bd · 1 ba · Furnished',badges:['new'],score:83,bg:'linear-gradient(135deg,#1A1A3C,#2E75B6)'},
+];
+
+const grid=document.getElementById('mainListings');
+listings.forEach(l=>{
+  const badgeHtml=l.badges.map(b=>{
+    const map={sale:'badge-sale sale',rent:'badge-rent rent',lux:'badge-lux lux',new:'badge-new new',priv:'badge-priv priv',jv:'badge-jv jv',offplan:'badge-offplan offplan',flip:'badge-flip flip'};
+    const labels={sale:'For Sale',rent:'For Rent',lux:'Luxury',new:'New',priv:'Private',jv:'JV',offplan:'Off-Plan',flip:'Fix & Flip'};
+    return `<span class="badge ${map[b]}">${labels[b]}</span>`;
+  }).join('');
+  const scoreClass=l.score>=75?'bscore-high':l.score>=55?'bscore-mid':'bscore-low';
+  grid.innerHTML+=`
+    <div class="lcard">
+      <div class="lcard-img" style="background:${l.bg}">
+        <div class="lcard-img-overlay"></div>
+        <div class="lcard-badges">${badgeHtml}</div>
+        <div class="lcard-score" style="position:absolute;bottom:7px;right:7px">${l.score}</div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">${l.type}</div>
+        <div class="lcard-title">${l.title}</div>
+        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px"></i>${l.loc}</div>
+        <div class="lcard-price">${l.price}</div>
+        <div class="lcard-specs">${l.specs}</div>
+        <div class="lcard-code">${l.code}</div>
+        <div class="lcard-footer">
+          <div class="lcard-verified"><i class="ti ti-circle-check" style="font-size:11px"></i>Begye Verified</div>
+          <div class="lcard-action"><i class="ti ti-heart"></i></div>
+        </div>
+      </div>
+    </div>`;
+});
+
+// Blog carousel drag scroll
+const blogSlides=document.getElementById('blogSlides');
+let isDragging=false,startX=0,scrollL=0;
+blogSlides.addEventListener('mousedown',e=>{isDragging=true;startX=e.pageX-blogSlides.offsetLeft;scrollL=blogSlides.scrollLeft});
+blogSlides.addEventListener('mouseleave',()=>isDragging=false);
+blogSlides.addEventListener('mouseup',()=>isDragging=false);
+blogSlides.addEventListener('mousemove',e=>{if(!isDragging)return;e.preventDefault();const x=e.pageX-blogSlides.offsetLeft;blogSlides.scrollLeft=scrollL-(x-startX)*1.5});
+</script>
+</body>
+</html>
