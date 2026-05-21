@@ -1,4 +1,4 @@
-<!--  -->
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
@@ -933,11 +933,129 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .priv-cat-hdr{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .priv-cat-hdr span{color:var(--gold);font-weight:700;}
 
-/* C30: All Listings section */
-.all-listings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-.listing-filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
-.lfb{font-size:10px;padding:4px 10px;border-radius:99px;border:0.5px solid rgba(0,0,0,0.12);color:var(--color-text-secondary);cursor:pointer;transition:all 0.15s;}
-.lfb.act,.lfb:hover{border-color:var(--green2);color:var(--green);background:rgba(13,74,40,0.06);}
+/* ── ALL LISTINGS SECTION ── */
+.all-listings-section{
+  background:#F5F5F2;
+  padding:28px 20px 32px;
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+/* Filter rows */
+.alf-row{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:8px;}
+.alf-row::-webkit-scrollbar{display:none;}
+.alf-label{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,0,0,0.3);padding:5px 2px 5px 0;white-space:nowrap;flex-shrink:0;align-self:center;}
+.lfb{font-size:11px;font-weight:500;padding:6px 14px;border-radius:99px;border:1px solid rgba(0,0,0,0.1);color:#6B7280;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.16s;background:#fff;}
+.lfb:hover{border-color:var(--green2);color:var(--green);}
+.lfb.act{background:var(--green);color:#fff;border-color:var(--green);font-weight:600;}
+.lfb.type-sale.act{background:#1565C0;border-color:#1565C0;}
+.lfb.type-rent.act{background:#0D4A28;border-color:#0D4A28;}
+.lfb.type-mortgage.act{background:#E65100;border-color:#E65100;}
+.lfb.type-offplan.act{background:#6A1B9A;border-color:#6A1B9A;}
+.lfb.type-shortstay.act{background:#7B1FA2;border-color:#7B1FA2;}
+.lfb.type-fixflip.act{background:#BF360C;border-color:#BF360C;}
+/* Divider between filter rows */
+.alf-divider{height:0.5px;background:rgba(0,0,0,0.07);margin:4px 0 10px;}
+
+/* Results meta row */
+.alf-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.alf-count{font-size:11px;color:#9CA3AF;}
+.alf-count strong{color:#374151;font-weight:600;}
+.alf-sort{display:flex;align-items:center;gap:6px;font-size:11px;color:#6B7280;cursor:pointer;}
+.alf-sort svg{flex-shrink:0;}
+
+/* Card grid */
+.all-listings-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+@media(max-width:860px){.all-listings-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.all-listings-grid{grid-template-columns:1fr;}}
+
+/* Listing card */
+.lcard{
+  background:#fff;
+  border:0.5px solid rgba(0,0,0,0.07);
+  border-radius:12px;overflow:hidden;
+  cursor:pointer;
+  transition:box-shadow 0.22s, transform 0.22s;
+  display:flex;flex-direction:column;
+}
+.lcard:hover{
+  box-shadow:0 8px 28px rgba(0,0,0,0.11);
+  transform:translateY(-2px);
+}
+/* Thumbnail */
+.limg{
+  height:130px;
+  display:flex;align-items:flex-end;
+  padding:8px 10px;
+  position:relative;
+  transition:filter 0.2s;
+  overflow:hidden;
+  flex-shrink:0;
+}
+/* Illustrated SVG centre icon */
+.limg-icon{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+  opacity:0.18;
+}
+/* Gradient overlay so badges are legible */
+.limg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.45) 100%);
+  pointer-events:none;
+}
+.limg-badges{display:flex;gap:5px;align-items:center;position:relative;z-index:1;}
+.lbadge{font-size:8.5px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:0.04em;white-space:nowrap;}
+.lbadge.lux{background:var(--gold);color:#0D0F0A;}
+.lbadge.std{background:rgba(0,0,0,0.55);color:#fff;border:0.5px solid rgba(255,255,255,0.2);}
+.lbadge.land{background:#0D4A28;color:#fff;}
+.lbadge.priv{background:rgba(255,255,255,0.15);color:#fff;border:0.5px solid rgba(255,255,255,0.35);}
+.lbadge.sale{background:#1565C0;color:#fff;}
+.lbadge.rent{background:#0D4A28;color:#fff;}
+.lbadge.mortgage{background:#E65100;color:#fff;}
+.lbadge.offplan{background:#6A1B9A;color:#fff;}
+.lbadge.shortstay{background:#7B1FA2;color:#fff;}
+.lbadge.fixflip{background:#BF360C;color:#fff;}
+.lbadge.auction{background:#CC2020;color:#fff;}
+/* Save / favourite button */
+.limg-save{
+  position:absolute;top:9px;right:9px;z-index:2;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,0.85);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.15s;
+}
+.limg-save:hover{background:#fff;}
+
+/* Card body */
+.lcard-body{padding:11px 12px 13px;flex:1;display:flex;flex-direction:column;}
+.lcard-type{font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;}
+.lcard-title{font-size:12px;font-weight:600;color:#1A1A18;line-height:1.4;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.lcard-loc{font-size:10px;color:#9CA3AF;display:flex;align-items:center;gap:3px;margin-bottom:7px;}
+.lcard-price{font-size:15px;font-weight:700;color:#0D4A28;margin-bottom:4px;font-family:var(--font-serif);}
+.lcard-price small{font-size:10px;font-weight:400;color:#9CA3AF;font-family:var(--font-sans);}
+.lcard-specs{font-size:10px;color:#6B7280;margin-bottom:7px;display:flex;gap:8px;flex-wrap:wrap;}
+.lcard-spec{display:flex;align-items:center;gap:3px;}
+.lcard-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;border-top:0.5px solid rgba(0,0,0,0.05);}
+.lcard-verify{display:inline-flex;align-items:center;gap:4px;font-size:9px;color:#0D4A28;font-weight:500;}
+.lcard-code{font-family:monospace;font-size:8.5px;color:rgba(0,0,0,0.2);letter-spacing:0.05em;}
+
+/* Load more row */
+.alf-load-more{
+  margin-top:20px;display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.alf-load-btn{
+  background:#fff;border:1px solid rgba(0,0,0,0.12);
+  color:#374151;font-size:12px;font-weight:600;
+  padding:10px 28px;border-radius:8px;cursor:pointer;
+  font-family:var(--font-sans);
+  transition:all 0.18s;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.alf-load-btn:hover{border-color:var(--green);color:var(--green);}
+.alf-load-note{font-size:10px;color:#9CA3AF;}
 
 /* C23-C24 Trending */
 .trending-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
@@ -2314,106 +2432,339 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   </div>
 </div>
 
-<!-- ── C30: ALL LISTINGS ── -->
-<div class="section" style="padding-top:20px">
-  <div class="sec-head">
-    <div><div class="sec-title">All available listings</div><div class="sec-sub">For Sale · For Rent · Mortgage · Off-Plan · Short Stay · All categories</div></div>
-    <div class="see-all">View all →</div>
+<!-- ── ALL LISTINGS SHOWCASE ── -->
+<div class="all-listings-section" id="allListings">
+  <div class="sec-head" style="margin-bottom:14px">
+    <div>
+      <div class="sec-title" style="color:#1A1A18">All Available Listings</div>
+      <div class="sec-sub" style="color:#9CA3AF">For Sale · For Rent · Mortgage · Off-Plan · Short-Stay · All property categories</div>
+    </div>
+    <div class="see-all" style="color:var(--green)">View all 4,200+ →</div>
   </div>
-  <div class="listing-filter-bar">
-    <div class="lfb act">All</div>
-    <div class="lfb">For Sale</div>
-    <div class="lfb">For Rent</div>
-    <div class="lfb">Mortgage</div>
-    <div class="lfb">Off-Plan</div>
-    <div class="lfb">Short Stay</div>
-    <div class="lfb">Residential</div>
-    <div class="lfb">Commercial</div>
-    <div class="lfb">Industrial</div>
-    <div class="lfb">Land</div>
-    <div class="lfb">Agricultural</div>
+
+  <!-- Row 1: Transaction type -->
+  <div class="alf-row">
+    <span class="alf-label">Type:</span>
+    <div class="lfb act" data-filter="all">All</div>
+    <div class="lfb type-sale" data-filter="for-sale">For Sale</div>
+    <div class="lfb type-rent" data-filter="for-rent">For Rent</div>
+    <div class="lfb type-mortgage" data-filter="mortgage">Mortgage</div>
+    <div class="lfb type-offplan" data-filter="off-plan">Off-Plan</div>
+    <div class="lfb type-shortstay" data-filter="short-stay">Short-Stay</div>
+    <div class="lfb type-fixflip" data-filter="fix-flip">Fix &amp; Flip</div>
+    <div class="lfb" data-filter="auction">Auction</div>
+    <div class="lfb" data-filter="jv">JV</div>
   </div>
+  <div class="alf-divider"></div>
+  <!-- Row 2: Property category -->
+  <div class="alf-row">
+    <span class="alf-label">Category:</span>
+    <div class="lfb act" data-cat="all">All</div>
+    <div class="lfb" data-cat="residential">Residential</div>
+    <div class="lfb" data-cat="commercial">Commercial</div>
+    <div class="lfb" data-cat="land">Land</div>
+    <div class="lfb" data-cat="industrial">Industrial</div>
+    <div class="lfb" data-cat="luxury">Luxury</div>
+    <div class="lfb" data-cat="agricultural">Farm / Agricultural</div>
+  </div>
+
+  <!-- Results meta -->
+  <div class="alf-meta">
+    <div class="alf-count">Showing <strong>12</strong> of <strong>4,200+</strong> listings</div>
+    <div class="alf-sort">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M7 12h10M11 18h2" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Sort: Newest
+    </div>
+  </div>
+
+  <!-- 12-card grid -->
   <div class="all-listings-grid">
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#1A3A25,#0D2010)">
-        <div class="limg-badges"><div class="lbadge lux">Luxury</div><div class="lbadge std" style="background:transparent;border:0.5px solid rgba(255,255,255,0.3)">For Sale</div></div>
+
+    <!-- 1 · For Sale · Luxury Residential -->
+    <div class="lcard" data-type="for-sale" data-cat="residential luxury">
+      <div class="limg" style="background:linear-gradient(150deg,#1A3A25,#0D2010)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/><path d="M9 22V12h6v10" stroke="#E8B84B" stroke-width="1.5"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge lux">Luxury</span>
+          <span class="lbadge sale">For Sale</span>
+        </div>
       </div>
       <div class="lcard-body">
-        <div class="lcard-type">Residential · House</div>
-        <div class="lcard-title">5-Bed Villa, East Legon — Pool & Smart Home</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Adjiringanor, Accra</div>
+        <div class="lcard-type">Residential · Detached Villa</div>
+        <div class="lcard-title">5-Bed Luxury Villa — East Legon, Pool &amp; Smart Home</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Adjiringanor, Accra</div>
         <div class="lcard-price">$480,000</div>
-        <div class="lcard-specs">5 bd · 6 ba · Pool · Smart home</div>
-        <div class="lcard-verify"><i class="ti ti-shield-check" style="font-size:10px" aria-hidden="true"></i>Begye Verified</div>
-        <div class="lcard-code">GAR-LDK-ELG-HSE-00451</div>
+        <div class="lcard-specs">
+          <span class="lcard-spec"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M2 9h20M2 15h20M5 3v18M19 3v18" stroke="#9CA3AF" stroke-width="1.5"/></svg>5 Bed</span>
+          <span class="lcard-spec"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 6h16M4 18h10" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/></svg>6 Bath</span>
+          <span class="lcard-spec">Pool · Smart</span>
+        </div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-FS-ELG-00451</span>
+        </div>
       </div>
     </div>
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#0F2035,#081525)">
-        <div class="limg-badges"><div class="lbadge std">For Rent</div></div>
+
+    <!-- 2 · For Rent · Apartment -->
+    <div class="lcard" data-type="for-rent" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#0F2035,#081525)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M3 9h18M9 9v12M15 9v12" stroke="#E8B84B" stroke-width="1.2"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge rent">For Rent</span>
+          <span class="lbadge std">Serviced</span>
+        </div>
       </div>
       <div class="lcard-body">
         <div class="lcard-type">Apartment · Serviced</div>
-        <div class="lcard-title">3-Bed Serviced Apartment — Airport Residential</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Airport Residential, Accra</div>
-        <div class="lcard-price">GH₵9,500/mo</div>
-        <div class="lcard-specs">3 bd · 3 ba · Balcony · Parking</div>
-        <div class="lcard-verify"><i class="ti ti-shield-check" style="font-size:10px" aria-hidden="true"></i>Begye Verified</div>
-        <div class="lcard-code">GAR-LDK-APT-AIR-00302</div>
+        <div class="lcard-title">3-Bed Serviced Apartment — Airport Residential Area</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Airport Residential, Accra</div>
+        <div class="lcard-price">GH₵9,500 <small>/ month</small></div>
+        <div class="lcard-specs">
+          <span class="lcard-spec">3 Bed</span>
+          <span class="lcard-spec">3 Bath</span>
+          <span class="lcard-spec">Balcony · Parking</span>
+        </div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-FR-AIR-00302</span>
+        </div>
       </div>
     </div>
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#1A2510,#0D1808)">
-        <div class="limg-badges"><div class="lbadge land">Titled</div><div class="lbadge std">For Sale</div></div>
+
+    <!-- 3 · Mortgage · Family Home -->
+    <div class="lcard" data-type="mortgage" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#2A1A08,#1A1005)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/><rect x="9" y="13" width="6" height="9" stroke="#E8B84B" stroke-width="1.3"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge mortgage">Mortgage</span>
+          <span class="lbadge std">Bank-Ready</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Residential · Family Home</div>
+        <div class="lcard-title">3-Bed Family Home — Own from GH₵5,200/mo</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Adenta, Greater Accra</div>
+        <div class="lcard-price">GH₵850,000</div>
+        <div class="lcard-specs"><span class="lcard-spec">3 Bed</span><span class="lcard-spec">2 Bath</span><span class="lcard-spec">2 Cars · 15yr term</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-MG-ADT-01234</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 · Land for Sale -->
+    <div class="lcard" data-type="for-sale" data-cat="land">
+      <div class="limg" style="background:linear-gradient(150deg,#1A2510,#0D1808)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-8 4 5 3-3 6 6H3z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8.5" cy="7.5" r="2" stroke="#E8B84B" stroke-width="1.5"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge land">Titled</span>
+          <span class="lbadge sale">For Sale</span>
+        </div>
       </div>
       <div class="lcard-body">
         <div class="lcard-type">Land Banking · Plot</div>
-        <div class="lcard-title">½ Plot, Oyarifa Hills — Road Access</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Oyarifa, Ga East</div>
+        <div class="lcard-title">½ Acre Plot — Oyarifa Hills, Road Access &amp; Electricity</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Oyarifa, Ga East</div>
         <div class="lcard-price">GH₵85,000</div>
-        <div class="lcard-specs">0.5 acres · Road access · Electricity</div>
-        <div class="lcard-code">GAR-ADE-OYA-LND-00987</div>
+        <div class="lcard-specs"><span class="lcard-spec">0.5 Acres</span><span class="lcard-spec">Road Access</span><span class="lcard-spec">Title Deed</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-code">BGY-FS-OYA-LND-00987</span>
+        </div>
       </div>
     </div>
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#251510,#180D08)">
-        <div class="limg-badges"><div class="lbadge" style="background:#E65100;color:#fff">Mortgage</div></div>
+
+    <!-- 5 · Off-Plan -->
+    <div class="lcard" data-type="off-plan" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#1A1035,#0D0820)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="1" stroke="#fff" stroke-width="1.5"/><path d="M3 8h18M8 3v18M14 8v13" stroke="#E8B84B" stroke-width="1.2"/><circle cx="5.5" cy="5.5" r="1" fill="#fff"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge offplan">Off-Plan</span>
+          <span class="lbadge std">30% Deposit</span>
+        </div>
       </div>
       <div class="lcard-body">
-        <div class="lcard-type">Residential · Mortgage</div>
-        <div class="lcard-title">3-Bed Family Home — Own from GH₵5,200/mo</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Adenta, Greater Accra</div>
-        <div class="lcard-price">GH₵850,000</div>
-        <div class="lcard-specs">3 bd · 2 ba · 2 Cars · Bank-Ready</div>
-        <div class="lcard-code">GAR-ADE-ADT-HSE-01234</div>
+        <div class="lcard-type">Apartment · Off-Plan</div>
+        <div class="lcard-title">2-Bed Off-Plan Apartment — Spintex Corridor, Q3 2026</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Spintex Road, Accra</div>
+        <div class="lcard-price">$95,000</div>
+        <div class="lcard-specs"><span class="lcard-spec">2 Bed</span><span class="lcard-spec">2 Bath</span><span class="lcard-spec">Delivery Q3 2026</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-OP-SPX-00781</span>
+        </div>
       </div>
     </div>
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#2A1010,#1A0808)">
-        <div class="limg-badges"><div class="lbadge" style="background:#FF6F00;color:#fff">Fix &amp; Flip</div></div>
+
+    <!-- 6 · Short Stay -->
+    <div class="lcard" data-type="short-stay" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#251028,#180518)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M2 12h20M2 12l4-4M2 12l4 4M22 12l-4-4M22 12l-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="#E8B84B" stroke-width="1.5"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge shortstay">Short-Stay</span>
+          <span class="lbadge std">70% Occ.</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Short Stay · Executive Suite</div>
+        <div class="lcard-title">Executive 2-Bed Suite — Cantonments, High Occupancy</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Cantonments, Accra</div>
+        <div class="lcard-price">GH₵900 <small>/ night</small></div>
+        <div class="lcard-specs"><span class="lcard-spec">2 Bed</span><span class="lcard-spec">Smart TV</span><span class="lcard-spec">Wi-Fi · Netflix</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-SS-CAN-00102</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 · Fix & Flip -->
+    <div class="lcard" data-type="fix-flip" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#2A1008,#1A0805)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge fixflip">Fix &amp; Flip</span>
+          <span class="lbadge std">28% ROI</span>
+        </div>
       </div>
       <div class="lcard-body">
         <div class="lcard-type">Fix &amp; Flip · Investment</div>
-        <div class="lcard-title">Renovation-Ready 3-Bed — 28% Projected ROI</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Nima, Accra Metropolitan</div>
+        <div class="lcard-title">Renovation-Ready 3-Bed — 28% Projected ROI, 8-Month Cycle</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Nima, Accra Metropolitan</div>
         <div class="lcard-price">GH₵320,000</div>
-        <div class="lcard-specs">3 bd · Renovation ready · 28% ROI</div>
-        <div class="lcard-code">GAR-AMA-NIM-HSE-00333</div>
+        <div class="lcard-specs"><span class="lcard-spec">3 Bed</span><span class="lcard-spec">Reno-Ready</span><span class="lcard-spec">28% Gross ROI</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-code">BGY-FF-NIM-00333</span>
+        </div>
       </div>
     </div>
-    <div class="lcard">
-      <div class="limg" style="background:linear-gradient(160deg,#1A1035,#0D0825)">
-        <div class="limg-badges"><div class="lbadge" style="background:#7B1FA2;color:#fff">Short Stay</div></div>
+
+    <!-- 8 · Commercial · For Rent -->
+    <div class="lcard" data-type="for-rent" data-cat="commercial">
+      <div class="limg" style="background:linear-gradient(150deg,#10203A,#081528)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#E8B84B" stroke-width="1.5"/><path d="M2 12h20" stroke="#fff" stroke-width="1.2"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge rent">For Rent</span>
+          <span class="lbadge std">Grade A</span>
+        </div>
       </div>
       <div class="lcard-body">
-        <div class="lcard-type">Short Stay · Investment</div>
-        <div class="lcard-title">Executive 2-Bed Suite — 70% Occupancy Rate</div>
-        <div class="lcard-loc"><i class="ti ti-map-pin" style="font-size:10px" aria-hidden="true"></i>Cantonments, Accra</div>
-        <div class="lcard-price">GH₵900/night</div>
-        <div class="lcard-specs">2 bd · Smart TV · Wi-Fi · 70% Occ.</div>
-        <div class="lcard-code">GAR-LDK-CAN-APT-00102</div>
+        <div class="lcard-type">Commercial · Office Space</div>
+        <div class="lcard-title">1,200sqm Grade-A Office Floor — Airport City</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Airport City, Accra</div>
+        <div class="lcard-price">$18,000 <small>/ year</small></div>
+        <div class="lcard-specs"><span class="lcard-spec">1,200 sqm</span><span class="lcard-spec">Generator</span><span class="lcard-spec">50 Parking</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-FR-APC-OFF-00045</span>
+        </div>
       </div>
     </div>
+
+    <!-- 9 · Industrial · For Sale -->
+    <div class="lcard" data-type="for-sale" data-cat="industrial">
+      <div class="limg" style="background:linear-gradient(150deg,#202020,#101010)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M2 9h20M8 3v6M16 3v6" stroke="#E8B84B" stroke-width="1.2"/><path d="M6 14h3M11 14h3M6 17h3M11 17h3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge sale">For Sale</span>
+          <span class="lbadge std">Industrial</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Industrial · Warehouse / Factory</div>
+        <div class="lcard-title">5,000sqm Factory &amp; Warehouse — Tema Free Zone</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Tema Free Zone, Greater Accra</div>
+        <div class="lcard-price">$2,100,000</div>
+        <div class="lcard-specs"><span class="lcard-spec">5,000 sqm</span><span class="lcard-spec">3-Phase Power</span><span class="lcard-spec">Rail Access</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-verify"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</span>
+          <span class="lcard-code">BGY-FS-TMA-IND-00219</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 · Agricultural · For Sale -->
+    <div class="lcard" data-type="for-sale" data-cat="agricultural">
+      <div class="limg" style="background:linear-gradient(150deg,#1A2A10,#0D1808)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 12 7 9 4 4c5 0 8 4 8 8zM12 12C12 12 17 9 20 4c-5 0-8 4-8 8z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 17c-3-2-5-5-5-9" stroke="#E8B84B" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge land">Titled</span>
+          <span class="lbadge sale">For Sale</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Farm / Agricultural</div>
+        <div class="lcard-title">10-Acre Mixed Farm — Cocoa, Teak &amp; Plantain, Volta Region</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Hohoe, Volta Region</div>
+        <div class="lcard-price">GH₵420,000</div>
+        <div class="lcard-specs"><span class="lcard-spec">10 Acres</span><span class="lcard-spec">Water Source</span><span class="lcard-spec">Title Deed</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-code">BGY-FS-HOH-AGR-00678</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 · JV Deal -->
+    <div class="lcard" data-type="jv" data-cat="commercial land">
+      <div class="limg" style="background:linear-gradient(150deg,#1A1A2A,#0D0D18)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="12" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="#E8B84B" stroke-width="1.5"/><path d="M12 8.5v7" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge lux">JV</span>
+          <span class="lbadge std">From $60K</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Joint Venture · Development</div>
+        <div class="lcard-title">JV Opportunity — 2-Acre Residential Dev Site, Kasoa MC</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Kasoa Millennium City</div>
+        <div class="lcard-price">From $60,000 <small>stake</small></div>
+        <div class="lcard-specs"><span class="lcard-spec">2 Acres</span><span class="lcard-spec">40% ROI Proj.</span><span class="lcard-spec">18-mo Horizon</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-code">BGY-JV-KAS-DEV-00091</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 · Auction -->
+    <div class="lcard" data-type="auction" data-cat="residential">
+      <div class="limg" style="background:linear-gradient(150deg,#2A1010,#1A0808)">
+        <svg class="limg-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+        <div class="limg-save"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#9CA3AF" stroke-width="1.8"/></svg></div>
+        <div class="limg-badges">
+          <span class="lbadge auction">Auction</span>
+          <span class="lbadge std">Ends 28 May</span>
+        </div>
+      </div>
+      <div class="lcard-body">
+        <div class="lcard-type">Residential · Auction</div>
+        <div class="lcard-title">Bank-Repossessed 4-Bed — Starting Bid GH₵450,000</div>
+        <div class="lcard-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Dansoman, Accra</div>
+        <div class="lcard-price">GH₵450,000 <small>start bid</small></div>
+        <div class="lcard-specs"><span class="lcard-spec">4 Bed</span><span class="lcard-spec">2 Bath</span><span class="lcard-spec">Ends 28 May</span></div>
+        <div class="lcard-foot">
+          <span class="lcard-code">BGY-AUC-DAN-00014</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /all-listings-grid -->
+
+  <!-- Load more -->
+  <div class="alf-load-more">
+    <button class="alf-load-btn">Load More Listings</button>
+    <span class="alf-load-note">4,188 more listings available</span>
   </div>
 </div>
 
@@ -3010,13 +3361,47 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     });
   });
 
-  // ── Listing filter bar ───────────────────────────────────
-  document.querySelectorAll('.lfb').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.lfb').forEach(x => x.classList.remove('act'));
-      b.classList.add('act');
+  // ── All Listings — two-row independent filter system ────────
+  (function(){
+    const section   = document.getElementById('allListings');
+    if (!section) return;
+    const typeFilters = section.querySelectorAll('[data-filter]');
+    const catFilters  = section.querySelectorAll('[data-cat]');
+    const cards       = section.querySelectorAll('.lcard');
+    const countEl     = section.querySelector('.alf-count strong:first-child');
+    let activeType = 'all', activeCat = 'all';
+
+    function applyFilters() {
+      let visible = 0;
+      cards.forEach(card => {
+        const t = card.dataset.type || '';
+        const c = card.dataset.cat  || '';
+        const typeMatch = activeType === 'all' || t === activeType;
+        const catMatch  = activeCat  === 'all' || c.split(' ').includes(activeCat);
+        const show = typeMatch && catMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (countEl) countEl.textContent = visible;
+    }
+
+    typeFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeFilters.forEach(b => b.classList.remove('act'));
+        btn.classList.add('act');
+        activeType = btn.dataset.filter;
+        applyFilters();
+      });
     });
-  });
+    catFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catFilters.forEach(b => b.classList.remove('act'));
+        btn.classList.add('act');
+        activeCat = btn.dataset.cat;
+        applyFilters();
+      });
+    });
+  })();
 
   // ── Newsletter tabs ──────────────────────────────────────
   document.querySelectorAll('.nl-tab').forEach(t => {
