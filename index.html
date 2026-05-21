@@ -434,13 +434,6 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .ticker-text{font-size:11px;color:rgba(255,255,255,0.5);white-space:nowrap;animation:ticker 20s linear infinite}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ── STATS ── */
-.stats{background:#fff;display:grid;grid-template-columns:repeat(4,1fr);border-bottom:0.5px solid rgba(0,0,0,0.08);border-top:0.5px solid rgba(0,0,0,0.06);}
-.stat{padding:14px 16px;text-align:center;border-right:0.5px solid var(--color-border-tertiary)}
-.stat:last-child{border-right:none}
-.stat-n{font-size:20px;font-weight:500;color:var(--green)}
-.stat-l{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
-
 /* ── FEATURED ADS ── */
 .section{padding:20px 20px 0}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -1057,33 +1050,183 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .alf-load-btn:hover{border-color:var(--green);color:var(--green);}
 .alf-load-note{font-size:10px;color:#9CA3AF;}
 
-/* C23-C24 Trending */
-.trending-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.trend-list{display:flex;flex-direction:column;gap:6px;}
-.trend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border-radius:8px;cursor:pointer;transition:all 0.15s;border:0.5px solid var(--color-border-tertiary);}
-.trend-item:hover{border-color:var(--green2);background:var(--cream);}
-.trend-rank{width:22px;height:22px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;}
-.trend-info{flex:1;}
-.trend-name{font-size:11px;font-weight:500;color:var(--text);}
-.trend-sub{font-size:9px;color:var(--color-text-secondary);}
-.trend-price{font-size:11px;font-weight:500;color:var(--green);white-space:nowrap;}
-.town-grid{display:flex;flex-wrap:wrap;gap:6px;}
-.town-btn{padding:5px 12px;border-radius:99px;font-size:10px;font-weight:500;cursor:pointer;border:0.5px solid rgba(0,0,0,0.12);background:#fff;color:var(--text);transition:all 0.15s;display:inline-flex;align-items:center;gap:5px;}
-.town-btn:hover{border-color:var(--green2);color:var(--green);background:var(--cream);}
-.tbadge{font-size:7px;font-weight:700;padding:1px 5px;border-radius:99px;}
-.tb-hot{background:#FF3D00;color:#fff;}
-.tb-high{background:var(--gold);color:var(--dark);}
-.tb-rising{background:var(--green);color:#fff;}
-.tb-new{background:#1565C0;color:#fff;}
+/* ── TRENDING PROPERTIES (C23) ── */
+.trending-section{
+  background:#F5F5F2;
+  padding:28px 20px 32px;
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+.trend-cards-track-outer{overflow:hidden;}
+.trend-cards-track{
+  display:flex;gap:12px;
+  transition:transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
+  will-change:transform;
+}
+.trend-card{
+  min-width:220px;max-width:220px;flex-shrink:0;
+  background:#fff;border-radius:12px;overflow:hidden;
+  border:0.5px solid rgba(0,0,0,0.07);
+  cursor:pointer;
+  transition:box-shadow 0.22s, transform 0.22s;
+  text-decoration:none;display:flex;flex-direction:column;
+}
+.trend-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.1);transform:translateY(-2px);}
+.trend-img{
+  height:110px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;flex-shrink:0;
+}
+.trend-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.5) 100%);
+}
+.trend-img-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);opacity:0.18;}
+.trend-rank-badge{
+  position:absolute;top:8px;left:8px;z-index:2;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--dark);color:var(--gold);
+  font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(196,146,42,0.4);
+}
+.trend-heat-badge{
+  position:absolute;top:8px;right:8px;z-index:2;
+  font-size:8px;font-weight:700;padding:2px 7px;border-radius:99px;
+}
+.trend-heat-fire{background:#FF3D00;color:#fff;}
+.trend-heat-hot{background:var(--gold);color:#0D0F0A;}
+.trend-heat-rising{background:#0D4A28;color:#fff;}
+.trend-img-badges{
+  position:absolute;bottom:8px;left:8px;z-index:2;
+  display:flex;gap:4px;
+}
+.trend-body{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;}
+.trend-type{font-size:8.5px;text-transform:uppercase;letter-spacing:0.08em;color:#9CA3AF;margin-bottom:3px;}
+.trend-name{font-size:11px;font-weight:600;color:#1A1A18;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.trend-loc{font-size:9.5px;color:#9CA3AF;display:flex;align-items:center;gap:3px;margin-bottom:6px;}
+.trend-price{font-size:13px;font-weight:700;color:#0D4A28;font-family:var(--font-serif);margin-bottom:0;}
+.trend-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:7px;border-top:0.5px solid rgba(0,0,0,0.05);}
+.trend-views{font-size:9px;color:#9CA3AF;display:flex;align-items:center;gap:3px;}
+.trend-ai-tag{font-size:8px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0D0F0A;padding:2px 7px;border-radius:99px;letter-spacing:0.05em;}
+/* nav */
+.trend-nav-row{display:flex;gap:8px;justify-content:center;margin-top:14px;}
+.trend-nav-btn{width:30px;height:30px;background:#fff;border:1px solid rgba(0,0,0,0.1);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.trend-nav-btn:hover{border-color:var(--green);background:var(--green);color:#fff;}
 
-/* C32: Properties Sold */
-.props-sold-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--dark);}
-.ps-item{text-align:center;padding:20px 12px;cursor:pointer;transition:background 0.15s;border-right:0.5px solid rgba(255,255,255,0.06);}
-.ps-item:last-child{border-right:none;}
-.ps-item:hover{background:rgba(196,146,42,0.07);}
-.ps-num{font-family:var(--font-serif);font-size:22px;font-weight:500;color:var(--gold);}
-.ps-lbl{font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;}
-.ps-sub{font-size:9px;color:rgba(196,146,42,0.45);margin-top:2px;}
+/* ── TRENDING TOWNS (C24) ── */
+.towns-section{
+  background:var(--dark);
+  padding:28px 20px 32px;
+  border-top:1px solid rgba(196,146,42,0.12);
+}
+.towns-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:18px;
+}
+@media(max-width:720px){.towns-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.towns-grid{grid-template-columns:repeat(2,1fr);}}
+.town-tile{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px;padding:14px 14px 13px;
+  cursor:pointer;text-decoration:none;
+  display:flex;flex-direction:column;gap:4px;
+  transition:background 0.18s, border-color 0.18s, transform 0.18s;
+  position:relative;overflow:hidden;
+}
+.town-tile::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity 0.18s;
+}
+.town-tile.heat-fire::before{background:#FF3D00;}
+.town-tile.heat-hot::before{background:var(--gold);}
+.town-tile.heat-rising::before{background:var(--green2);}
+.town-tile.heat-new::before{background:#1565C0;}
+.town-tile:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);transform:translateY(-2px);}
+.town-tile:hover::before{opacity:1;}
+.town-tile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:4px;}
+.town-tile-name{font-size:12px;font-weight:600;color:#F0EDE6;line-height:1.3;}
+.town-heat{font-size:7.5px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;}
+.town-heat.fire{background:#FF3D00;color:#fff;}
+.town-heat.hot{background:var(--gold);color:#0D0F0A;}
+.town-heat.rising{background:var(--green2);color:#fff;}
+.town-heat.new-area{background:#1565C0;color:#fff;}
+.town-region{font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.03em;}
+.town-count{font-size:10px;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:4px;margin-top:2px;}
+.town-count strong{color:var(--gold-light);font-size:11px;font-weight:700;}
+.town-arrow{font-size:9px;color:rgba(196,146,42,0.4);margin-top:4px;transition:color 0.15s;}
+.town-tile:hover .town-arrow{color:var(--gold-light);}
+
+/* legacy classes kept for backward compat */
+.trending-cols{display:none;}
+.trend-list,.town-grid,.town-btn,.tbadge,.tb-hot,.tb-high,.tb-rising,.tb-new{display:none;}
+
+/* ── PROPERTIES SOLD — premium clickable stat cards ── */
+.ps-section{
+  background:var(--dark);
+  padding:28px 20px 32px;
+  border-top:1px solid rgba(196,146,42,0.15);
+}
+.ps-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+@media(max-width:720px){.ps-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:380px){.ps-grid{grid-template-columns:1fr 1fr;gap:8px;}}
+
+.ps-card{
+  background:rgba(255,255,255,0.035);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;
+  padding:18px 16px 16px;
+  cursor:pointer;
+  text-decoration:none;
+  display:flex;flex-direction:column;gap:6px;
+  transition:background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  position:relative;overflow:hidden;
+}
+.ps-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  opacity:0;transition:opacity 0.2s;
+}
+.ps-card:hover{
+  background:rgba(196,146,42,0.07);
+  border-color:rgba(196,146,42,0.35);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+.ps-card:hover::before{opacity:1;}
+.ps-icon{
+  width:34px;height:34px;border-radius:8px;
+  background:rgba(196,146,42,0.1);
+  border:0.5px solid rgba(196,146,42,0.25);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:4px;
+}
+.ps-num{
+  font-family:var(--font-serif);
+  font-size:26px;font-weight:700;
+  color:var(--gold-light);
+  line-height:1;
+}
+.ps-lbl{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,0.65);
+  line-height:1.3;
+}
+.ps-sub{
+  font-size:10px;color:rgba(196,146,42,0.55);
+  display:flex;align-items:center;gap:4px;
+  margin-top:auto;padding-top:8px;
+  border-top:0.5px solid rgba(255,255,255,0.05);
+}
+.ps-sub svg{flex-shrink:0;}
 
 /* WHY BEGYE */
 .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
@@ -1558,13 +1701,6 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   <div class="ticker-text">New: 5-Bed Luxury Villa East Legon $480K &nbsp;·&nbsp; Land Oyarifa ½ plot GH₵85K &nbsp;·&nbsp; Short-Stay Airport Hills GH₵900/night &nbsp;·&nbsp; JV Opportunity Dodowa 2 acres &nbsp;·&nbsp; Fix &amp; Flip Nima — 28% ROI projected &nbsp;·&nbsp; New: 5-Bed Luxury Villa East Legon $480K &nbsp;·&nbsp; Land Oyarifa ½ plot GH₵85K &nbsp;·&nbsp; Short-Stay Airport Hills GH₵900/night</div>
 </div>
 
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stat"><div class="stat-n">1,400+</div><div class="stat-l">Active listings</div></div>
-  <div class="stat"><div class="stat-n">340</div><div class="stat-l">Verified agents</div></div>
-  <div class="stat"><div class="stat-n">16</div><div class="stat-l">Ghana regions covered</div></div>
-  <div class="stat"><div class="stat-n">GH₵0</div><div class="stat-l">Platform fee</div></div>
-</div>
 
 <!-- ── FEATURED ADS — C9-C13: Large carousel + 2×50 banner rows ── -->
 <div class="section">
@@ -1719,78 +1855,115 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 <div class="section" style="padding-top:20px">
   <div class="sec-head"><div class="sec-title">Browse by category</div><div class="see-all">All categories →</div></div>
   <div class="cats-grid">
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#E8F4EC"><i class="ti ti-home-2" style="font-size:18px;color:#0D4A28" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#E8F4EC">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#0D4A28" stroke-width="1.8"/><path d="M9 22V12h6v10" stroke="#0D4A28" stroke-width="1.8"/></svg>
+      </div>
       <div class="cat-name">House Listing</div>
-      <div class="cat-desc">Houses, apartments &amp; townhouses for sale or rent</div>
+      <div class="cat-desc">Buy or rent houses, apartments, and townhouses across Ghana.</div>
       <div class="cat-count">1,240 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#FBF1E0"><i class="ti ti-map" style="font-size:18px;color:#C4922A" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#FBF1E0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-8 4 5 3-3 6 6H3z" stroke="#C4922A" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="7.5" r="2" stroke="#C4922A" stroke-width="1.8"/></svg>
+      </div>
       <div class="cat-name">Land Banking</div>
-      <div class="cat-desc">Titled plots &amp; acreage for investment &amp; development</div>
+      <div class="cat-desc">Buy titled plots now — hold and build equity over time.</div>
       <div class="cat-count">920 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#E6F0FB"><i class="ti ti-calendar" style="font-size:18px;color:#3B8BD4" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#E6F0FB">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12h20M2 12l4-4M2 12l4 4M22 12l-4-4M22 12l-4 4" stroke="#3B8BD4" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="#3B8BD4" stroke-width="1.8"/></svg>
+      </div>
       <div class="cat-name">Short Stay</div>
-      <div class="cat-desc">Airbnb-style income assets with ROI dashboards</div>
+      <div class="cat-desc">List or book short-let properties — earn Airbnb-style income.</div>
       <div class="cat-count">340 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#FAECE7"><i class="ti ti-tools" style="font-size:18px;color:#D85A30" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#FAECE7">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#D85A30" stroke-width="1.8" fill="none"/></svg>
+      </div>
       <div class="cat-name">Fix &amp; Flip</div>
-      <div class="cat-desc">Invest in old structures, renovate for high profit</div>
+      <div class="cat-desc">Invest in distressed properties, renovate, and sell for profit.</div>
       <div class="cat-count">95 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#EAF3DE"><i class="ti ti-plant" style="font-size:18px;color:#3B6D11" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#EAF3DE">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 12 7 9 4 4c5 0 8 4 8 8zM12 12C12 12 17 9 20 4c-5 0-8 4-8 8z" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
       <div class="cat-name">Farm Property</div>
-      <div class="cat-desc">Farmland with soil data, irrigation &amp; market access</div>
+      <div class="cat-desc">Purchase productive farmland — cocoa, teak, and food crops.</div>
       <div class="cat-count">112 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#F1EFE8"><i class="ti ti-package" style="font-size:18px;color:#5F5E5A" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#F1EFE8">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" stroke="#5F5E5A" stroke-width="1.8"/><path d="M2 9h20M8 3v6M16 3v6" stroke="#5F5E5A" stroke-width="1.4"/></svg>
+      </div>
       <div class="cat-name">Industrial</div>
-      <div class="cat-desc">Warehouses, factories &amp; logistics parks near ports</div>
+      <div class="cat-desc">Warehouses, factories, and logistics parks near major ports.</div>
       <div class="cat-count">180 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#FBEAF0"><i class="ti ti-chart-line" style="font-size:18px;color:#993556" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#FBEAF0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="12" r="4" stroke="#993556" stroke-width="1.8"/><circle cx="16" cy="12" r="4" stroke="#993556" stroke-width="1.8"/><path d="M12 8.8v6.4" stroke="#993556" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
       <div class="cat-name">Joint Venture</div>
-      <div class="cat-desc">Partner with landowners on development projects</div>
+      <div class="cat-desc">Co-invest with landowners — share costs, split development profits.</div>
       <div class="cat-count">67 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#E1F5EE"><i class="ti ti-building-estate" style="font-size:18px;color:#0F6E56" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#E1F5EE">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="1" stroke="#0F6E56" stroke-width="1.8"/><path d="M3 8h18M8 3v18" stroke="#0F6E56" stroke-width="1.4"/><circle cx="5.5" cy="5.5" r="1" fill="#0F6E56"/></svg>
+      </div>
       <div class="cat-name">Off-Plan</div>
-      <div class="cat-desc">Buy before construction with live progress tracking</div>
+      <div class="cat-desc">Buy before build — lower price, real-time construction tracking.</div>
       <div class="cat-count">142 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#FFF3E0"><i class="ti ti-gavel" style="font-size:18px;color:#E65100" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#FFF3E0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#E65100" stroke-width="1.8"/><path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6m0-6v-1m4.5 7H9" stroke="#E65100" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
       <div class="cat-name">Mortgage Listing</div>
-      <div class="cat-desc">Own from monthly payments — financing included</div>
+      <div class="cat-desc">Own a home today — spread payments over 10–20 years.</div>
       <div class="cat-count">210 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#FCE4EC"><i class="ti ti-bell" style="font-size:18px;color:#B71C1C" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#FCE4EC">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#B71C1C" stroke-width="1.8" fill="none"/><circle cx="19" cy="5" r="2.5" fill="#B71C1C"/></svg>
+      </div>
       <div class="cat-name">Auction Listing</div>
-      <div class="cat-desc">Below-market entry with live bidding &amp; countdown</div>
+      <div class="cat-desc">Bid on bank-repossessed properties — often below market price.</div>
       <div class="cat-count">38 LISTINGS →</div>
     </div>
+
     <div class="cat-card">
-      <div class="cat-icon-wrap" style="background:#E3F2FD"><i class="ti ti-building" style="font-size:18px;color:#1565C0" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:#E3F2FD">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#1565C0" stroke-width="1.8"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#1565C0" stroke-width="1.8"/><path d="M8 12h8M8 16h5" stroke="#1565C0" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
       <div class="cat-name">Commercial Space</div>
-      <div class="cat-desc">Office complexes, retail centers &amp; showrooms</div>
+      <div class="cat-desc">Offices, retail centres, and showrooms — for lease or sale.</div>
       <div class="cat-count">156 LISTINGS →</div>
     </div>
+
     <div class="cat-card cat-card-dark">
-      <div class="cat-icon-wrap" style="background:rgba(196,146,42,0.12)"><i class="ti ti-lock" style="font-size:18px;color:var(--gold)" aria-hidden="true"></i></div>
+      <div class="cat-icon-wrap" style="background:rgba(196,146,42,0.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#C4922A" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#C4922A" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="#C4922A"/></svg>
+      </div>
       <div class="cat-name">Private Listings</div>
-      <div class="cat-desc">Off-market exclusive. NDA required. Verified only.</div>
+      <div class="cat-desc">Exclusive off-market deals — verified investors only, NDA required.</div>
       <div class="cat-count">REQUEST ACCESS →</div>
     </div>
+
   </div>
 </div>
 
@@ -2795,83 +2968,394 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   </div>
 </div>
 
-<!-- ── C23-C24: TRENDING PROPERTIES + TRENDING TOWNS ── -->
-<div class="section" style="padding-top:20px">
-  <div class="sec-head">
-    <div><div class="sec-title">Frequently searched &amp; trending towns</div></div>
-    <div class="see-all">View all →</div>
+<!-- ── C23: TRENDING PROPERTIES ── -->
+<div class="trending-section">
+  <div class="sec-head" style="margin-bottom:14px;">
+    <div>
+      <div class="sec-title" style="color:#1A1A18;display:flex;align-items:center;gap:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#FF3D00" stroke="#FF3D00" stroke-width="1" stroke-linejoin="round"/></svg>
+        Trending Properties
+      </div>
+      <div class="sec-sub" style="color:#9CA3AF;">AI-tracked · Most viewed in last 24 hours</div>
+    </div>
+    <div class="see-all" style="color:var(--green)">View all trending →</div>
   </div>
-  <div class="trending-cols">
-    <!-- Trending Listings -->
-    <div>
-      <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px;font-weight:500;">🔍 Frequently Searched Listings</div>
-      <div class="trend-list">
-        <div class="trend-item">
-          <div class="trend-rank">1</div>
-          <div class="trend-info"><div class="trend-name">3 Bedroom House East Legon</div><div class="trend-sub">Residential · For Sale</div></div>
-          <div class="trend-price">$280K</div>
+
+  <div class="trend-cards-track-outer">
+    <div class="trend-cards-track" id="trendTrack">
+
+      <!-- 1 -->
+      <a class="trend-card" href="/listing/BGY-FS-ELG-00451">
+        <div class="trend-img" style="background:linear-gradient(150deg,#1A3A25,#0D2010)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/><path d="M9 22V12h6v10" stroke="#E8B84B" stroke-width="1.5"/></svg>
+          <div class="trend-rank-badge">1</div>
+          <div class="trend-heat-badge trend-heat-fire">🔥 Fire</div>
+          <div class="trend-img-badges"><span class="lbadge lux" style="font-size:7.5px;padding:2px 7px;">Luxury</span><span class="lbadge sale" style="font-size:7.5px;padding:2px 7px;">For Sale</span></div>
         </div>
-        <div class="trend-item">
-          <div class="trend-rank">2</div>
-          <div class="trend-info"><div class="trend-name">Land for Sale Kintampo</div><div class="trend-sub">Land Banking</div></div>
-          <div class="trend-price">GH₵85K</div>
+        <div class="trend-body">
+          <div class="trend-type">Residential · Villa</div>
+          <div class="trend-name">5-Bed Luxury Villa — East Legon, Pool &amp; Smart Home</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Adjiringanor, Accra</div>
+          <div class="trend-price">$480,000</div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>2,847 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
         </div>
-        <div class="trend-item">
-          <div class="trend-rank">3</div>
-          <div class="trend-info"><div class="trend-name">Apartments for Sale Airport City</div><div class="trend-sub">Apartment · For Sale</div></div>
-          <div class="trend-price">$95K</div>
+      </a>
+
+      <!-- 2 -->
+      <a class="trend-card" href="/listing/BGY-FS-OYA-LND-00987">
+        <div class="trend-img" style="background:linear-gradient(150deg,#1A2510,#0D1808)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-8 4 5 3-3 6 6H3z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8.5" cy="7.5" r="2" stroke="#E8B84B" stroke-width="1.5"/></svg>
+          <div class="trend-rank-badge">2</div>
+          <div class="trend-heat-badge trend-heat-hot">📈 Hot</div>
+          <div class="trend-img-badges"><span class="lbadge land" style="font-size:7.5px;padding:2px 7px;">Titled</span><span class="lbadge sale" style="font-size:7.5px;padding:2px 7px;">For Sale</span></div>
         </div>
-        <div class="trend-item">
-          <div class="trend-rank">4</div>
-          <div class="trend-info"><div class="trend-name">Warehouse for Rent Tema</div><div class="trend-sub">Industrial · For Rent</div></div>
-          <div class="trend-price">$28K/yr</div>
+        <div class="trend-body">
+          <div class="trend-type">Land Banking · Plot</div>
+          <div class="trend-name">½ Acre Titled Plot — Oyarifa Hills, Road &amp; Power</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Oyarifa, Ga East</div>
+          <div class="trend-price">GH₵85,000</div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>1,954 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
         </div>
-        <div class="trend-item">
-          <div class="trend-rank">5</div>
-          <div class="trend-info"><div class="trend-name">Farm Land for Sale Kumasi</div><div class="trend-sub">Agriculture · For Sale</div></div>
-          <div class="trend-price">GH₵320K</div>
+      </a>
+
+      <!-- 3 -->
+      <a class="trend-card" href="/listing/BGY-FR-AIR-00302">
+        <div class="trend-img" style="background:linear-gradient(150deg,#0F2035,#081525)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M3 9h18M9 9v12M15 9v12" stroke="#E8B84B" stroke-width="1.2"/></svg>
+          <div class="trend-rank-badge">3</div>
+          <div class="trend-heat-badge trend-heat-hot">📈 Hot</div>
+          <div class="trend-img-badges"><span class="lbadge rent" style="font-size:7.5px;padding:2px 7px;">For Rent</span></div>
         </div>
-      </div>
+        <div class="trend-body">
+          <div class="trend-type">Apartment · Serviced</div>
+          <div class="trend-name">3-Bed Serviced Apartment — Airport Residential</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Airport Residential, Accra</div>
+          <div class="trend-price">GH₵9,500<span style="font-size:9px;font-weight:400;color:#9CA3AF;">/mo</span></div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>1,702 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4 -->
+      <a class="trend-card" href="/listing/BGY-OP-SPX-00781">
+        <div class="trend-img" style="background:linear-gradient(150deg,#1A1035,#0D0820)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="1" stroke="#fff" stroke-width="1.5"/><path d="M3 8h18M8 3v18M14 8v13" stroke="#E8B84B" stroke-width="1.2"/></svg>
+          <div class="trend-rank-badge">4</div>
+          <div class="trend-heat-badge trend-heat-rising">↑ Rising</div>
+          <div class="trend-img-badges"><span class="lbadge offplan" style="font-size:7.5px;padding:2px 7px;">Off-Plan</span></div>
+        </div>
+        <div class="trend-body">
+          <div class="trend-type">Apartment · Off-Plan</div>
+          <div class="trend-name">2-Bed Off-Plan — Spintex Corridor, Q3 2026 Delivery</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Spintex Road, Accra</div>
+          <div class="trend-price">$95,000</div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>1,388 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 5 -->
+      <a class="trend-card" href="/listing/BGY-MG-ADT-01234">
+        <div class="trend-img" style="background:linear-gradient(150deg,#2A1A08,#1A1005)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/><rect x="9" y="13" width="6" height="9" stroke="#E8B84B" stroke-width="1.3"/></svg>
+          <div class="trend-rank-badge">5</div>
+          <div class="trend-heat-badge trend-heat-rising">↑ Rising</div>
+          <div class="trend-img-badges"><span class="lbadge mortgage" style="font-size:7.5px;padding:2px 7px;">Mortgage</span></div>
+        </div>
+        <div class="trend-body">
+          <div class="trend-type">Residential · Mortgage</div>
+          <div class="trend-name">3-Bed Family Home — Own from GH₵5,200/month</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Adenta, Greater Accra</div>
+          <div class="trend-price">GH₵850,000</div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>1,201 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 6 -->
+      <a class="trend-card" href="/listing/BGY-SS-CAN-00102">
+        <div class="trend-img" style="background:linear-gradient(150deg,#251028,#180518)">
+          <svg class="trend-img-icon" width="70" height="70" viewBox="0 0 24 24" fill="none"><path d="M2 12h20M2 12l4-4M2 12l4 4M22 12l-4-4M22 12l-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="#E8B84B" stroke-width="1.5"/></svg>
+          <div class="trend-rank-badge">6</div>
+          <div class="trend-img-badges"><span class="lbadge shortstay" style="font-size:7.5px;padding:2px 7px;">Short-Stay</span></div>
+        </div>
+        <div class="trend-body">
+          <div class="trend-type">Short Stay · Executive</div>
+          <div class="trend-name">2-Bed Executive Suite — Cantonments, 70% Occupancy</div>
+          <div class="trend-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>Cantonments, Accra</div>
+          <div class="trend-price">GH₵900<span style="font-size:9px;font-weight:400;color:#9CA3AF;">/night</span></div>
+          <div class="trend-foot">
+            <span class="trend-views"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#9CA3AF" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="1.8"/></svg>987 views</span>
+            <span class="trend-ai-tag">AI Pick</span>
+          </div>
+        </div>
+      </a>
+
     </div>
-    <!-- Trending Towns -->
-    <div>
-      <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px;font-weight:500;">📍 Trending Property Towns &amp; Cities</div>
-      <div class="town-grid">
-        <div class="town-btn">Accra <span class="tbadge tb-hot">Hot</span></div>
-        <div class="town-btn">Kumasi <span class="tbadge tb-high">High</span></div>
-        <div class="town-btn">Tema <span class="tbadge tb-high">High</span></div>
-        <div class="town-btn">Takoradi <span class="tbadge tb-rising">Rising</span></div>
-        <div class="town-btn">Cape Coast <span class="tbadge tb-rising">Rising</span></div>
-        <div class="town-btn">Koforidua <span class="tbadge tb-new">New</span></div>
-        <div class="town-btn">East Legon</div>
-        <div class="town-btn">Spintex</div>
-        <div class="town-btn">Cantonments</div>
-        <div class="town-btn">Airport City</div>
-        <div class="town-btn">Adenta <span class="tbadge tb-rising">Rising</span></div>
-        <div class="town-btn">Kasoa <span class="tbadge tb-hot">Hot</span></div>
-        <div class="town-btn">Oyarifa</div>
-        <div class="town-btn">Ada Foah <span class="tbadge tb-new">New</span></div>
-        <div class="town-btn">Pokuase</div>
-      </div>
-    </div>
+  </div>
+  <div class="trend-nav-row">
+    <button class="trend-nav-btn" id="trendPrev" aria-label="Previous">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="trend-nav-btn" id="trendNext" aria-label="Next">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </div>
 
-<!-- ── C32: PROPERTIES SOLD ── -->
-<div style="background:var(--dark);padding:20px 0;">
-  <div style="text-align:center;padding:0 20px 16px;">
-    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">Platform Performance</div>
-    <div style="font-family:var(--font-serif);font-size:16px;color:#F0EDE6;font-weight:500;">Properties <em style="color:var(--gold);">Sold</em> &amp; Activity</div>
+<!-- ── C24: TRENDING TOWNS ── -->
+<div class="towns-section">
+  <div class="sec-head" style="margin-bottom:4px;">
+    <div>
+      <div class="sec-title" style="color:#F0EDE6;display:flex;align-items:center;gap:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#C4922A" stroke-width="2" fill="none"/><circle cx="12" cy="9" r="2.5" fill="#C4922A"/></svg>
+        Trending Towns &amp; Cities
+      </div>
+      <div class="sec-sub" style="color:rgba(255,255,255,0.3);">Most searched locations · Click to view listings</div>
+    </div>
+    <div class="see-all" style="color:var(--gold);">All locations →</div>
   </div>
-  <div class="props-sold-grid">
-    <div class="ps-item"><div class="ps-num">4,200+</div><div class="ps-lbl">Properties Listed</div><div class="ps-sub">View All →</div></div>
-    <div class="ps-item"><div class="ps-num">340+</div><div class="ps-lbl">Verified Agents</div><div class="ps-sub">Meet Agents →</div></div>
-    <div class="ps-item"><div class="ps-num">1,200+</div><div class="ps-lbl">Properties Sold</div><div class="ps-sub">See Transactions →</div></div>
-    <div class="ps-item"><div class="ps-num">16</div><div class="ps-lbl">Ghana Regions</div><div class="ps-sub">Explore Map →</div></div>
-    <div class="ps-item"><div class="ps-num">GH₵0</div><div class="ps-lbl">Platform Fee</div><div class="ps-sub">Always Free</div></div>
-    <div class="ps-item"><div class="ps-num">98%</div><div class="ps-lbl">Verified Listings</div><div class="ps-sub">Our Standards →</div></div>
-    <div class="ps-item"><div class="ps-num">50+</div><div class="ps-lbl">Cities Covered</div><div class="ps-sub">Location Map →</div></div>
-    <div class="ps-item"><div class="ps-num">100%</div><div class="ps-lbl">Secure &amp; Trusted</div><div class="ps-sub">Trust Policy →</div></div>
+
+  <div class="towns-grid">
+
+    <a class="town-tile heat-fire" href="/listings?area=accra">
+      <div class="town-tile-top"><span class="town-tile-name">Accra</span><span class="town-heat fire">🔥 Fire</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>1,840+</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-fire" href="/listings?area=east-legon">
+      <div class="town-tile-top"><span class="town-tile-name">East Legon</span><span class="town-heat fire">🔥 Fire</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>412</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-fire" href="/listings?area=kasoa">
+      <div class="town-tile-top"><span class="town-tile-name">Kasoa</span><span class="town-heat fire">🔥 Fire</span></div>
+      <div class="town-region">Central Region</div>
+      <div class="town-count"><strong>387</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-hot" href="/listings?area=kumasi">
+      <div class="town-tile-top"><span class="town-tile-name">Kumasi</span><span class="town-heat hot">📈 Hot</span></div>
+      <div class="town-region">Ashanti Region</div>
+      <div class="town-count"><strong>620+</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-hot" href="/listings?area=tema">
+      <div class="town-tile-top"><span class="town-tile-name">Tema</span><span class="town-heat hot">📈 Hot</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>345</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-hot" href="/listings?area=spintex">
+      <div class="town-tile-top"><span class="town-tile-name">Spintex</span><span class="town-heat hot">📈 Hot</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>218</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-rising" href="/listings?area=takoradi">
+      <div class="town-tile-top"><span class="town-tile-name">Takoradi</span><span class="town-heat rising">↑ Rising</span></div>
+      <div class="town-region">Western Region</div>
+      <div class="town-count"><strong>194</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-rising" href="/listings?area=adenta">
+      <div class="town-tile-top"><span class="town-tile-name">Adenta</span><span class="town-heat rising">↑ Rising</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>176</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-rising" href="/listings?area=cape-coast">
+      <div class="town-tile-top"><span class="town-tile-name">Cape Coast</span><span class="town-heat rising">↑ Rising</span></div>
+      <div class="town-region">Central Region</div>
+      <div class="town-count"><strong>143</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-rising" href="/listings?area=oyarifa">
+      <div class="town-tile-top"><span class="town-tile-name">Oyarifa</span><span class="town-heat rising">↑ Rising</span></div>
+      <div class="town-region">Ga East Municipal</div>
+      <div class="town-count"><strong>98</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-new" href="/listings?area=koforidua">
+      <div class="town-tile-top"><span class="town-tile-name">Koforidua</span><span class="town-heat new-area">✦ New</span></div>
+      <div class="town-region">Eastern Region</div>
+      <div class="town-count"><strong>67</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+    <a class="town-tile heat-new" href="/listings?area=ada-foah">
+      <div class="town-tile-top"><span class="town-tile-name">Ada Foah</span><span class="town-heat new-area">✦ New</span></div>
+      <div class="town-region">Greater Accra Region</div>
+      <div class="town-count"><strong>41</strong> listings</div>
+      <div class="town-arrow">View listings →</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ── C32: PROPERTIES SOLD — clickable stat cards ── -->
+<div class="ps-section">
+  <div style="text-align:center;margin-bottom:4px;">
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Platform Performance</div>
+    <div style="font-family:var(--font-serif);font-size:20px;color:#F0EDE6;font-weight:600;line-height:1.2;">Properties <em style="color:var(--gold-light);font-style:normal;">Sold</em> &amp; Activity</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:5px;">Live data · Click any card to explore</div>
+  </div>
+
+  <div class="ps-grid">
+
+    <!-- Active Listings -->
+    <a class="ps-card" href="/listings">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M9 22V12h6v10" stroke="#C4922A" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="ps-num">4,200+</div>
+      <div class="ps-lbl">Active Listings</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Browse all listings
+      </div>
+    </a>
+
+    <!-- Verified Agents -->
+    <a class="ps-card" href="/agents">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#C4922A" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M16 3.5l1.5 1.5L21 1.5" stroke="#E8B84B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="ps-num">340+</div>
+      <div class="ps-lbl">Verified Agents</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Agent directory
+      </div>
+    </a>
+
+    <!-- Transactions Completed -->
+    <a class="ps-card" href="/transactions">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M9 12l2 2 4-4" stroke="#C4922A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="9" stroke="#C4922A" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="ps-num">1,200+</div>
+      <div class="ps-lbl">Transactions Completed</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        See transaction data
+      </div>
+    </a>
+
+    <!-- Properties Sold -->
+    <a class="ps-card" href="/sold">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="7" width="20" height="14" rx="2" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M9 12l2 2 4-4" stroke="#E8B84B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="ps-num">980+</div>
+      <div class="ps-lbl">Properties Sold</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        View sold history
+      </div>
+    </a>
+
+    <!-- Verified Properties -->
+    <a class="ps-card" href="/verified">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" stroke="#C4922A" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="ps-num">98%</div>
+      <div class="ps-lbl">Verified Listings</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Our standards
+      </div>
+    </a>
+
+    <!-- Ghana Regions -->
+    <a class="ps-card" href="/regions">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M3 12h18M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9" stroke="#C4922A" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ps-num">16</div>
+      <div class="ps-lbl">Ghana Regions Covered</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Explore by region
+      </div>
+    </a>
+
+    <!-- Platform Fee -->
+    <a class="ps-card" href="/pricing">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#C4922A" stroke-width="1.8"/>
+          <path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6m0-6v-1m4.5 7H9" stroke="#C4922A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ps-num">GH₵0</div>
+      <div class="ps-lbl">Platform Fee</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Always free to list
+      </div>
+    </a>
+
+    <!-- Cities -->
+    <a class="ps-card" href="/locations">
+      <div class="ps-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#C4922A" stroke-width="1.8"/>
+          <circle cx="12" cy="9" r="2.5" stroke="#C4922A" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="ps-num">50+</div>
+      <div class="ps-lbl">Cities &amp; Towns</div>
+      <div class="ps-sub">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Location map
+      </div>
+    </a>
+
   </div>
 </div>
 
@@ -3361,7 +3845,22 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     });
   });
 
-  // ── All Listings — two-row independent filter system ────────
+  // ── Trending Properties carousel ────────────────────────
+  (function(){
+    const track   = document.getElementById('trendTrack');
+    const prevBtn = document.getElementById('trendPrev');
+    const nextBtn = document.getElementById('trendNext');
+    if (!track) return;
+    let offset = 0;
+    function cardStep(){ const c = track.querySelector('.trend-card'); return c ? c.offsetWidth + 12 : 232; }
+    function clamp(v){ return Math.max(0, Math.min(v, Math.max(0, track.scrollWidth - track.parentElement.offsetWidth))); }
+    function slide(dir){ offset = clamp(offset + dir * cardStep()); track.style.transform = 'translateX(-' + offset + 'px)'; }
+    if (prevBtn) prevBtn.addEventListener('click', () => slide(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => slide(1));
+    let tx = 0;
+    track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) slide(dx < 0 ? 1 : -1); }, { passive: true });
+  })();
   (function(){
     const section   = document.getElementById('allListings');
     if (!section) return;
