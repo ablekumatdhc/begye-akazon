@@ -15,36 +15,86 @@
   --color-border-tertiary:rgba(0,0,0,0.08);
   --color-text-secondary:#6B7280;
 }
-body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-size:14px;padding-top:52px;}
+body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-size:14px;padding-top:56px;}
 
-/* ── NAV — C1 Sell added, C2 transparent→solid scroll ── */
-.nav{background:rgba(21,28,18,0.96);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:fixed;top:0;left:0;right:0;z-index:200;transition:background 0.3s,box-shadow 0.3s;border-bottom:1px solid rgba(196,146,42,0.15);}
-.nav.scrolled{background:rgba(21,28,18,0.99);backdrop-filter:blur(14px);border-bottom-color:rgba(196,146,42,0.3);box-shadow:0 2px 20px rgba(0,0,0,0.35);}
-/* Force solid on hero-less pages */
-.nav.solid{background:var(--dark);}
-.logo{font-family:var(--font-serif);font-size:18px;color:var(--gold);letter-spacing:0.05em;font-weight:500}
-.logo span{color:rgba(255,255,255,0.45);font-size:10px;display:block;letter-spacing:0.15em;font-family:var(--font-sans);font-weight:400;text-transform:uppercase;margin-top:-2px}
-.nav-links{display:flex;gap:0}
-/* Mobile drawer — hidden by default, toggled by JS */
+/* ── NAV — transparent on load → solid gold+black on scroll ── */
+.nav{
+  background:transparent;
+  padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  border-bottom:1px solid transparent;
+  transition:background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, height 0.4s ease;
+}
+.nav.scrolled{
+  background:#0D0F0A;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom-color:rgba(196,146,42,0.45);
+  box-shadow:0 2px 28px rgba(0,0,0,0.55);
+  height:52px;
+}
+.nav.solid{
+  background:#0D0F0A;
+  border-bottom-color:rgba(196,146,42,0.45);
+}
+.logo{
+  font-family:var(--font-serif);font-size:19px;
+  color:var(--gold);letter-spacing:0.06em;font-weight:600;
+  text-shadow:0 1px 12px rgba(196,146,42,0.25);
+  transition:font-size 0.4s ease;
+}
+.nav.scrolled .logo{font-size:17px;}
+.logo span{
+  color:rgba(255,255,255,0.4);font-size:9px;display:block;
+  letter-spacing:0.18em;font-family:var(--font-sans);font-weight:400;
+  text-transform:uppercase;margin-top:-1px;
+}
+.nav-links{display:flex;gap:0;}
+.nav-link{
+  font-size:11px;font-weight:500;letter-spacing:0.04em;
+  color:rgba(255,255,255,0.62);
+  padding:0 11px;cursor:pointer;
+  height:56px;display:flex;align-items:center;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s, border-color 0.2s, height 0.4s ease;
+  white-space:nowrap;
+}
+.nav.scrolled .nav-link{height:52px;}
+.nav-link:hover{color:rgba(255,255,255,0.92);}
+.nav-link.act{color:#fff;border-bottom-color:var(--gold);}
+.nav-private{color:var(--gold-light)!important;letter-spacing:0.02em;}
+.nav-private:hover{color:#fff!important;}
 .nav-mobile{
-  display:none;position:fixed;top:52px;left:0;right:0;z-index:199;
-  background:rgba(21,28,18,0.98);backdrop-filter:blur(12px);
+  display:none;position:fixed;top:56px;left:0;right:0;z-index:199;
+  background:rgba(10,12,8,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   flex-direction:column;gap:0;
-  border-bottom:0.5px solid rgba(196,146,42,0.2);
-  max-height:calc(100vh - 52px);overflow-y:auto;
+  border-bottom:1px solid rgba(196,146,42,0.25);
+  max-height:calc(100vh - 56px);overflow-y:auto;
 }
 .nav-mobile.open{display:flex;}
 .nav-mobile .nav-link{
-  height:44px;border-bottom:0.5px solid rgba(255,255,255,0.05);
-  font-size:13px;padding:0 20px;
+  height:46px;border-bottom:0.5px solid rgba(255,255,255,0.06);
+  font-size:13px;padding:0 22px;letter-spacing:0.03em;
 }
-.nav-link{font-size:11px;color:rgba(255,255,255,0.5);padding:0 10px;cursor:pointer;height:52px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;}
-.nav-link:hover,.nav-link.act{color:#fff;border-bottom-color:var(--gold)}
-.nav-private{color:var(--gold-light)!important;}
-.nav-right{display:flex;gap:8px;align-items:center}
-.btn-outline{font-size:11px;color:rgba(255,255,255,0.6);border:0.5px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:4px;cursor:pointer}
-.btn-gold{font-size:11px;color:var(--dark);background:var(--gold);padding:5px 14px;border-radius:4px;font-weight:500;cursor:pointer}
-.nav-hamburger{display:none;background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;padding:4px 8px;}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.btn-outline{
+  font-size:11px;color:rgba(255,255,255,0.65);
+  border:1px solid rgba(255,255,255,0.22);
+  padding:5px 13px;border-radius:4px;cursor:pointer;
+  transition:border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+.btn-gold{
+  font-size:11px;font-weight:600;letter-spacing:0.04em;
+  color:#0D0F0A;background:var(--gold);
+  padding:6px 16px;border-radius:4px;cursor:pointer;
+  box-shadow:0 1px 10px rgba(196,146,42,0.35);
+  transition:background 0.2s, box-shadow 0.2s;
+}
+.btn-gold:hover{background:var(--gold-light);box-shadow:0 2px 16px rgba(196,146,42,0.55);}
+.nav-hamburger{display:none;background:none;border:none;color:rgba(255,255,255,0.8);font-size:1.3rem;cursor:pointer;padding:4px 8px;transition:color 0.2s;}
+.nav-hamburger:hover{color:var(--gold);}
 
 /* ── HERO — Full cinematic slideshow ── */
 .hero{
@@ -99,11 +149,11 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 }
 .hs-title{
   font-family:var(--font-serif);
-  color:#F0EDE6;line-height:1.0;margin-bottom:8px;
+  color:#F0EDE6;line-height:1.1;margin-bottom:8px;
 }
-.hs-title .line1{font-size:clamp(22px,3.5vw,36px);font-weight:400;display:block;}
-.hs-title .line2{font-size:clamp(32px,5vw,54px);font-weight:700;color:var(--gold-light);display:block;line-height:0.95;}
-.hs-title .line3{font-size:clamp(16px,2.2vw,22px);font-weight:400;color:rgba(255,255,255,0.65);display:block;letter-spacing:0.03em;margin-top:4px;}
+.hs-title .line1{font-size:clamp(12px,1.8vw,18px);font-weight:500;display:block;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.hs-title .line2{font-size:clamp(22px,3.2vw,36px);font-weight:700;color:var(--gold-light);display:block;line-height:1.05;margin-top:2px;}
+.hs-title .line3{font-size:clamp(12px,1.5vw,16px);font-weight:400;color:rgba(255,255,255,0.55);display:block;letter-spacing:0.04em;margin-top:5px;}
 .hs-sub{
   font-size:11px;color:rgba(255,255,255,0.5);
   font-style:italic;margin-bottom:16px;line-height:1.5;
@@ -195,37 +245,188 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   .hs-photo::after{background:linear-gradient(180deg,var(--dark) 0%,rgba(21,28,18,0.7) 100%);}
   .hs-content{width:100%;padding:70px 18px 18px;}
   .hs-specs-bar{display:none;}
-  .hs-title .line2{font-size:34px;}
+  .hs-title .line1{font-size:11px;}
+  .hs-title .line2{font-size:24px;}
+  .hs-title .line3{font-size:12px;}
   .hs-premium{display:none;}
 }
 
 /* ── SEARCH ENGINE (below hero) ── */
-.search-engine{background:var(--dark2);border-top:0.5px solid rgba(196,146,42,0.25);padding:12px 20px 14px;}
+.search-engine{
+  background:var(--dark2);
+  border-top:1px solid rgba(196,146,42,0.3);
+  padding:18px 24px 20px;
+}
 
-/* C5: Transaction tabs ABOVE search bar */
-.purpose-tabs{display:flex;gap:4px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+/* Transaction tabs ABOVE search bar */
+.purpose-tabs{
+  display:flex;gap:6px;margin-bottom:14px;
+  overflow-x:auto;scrollbar-width:none;padding-bottom:2px;
+}
 .purpose-tabs::-webkit-scrollbar{display:none;}
-.ptab{font-size:10px;padding:4px 10px;border-radius:99px;border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.45);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
-.ptab.act{background:var(--red);color:#fff;border-color:var(--red);font-weight:500;}
-.ptab:hover:not(.act){border-color:rgba(196,146,42,0.4);color:rgba(255,255,255,0.7);}
+.ptab{
+  font-size:11px;font-weight:500;letter-spacing:0.02em;
+  padding:6px 14px;border-radius:99px;
+  border:1px solid rgba(255,255,255,0.14);
+  color:rgba(255,255,255,0.5);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  transition:all 0.18s;
+}
+.ptab.act{background:var(--red);color:#fff;border-color:var(--red);font-weight:600;}
+.ptab:hover:not(.act){border-color:rgba(196,146,42,0.5);color:rgba(255,255,255,0.85);}
 
-/* C4: White Google-style search bar */
-.search-row{display:flex;gap:8px;margin-bottom:10px;align-items:center;}
-.search-field-wrap{flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--gold);border-radius:50px;padding:9px 16px;transition:border-color 0.2s;}
-.search-field-wrap:focus-within{border-color:var(--red);}
-.search-field-wrap input{flex:1;border:none;background:transparent;outline:none;font-size:13px;color:var(--dark);font-family:var(--font-sans);}
-.search-field-wrap input::placeholder{color:#AAA;}
-.ai-badge{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;letter-spacing:0.08em;flex-shrink:0;}
-.search-btn{background:var(--red);color:#fff;font-size:12px;font-weight:500;padding:9px 18px;border-radius:50px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;border:none;font-family:var(--font-sans);transition:background 0.2s;flex-shrink:0;}
-.search-btn:hover{background:var(--red-dark);}
-.agent-login-btn{background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:10px;padding:8px 12px;border-radius:50px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;font-family:var(--font-sans);transition:all 0.15s;flex-shrink:0;}
-.agent-login-btn:hover{background:rgba(255,255,255,0.14);color:#fff;}
+/* ── Main search row ── */
+.search-row{
+  display:flex;gap:10px;margin-bottom:14px;
+  align-items:stretch;
+}
 
-/* C6: Property type pills BELOW search bar */
-.filter-row{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+/* The big white bar */
+.search-field-wrap{
+  flex:1;
+  display:flex;align-items:center;gap:0;
+  background:#fff;
+  border:2.5px solid var(--gold);
+  border-radius:14px;
+  min-height:56px;
+  overflow:hidden;
+  transition:border-color 0.2s, box-shadow 0.2s;
+  box-shadow:0 2px 16px rgba(196,146,42,0.15);
+}
+.search-field-wrap:focus-within{
+  border-color:var(--red);
+  box-shadow:0 2px 22px rgba(204,32,32,0.18);
+}
+
+/* Left pin icon block */
+.sfw-pin{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 14px 0 18px;
+  flex-shrink:0;
+}
+.sfw-pin i{font-size:20px;color:var(--gold);}
+
+/* Divider */
+.sfw-divider{
+  width:1px;height:28px;
+  background:rgba(0,0,0,0.1);
+  flex-shrink:0;margin:0 2px;
+}
+
+/* Text input */
+.search-field-wrap input{
+  flex:1;border:none;background:transparent;outline:none;
+  font-size:15px;color:#1A1A18;
+  font-family:var(--font-sans);
+  padding:0 12px;
+  min-width:0;
+  height:100%;
+}
+.search-field-wrap input::placeholder{color:#9CA3AF;font-size:14px;}
+
+/* Right icon cluster inside bar */
+.sfw-right{
+  display:flex;align-items:center;gap:2px;
+  padding:0 10px 0 6px;
+  flex-shrink:0;
+}
+.sfw-icon-btn{
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;background:transparent;
+  transition:background 0.15s;
+  flex-shrink:0;
+}
+.sfw-icon-btn:hover{background:rgba(0,0,0,0.07);}
+.sfw-icon-btn i{font-size:18px;}
+.sfw-mic i{color:#CC2020;}
+.sfw-img i{color:#C4922A;}
+
+/* AI badge */
+.ai-badge{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--dark);font-size:9px;font-weight:800;
+  padding:3px 8px;border-radius:99px;
+  letter-spacing:0.1em;flex-shrink:0;margin-right:4px;
+}
+
+/* Search button — outside bar, same height */
+.search-btn{
+  background:var(--red);color:#fff;
+  font-size:13px;font-weight:600;letter-spacing:0.03em;
+  padding:0 26px;
+  border-radius:12px;
+  min-height:56px;
+  cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+  border:none;font-family:var(--font-sans);
+  transition:background 0.2s, box-shadow 0.2s;
+  flex-shrink:0;
+  box-shadow:0 2px 14px rgba(204,32,32,0.3);
+}
+.search-btn:hover{background:var(--red-dark);box-shadow:0 3px 20px rgba(204,32,32,0.45);}
+.search-btn i{font-size:17px;}
+
+/* Agent login — outside bar */
+.agent-login-btn{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.65);
+  font-size:11px;font-weight:500;
+  padding:0 16px;
+  border-radius:12px;
+  min-height:56px;
+  cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-sans);
+  transition:all 0.18s;flex-shrink:0;
+}
+.agent-login-btn:hover{background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.3);}
+.agent-login-btn i{font-size:16px;}
+
+/* Property type pills BELOW search bar */
+.filter-row{
+  display:flex;gap:7px;flex-wrap:nowrap;
+  overflow-x:auto;scrollbar-width:none;padding-bottom:2px;
+}
 .filter-row::-webkit-scrollbar{display:none;}
-.fchip{font-size:10px;padding:3px 10px;border-radius:99px;border:0.5px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.4);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
-.fchip.act{background:rgba(196,146,42,0.15);border-color:rgba(196,146,42,0.5);color:var(--gold-light)}
+.fchip{
+  font-size:11px;font-weight:500;
+  padding:5px 13px;border-radius:99px;
+  border:1px solid rgba(255,255,255,0.14);
+  color:rgba(255,255,255,0.45);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  transition:all 0.15s;
+}
+.fchip:hover:not(.act){border-color:rgba(196,146,42,0.35);color:rgba(255,255,255,0.75);}
+.fchip.act{
+  background:rgba(196,146,42,0.14);
+  border-color:rgba(196,146,42,0.55);
+  color:var(--gold-light);font-weight:600;
+}
+
+/* ── Mobile overrides ── */
+@media(max-width:640px){
+  .search-engine{padding:14px 16px 16px;}
+  .search-row{flex-wrap:wrap;gap:8px;}
+  .search-field-wrap{
+    width:100%;flex:none;
+    min-height:52px;border-radius:12px;
+  }
+  .search-field-wrap input{font-size:16px;} /* 16px prevents iOS zoom */
+  .search-field-wrap input::placeholder{font-size:13px;}
+  .sfw-pin i{font-size:18px;}
+  .search-btn{
+    flex:1;min-height:50px;font-size:14px;
+    border-radius:10px;justify-content:center;
+  }
+  .agent-login-btn{
+    flex:0 0 auto;min-height:50px;
+    border-radius:10px;font-size:11px;padding:0 14px;
+  }
+  .ptab{font-size:10px;padding:5px 11px;}
+  .fchip{font-size:10px;padding:4px 11px;}
+}
 
 /* ── TICKER ── */
 .ticker{background:rgba(196,146,42,0.12);border-top:0.5px solid rgba(196,146,42,0.2);padding:8px 20px;display:flex;gap:8px;align-items:center;overflow:hidden}
@@ -247,36 +448,74 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .sec-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
 .see-all{font-size:11px;color:var(--green2);cursor:pointer}
 
-/* C9-C13: Featured Banner Carousel */
-.featured-banner-wrap{position:relative;border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.featured-banner-slides{display:flex;transition:transform 0.6s cubic-bezier(0.25,0.1,0.25,1);will-change:transform;}
-.fb-slide{
-  min-width:100%;position:relative;height:200px;flex-shrink:0;
-  display:flex;align-items:center;padding:20px 22px;cursor:pointer;
-  background:linear-gradient(135deg,#1A3A25,#0D2010);
+/* C9-C13: Featured Banner Carousel — layout-shift-proof */
+.featured-banner-wrap{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:12px;
+  /* Fixed height: prevents ANY reflow during slide transitions */
+  height:260px;
+  background:var(--dark);
 }
-.fb-photo{position:absolute;right:0;top:0;bottom:0;width:45%;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:0.18;}
-.fb-premium{position:absolute;top:10px;right:10px;background:var(--gold);color:var(--dark);font-size:8px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:0.08em;}
-.fb-badge{font-size:8px;font-weight:700;letter-spacing:0.1em;color:var(--red);background:rgba(204,32,32,0.15);border:0.5px solid rgba(204,32,32,0.4);padding:2px 8px;border-radius:99px;text-transform:uppercase;margin-bottom:7px;display:inline-block;}
-.fb-title{font-family:var(--font-serif);font-size:18px;font-weight:500;color:#F0EDE6;line-height:1.15;margin-bottom:3px;}
-.fb-title .big{display:block;font-size:22px;color:var(--gold-light);}
+@media(max-width:640px){.featured-banner-wrap{height:200px;}}
+.featured-banner-slides{
+  display:flex;
+  height:100%;
+  /* Smoother: ease-in-out over 0.8s */
+  transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);
+  will-change:transform;
+}
+.fb-slide{
+  min-width:100%;height:100%;
+  position:relative;flex-shrink:0;
+  display:flex;align-items:center;padding:24px 28px;cursor:pointer;
+  background:linear-gradient(135deg,#1A3A25,#0D2010);
+  /* Contain content absolutely — zero influence on outer layout */
+  overflow:hidden;
+}
+.fb-photo{position:absolute;right:0;top:0;bottom:0;width:45%;display:flex;align-items:center;justify-content:center;font-size:6rem;opacity:0.15;}
+.fb-premium{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--dark);font-size:8px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:0.08em;z-index:2;}
+.fb-badge{font-size:8px;font-weight:700;letter-spacing:0.1em;color:var(--red);background:rgba(204,32,32,0.15);border:0.5px solid rgba(204,32,32,0.4);padding:2px 8px;border-radius:99px;text-transform:uppercase;margin-bottom:8px;display:inline-block;}
+.fb-title{font-family:var(--font-serif);font-size:16px;font-weight:500;color:#F0EDE6;line-height:1.2;margin-bottom:3px;}
+.fb-title .big{display:block;font-size:26px;font-weight:700;color:var(--gold-light);line-height:1.0;}
 .fb-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:10px;font-style:italic;}
 .fb-info-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.fb-price-box{background:rgba(0,0,0,0.45);padding:5px 12px;border-radius:4px;}
+.fb-price-box{background:rgba(0,0,0,0.5);padding:6px 14px;border-radius:5px;border:0.5px solid rgba(255,255,255,0.1);}
 .fb-price-lbl{font-size:7px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;}
-.fb-price{font-size:14px;font-weight:500;color:var(--gold-light);font-family:var(--font-serif);}
-.fb-loc{font-size:10px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:4px;}
+.fb-price{font-size:18px;font-weight:700;color:var(--gold-light);font-family:var(--font-serif);}
+.fb-loc{font-size:10px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:4px;}
 .fb-specs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
 .fb-spec{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:3px 8px;border-radius:3px;}
-.fb-cta{background:var(--red);color:#fff;border:none;padding:7px 16px;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font-sans);display:inline-flex;align-items:center;gap:5px;transition:background 0.2s;}
+.fb-cta{background:var(--red);color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-sans);display:inline-flex;align-items:center;gap:6px;transition:background 0.2s;letter-spacing:0.03em;}
 .fb-cta:hover{background:var(--red-dark);}
-.fb-prev,.fb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);color:#fff;border:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;z-index:5;transition:background 0.2s;}
-.fb-prev{left:8px;}
-.fb-next{right:8px;}
-.fb-prev:hover,.fb-next:hover{background:rgba(196,146,42,0.6);}
-.fb-dots{display:flex;gap:5px;justify-content:center;margin-top:7px;}
-.fb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;border:none;transition:all 0.2s;}
-.fb-dot.act{background:var(--gold);width:18px;border-radius:3px;}
+/* Arrow controls — larger, more premium */
+.fb-prev,.fb-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);color:#fff;border:1px solid rgba(255,255,255,0.15);
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:15px;z-index:5;
+  transition:background 0.2s, border-color 0.2s;
+}
+.fb-prev{left:10px;}
+.fb-next{right:10px;}
+.fb-prev:hover,.fb-next:hover{background:rgba(196,146,42,0.7);border-color:transparent;}
+/* Progress bar — shows time remaining before auto-advance */
+.fb-progress{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:rgba(255,255,255,0.08);z-index:5;overflow:hidden;
+}
+.fb-progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  animation:fbProgress 15s linear forwards;
+}
+@keyframes fbProgress{0%{width:0%}100%{width:100%}}
+/* Dots */
+.fb-dots{display:flex;gap:5px;justify-content:center;margin-top:8px;}
+.fb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;border:none;transition:all 0.25s;padding:0;}
+.fb-dot.act{background:var(--gold);width:20px;border-radius:3px;}
 
 /* Smaller ad cards track */
 .ads-track{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
@@ -329,6 +568,45 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .vcard-title{font-size:10px;color:#fff;font-weight:500}
 .vcard-sub{font-size:9px;color:rgba(255,255,255,0.65)}
 .vprice{font-size:11px;color:var(--gold-light);font-weight:500;margin-top:2px}
+
+/* VPOD carousel wrapper — layout-shift-proof */
+.vpod-wrap{
+  position:relative;overflow:hidden;border-radius:10px;
+}
+.vpod-track{
+  display:flex;
+  transition:transform 0.75s cubic-bezier(0.77,0,0.175,1);
+  will-change:transform;
+}
+.vpod-page{
+  min-width:100%;display:grid;
+  grid-template-columns:repeat(3,1fr);gap:10px;
+  flex-shrink:0;
+}
+.vpod-prev,.vpod-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);color:#fff;
+  border:1px solid rgba(255,255,255,0.15);
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;z-index:5;
+  transition:background 0.2s;
+}
+.vpod-prev{left:8px;} .vpod-next{right:8px;}
+.vpod-prev:hover,.vpod-next:hover{background:rgba(196,146,42,0.65);}
+.vpod-dots{
+  display:flex;gap:5px;justify-content:center;margin-top:8px;
+}
+.vpod-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  cursor:pointer;border:none;padding:0;
+  transition:all 0.25s;
+}
+.vpod-dot.act{background:var(--gold);width:18px;border-radius:3px;}
+@media(max-width:580px){
+  .vpod-page{grid-template-columns:repeat(2,1fr);}
+}
 
 /* ── BLOG CAROUSEL ── C16-C17: Self-contained, no page shift */
 .blog-carousel-wrap{position:relative;overflow:hidden;}
@@ -531,16 +809,14 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   <div class="nav-links" id="navLinks">
     <div class="nav-link act">Buy</div>
     <div class="nav-link">Sell</div>
-    <div class="nav-link">Rent</div>
     <div class="nav-link">Invest</div>
     <div class="nav-link">Services</div>
     <div class="nav-link">Agents</div>
-    <div class="nav-link">Blog</div>
-    <div class="nav-link nav-private">🔒 Private</div>
+    <div class="nav-link" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth'})">Blog</div>
+    <div class="nav-link nav-private">🔒 Private Listings</div>
   </div>
   <div class="nav-right">
-    <div class="btn-outline">Login</div>
-    <div class="btn-gold">List Property</div>
+    <div class="btn-gold">Login / Register</div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
   </div>
 </div>
@@ -548,12 +824,12 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 <div class="nav-mobile" id="navMobile">
   <div class="nav-link act">Buy</div>
   <div class="nav-link">Sell</div>
-  <div class="nav-link">Rent</div>
   <div class="nav-link">Invest</div>
   <div class="nav-link">Services</div>
   <div class="nav-link">Agents</div>
-  <div class="nav-link">Blog</div>
+  <div class="nav-link" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth'});document.getElementById('navMobile').classList.remove('open');">Blog</div>
   <div class="nav-link nav-private">🔒 Private Listings</div>
+  <div class="nav-link" style="color:var(--gold);font-weight:500;">Login / Register</div>
 </div>
 
 <!-- ── HERO — Full cinematic slideshow ── -->
@@ -775,39 +1051,87 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 
 <!-- ── SEARCH ENGINE — sits directly below hero ── -->
 <div class="search-engine">
-  <!-- Transaction tabs ABOVE search bar -->
-  <div class="purpose-tabs">
-    <div class="ptab act">For Sale</div>
-    <div class="ptab">For Rent</div>
-    <div class="ptab">Short-Let</div>
-    <div class="ptab">Land</div>
-    <div class="ptab">Commercial</div>
-    <div class="ptab">JV / Off-Plan</div>
-    <div class="ptab">Mortgage</div>
-    <div class="ptab">Fix &amp; Flip</div>
-    <div class="ptab">Auction</div>
+  <!-- Row 1: Transaction type tabs ABOVE search bar -->
+  <div class="purpose-tabs" id="purposeTabs">
+    <div class="ptab act" data-tab="for-sale">For Sale</div>
+    <div class="ptab" data-tab="for-rent">For Rent</div>
+    <div class="ptab" data-tab="short-let">Short-Let</div>
+    <div class="ptab" data-tab="jv">JV</div>
+    <div class="ptab" data-tab="auction">Auction</div>
+    <div class="ptab" data-tab="mortgage">Mortgage</div>
+    <div class="ptab" data-tab="off-plan">Off-Plan</div>
+    <div class="ptab" data-tab="fix-flip">Fix &amp; Flip</div>
   </div>
-  <!-- White Google-style search bar -->
+  <!-- White Google-scale search bar -->
   <div class="search-row">
     <div class="search-field-wrap">
-      <i class="ti ti-map-pin" style="font-size:14px;color:#AAA" aria-hidden="true"></i>
-      <input type="text" placeholder="Search by area, landmark, property code, or GPS… e.g. Farm land near Tema under GH₵400,000">
-      <span class="ai-badge">AI</span>
+
+      <!-- Map Pin — real SVG -->
+      <div class="sfw-pin" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#C4922A"/>
+        </svg>
+      </div>
+      <div class="sfw-divider"></div>
+
+      <input type="text" placeholder="Search by area, landmark, property code, or GPS…" autocomplete="off">
+
+      <div class="sfw-right">
+
+        <!-- Microphone — Google's exact mic SVG -->
+        <button class="sfw-icon-btn sfw-mic" title="Voice search" aria-label="Voice search">
+          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#CC2020"/>
+            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#CC2020"/>
+          </svg>
+        </button>
+
+        <!-- Camera / Google Lens — multicolour lens SVG -->
+        <button class="sfw-icon-btn sfw-img" title="Search by image" aria-label="Search by image">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- lens body -->
+            <path d="M4 8.5C4 6.57 5.57 5 7.5 5H9l1-1.5h4L15 5h1.5C18.43 5 20 6.57 20 8.5v9c0 1.93-1.57 3.5-3.5 3.5h-9C5.57 21 4 19.43 4 17.5v-9z" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="0.5"/>
+            <!-- Google-colours lens ring: 4 arcs -->
+            <path d="M12 9.5a3 3 0 0 1 2.6 1.5" stroke="#4285F4" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M14.6 11a3 3 0 0 1 0 3" stroke="#EA4335" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M14.6 14a3 3 0 0 1-2.6 1.5" stroke="#FBBC05" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M12 15.5a3 3 0 0 1-2.6-4.5" stroke="#34A853" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- centre dot -->
+            <circle cx="12" cy="12.5" r="1" fill="#5F6368"/>
+          </svg>
+        </button>
+
+        <span class="ai-badge">AI</span>
+      </div>
     </div>
-    <button class="search-btn"><i class="ti ti-search" style="font-size:13px" aria-hidden="true"></i>Search</button>
-    <button class="agent-login-btn"><i class="ti ti-user" style="font-size:12px" aria-hidden="true"></i>Agent Login</button>
+
+    <!-- Search button — magnifier SVG -->
+    <button class="search-btn" aria-label="Search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2.2"/>
+        <path d="M16.5 16.5L21 21" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      Search
+    </button>
+
+    <!-- Agent Login — person SVG -->
+    <button class="agent-login-btn" aria-label="Agent Login" onclick="window.location.href='/agent/login'">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+        <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Agent Login
+    </button>
   </div>
-  <!-- Property type pills BELOW search bar -->
-  <div class="filter-row">
-    <div class="fchip act">All Types</div>
-    <div class="fchip">Residential</div>
-    <div class="fchip">Commercial</div>
-    <div class="fchip">Industrial</div>
-    <div class="fchip">Farm &amp; Agri</div>
-    <div class="fchip">Luxury</div>
-    <div class="fchip">Fix &amp; Flip</div>
-    <div class="fchip">Mortgage</div>
-    <div class="fchip">Auction</div>
+  <!-- Row 2: Property type chips BELOW search bar -->
+  <div class="filter-row" id="propTypeChips">
+    <div class="fchip act" data-chip="all">All</div>
+    <div class="fchip" data-chip="land">Land</div>
+    <div class="fchip" data-chip="residential">Residential</div>
+    <div class="fchip" data-chip="commercial">Commercial</div>
+    <div class="fchip" data-chip="industrial">Industrial</div>
+    <div class="fchip" data-chip="luxury">Luxury</div>
+    <div class="fchip" data-chip="farm">Farm / Agricultural</div>
   </div>
 </div>
 
@@ -933,6 +1257,8 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
       <button class="fb-dot" data-i="3"></button>
       <button class="fb-dot" data-i="4"></button>
     </div>
+    <!-- Progress bar — 15s countdown to next slide -->
+    <div class="fb-progress"><div class="fb-progress-bar" id="fbProgressBar"></div></div>
   </div>
 
   <!-- C13: Row 1 — 50 sponsor/developer/agent boost cards -->
@@ -1158,55 +1484,78 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     </div>
     <div class="see-all">View all 100 videos →</div>
   </div>
-  <div class="video-grid">
-    <div class="vcard" style="background:linear-gradient(160deg,#1A3A25,#0D2010)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Luxury villa walkthrough</div>
-        <div class="vcard-sub">East Legon · 5 Bed</div>
-        <div class="vprice">$480,000</div>
+
+  <!-- VPOD carousel — 10s independent autoplay -->
+  <div class="vpod-wrap" id="vpodWrap">
+    <div class="vpod-track" id="vpodTrack">
+
+      <!-- Group 1 (visible page) -->
+      <div class="vpod-page">
+        <div class="vcard" style="background:linear-gradient(160deg,#1A3A25,#0D2010)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Luxury villa walkthrough</div>
+            <div class="vcard-sub">East Legon · 5 Bed</div>
+            <div class="vprice">$480,000</div>
+          </div>
+        </div>
+        <div class="vcard" style="background:linear-gradient(160deg,#2A1A10,#1A1008)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Short-stay apartment tour</div>
+            <div class="vcard-sub">Airport Hills · 3 Bed</div>
+            <div class="vprice">GH₵900/night</div>
+          </div>
+        </div>
+        <div class="vcard" style="background:linear-gradient(160deg,#0F2035,#081525)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Drone — land overview</div>
+            <div class="vcard-sub">Oyarifa · 0.5 acres</div>
+            <div class="vprice">GH₵85,000</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="vcard" style="background:linear-gradient(160deg,#2A1A10,#1A1008)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Short-stay apartment tour</div>
-        <div class="vcard-sub">Airport Hills · 3 Bed</div>
-        <div class="vprice">GH₵900/night</div>
+
+      <!-- Group 2 -->
+      <div class="vpod-page">
+        <div class="vcard" style="background:linear-gradient(160deg,#1A2010,#0D1508)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Off-Plan project tour</div>
+            <div class="vcard-sub">Kintampo · 2 Acres</div>
+            <div class="vprice">JV from $60,000</div>
+          </div>
+        </div>
+        <div class="vcard" style="background:linear-gradient(160deg,#251015,#180D0E)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Industrial Property</div>
+            <div class="vcard-sub">Tema · 5,000sqm</div>
+            <div class="vprice">$28,000/yr lease</div>
+          </div>
+        </div>
+        <div class="vcard" style="background:linear-gradient(160deg,#1A1020,#0D0815)">
+          <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
+          <div class="vcard-overlay">
+            <div class="vcard-title">Penthouse Tour</div>
+            <div class="vcard-sub">Cantonments · 3 Bed</div>
+            <div class="vprice">$1,800,000</div>
+          </div>
+        </div>
       </div>
+
     </div>
-    <div class="vcard" style="background:linear-gradient(160deg,#0F2035,#081525)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Drone — land overview</div>
-        <div class="vcard-sub">Oyarifa · 0.5 acres</div>
-        <div class="vprice">GH₵85,000</div>
-      </div>
+    <!-- VPOD nav arrows -->
+    <button class="vpod-prev" id="vpodPrev">‹</button>
+    <button class="vpod-next" id="vpodNext">›</button>
+    <!-- VPOD dots -->
+    <div class="vpod-dots">
+      <button class="vpod-dot act" data-i="0"></button>
+      <button class="vpod-dot" data-i="1"></button>
     </div>
-    <div class="vcard" style="background:linear-gradient(160deg,#1A2010,#0D1508)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Off-Plan project tour</div>
-        <div class="vcard-sub">Kintampo · 2 Acres</div>
-        <div class="vprice">JV from $60,000</div>
-      </div>
-    </div>
-    <div class="vcard" style="background:linear-gradient(160deg,#251015,#180D0E)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Industrial Property</div>
-        <div class="vcard-sub">Tema · 5,000sqm</div>
-        <div class="vprice">$28,000/yr lease</div>
-      </div>
-    </div>
-    <div class="vcard" style="background:linear-gradient(160deg,#1A1020,#0D0815)">
-      <div class="vplay"><i class="ti ti-player-play" style="font-size:12px;color:#151C12;margin-left:2px" aria-hidden="true"></i></div>
-      <div class="vcard-overlay">
-        <div class="vcard-title">Penthouse Tour</div>
-        <div class="vcard-sub">Cantonments · 3 Bed</div>
-        <div class="vprice">$1,800,000</div>
-      </div>
-    </div>
+    <!-- VPOD progress bar — 10s -->
+    <div class="fb-progress"><div class="fb-progress-bar" id="vpodProgressBar" style="animation-duration:10s"></div></div>
   </div>
 </div>
 
@@ -1272,7 +1621,85 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   </div>
 </div>
 
-<!-- ── C30: ALL LISTINGS — Between private & Why Begye ── -->
+<!-- ── BLOG — directly after Private Listings ── -->
+<div class="section" id="blog" style="padding-top:20px">
+  <div class="sec-head">
+    <div><div class="sec-title">Blog &amp; Real Estate News Hub</div><div class="sec-sub">Market reports · Investment guides · Area insights</div></div>
+    <div class="see-all">View all articles →</div>
+  </div>
+  <div class="blog-carousel-wrap">
+    <div class="blog-track-outer">
+      <div class="blog-track" id="blogTrack">
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#1A3A25,#0D2010)">
+            <span class="blog-cat-badge" style="background:var(--red);color:#fff">Market Report</span>
+            <span style="font-size:2rem;">📊</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">Ghana Property Market Outlook 2026 — Top 10 Investment Areas</div>
+            <div class="blog-meta"><span>May 13, 2026</span><span>12 min read</span></div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#0F2035,#081525)">
+            <span class="blog-cat-badge" style="background:var(--gold);color:var(--dark)">Diaspora</span>
+            <span style="font-size:2rem;">✈️</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">How to Buy Property in Ghana Remotely — Complete Guide</div>
+            <div class="blog-meta"><span>May 8, 2026</span><span>8 min read</span></div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#251510,#180D08)">
+            <span class="blog-cat-badge" style="background:#FF6F00;color:#fff">Fix &amp; Flip</span>
+            <span style="font-size:2rem;">🔨</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">Fix &amp; Flip Ghana — 3 Hotspot Areas with Highest ROI in 2026</div>
+            <div class="blog-meta"><span>Apr 28, 2026</span><span>6 min read</span></div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#2A1010,#1A0808)">
+            <span class="blog-cat-badge" style="background:#1565C0;color:#fff">Mortgage</span>
+            <span style="font-size:2rem;">🏦</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">How to Secure a Mortgage in Ghana as a First-Time Buyer</div>
+            <div class="blog-meta"><span>Apr 20, 2026</span><span>9 min read</span></div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#1A1035,#0D0825)">
+            <span class="blog-cat-badge" style="background:#7B1FA2;color:#fff">Short Stay</span>
+            <span style="font-size:2rem;">🌙</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">Airbnb Investment in Accra — Income Projections &amp; Best Zones</div>
+            <div class="blog-meta"><span>Apr 15, 2026</span><span>7 min read</span></div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg,#1A2A10,#0D1808)">
+            <span class="blog-cat-badge" style="background:#3B6D11;color:#fff">Agricultural</span>
+            <span style="font-size:2rem;">🌿</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-title">Farm Land Investment in Ghana — Soil, ROI &amp; Best Regions</div>
+            <div class="blog-meta"><span>Apr 10, 2026</span><span>10 min read</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blog-nav-row">
+      <button class="blog-nav-btn" id="blogPrev">‹</button>
+      <button class="blog-nav-btn" id="blogNext">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── C30: ALL LISTINGS ── -->
 <div class="section" style="padding-top:20px">
   <div class="sec-head">
     <div><div class="sec-title">All available listings</div><div class="sec-sub">For Sale · For Rent · Mortgage · Off-Plan · Short Stay · All categories</div></div>
@@ -1371,84 +1798,6 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
         <div class="lcard-specs">2 bd · Smart TV · Wi-Fi · 70% Occ.</div>
         <div class="lcard-code">GAR-LDK-CAN-APT-00102</div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── C16-C17: BLOG CAROUSEL — self-contained, no page shift ── -->
-<div class="section" style="padding-top:20px">
-  <div class="sec-head">
-    <div><div class="sec-title">Blog &amp; Real Estate News Hub</div><div class="sec-sub">Market reports · Investment guides · Area insights</div></div>
-    <div class="see-all">View all articles →</div>
-  </div>
-  <div class="blog-carousel-wrap">
-    <div class="blog-track-outer">
-      <div class="blog-track" id="blogTrack">
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#1A3A25,#0D2010)">
-            <span class="blog-cat-badge" style="background:var(--red);color:#fff">Market Report</span>
-            <span style="font-size:2rem;">📊</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">Ghana Property Market Outlook 2026 — Top 10 Investment Areas</div>
-            <div class="blog-meta"><span>May 13, 2026</span><span>12 min read</span></div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#0F2035,#081525)">
-            <span class="blog-cat-badge" style="background:var(--gold);color:var(--dark)">Diaspora</span>
-            <span style="font-size:2rem;">✈️</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">How to Buy Property in Ghana Remotely — Complete Guide</div>
-            <div class="blog-meta"><span>May 8, 2026</span><span>8 min read</span></div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#251510,#180D08)">
-            <span class="blog-cat-badge" style="background:#FF6F00;color:#fff">Fix &amp; Flip</span>
-            <span style="font-size:2rem;">🔨</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">Fix &amp; Flip Ghana — 3 Hotspot Areas with Highest ROI in 2026</div>
-            <div class="blog-meta"><span>Apr 28, 2026</span><span>6 min read</span></div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#2A1010,#1A0808)">
-            <span class="blog-cat-badge" style="background:#1565C0;color:#fff">Mortgage</span>
-            <span style="font-size:2rem;">🏦</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">How to Secure a Mortgage in Ghana as a First-Time Buyer</div>
-            <div class="blog-meta"><span>Apr 20, 2026</span><span>9 min read</span></div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#1A1035,#0D0825)">
-            <span class="blog-cat-badge" style="background:#7B1FA2;color:#fff">Short Stay</span>
-            <span style="font-size:2rem;">🌙</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">Airbnb Investment in Accra — Income Projections &amp; Best Zones</div>
-            <div class="blog-meta"><span>Apr 15, 2026</span><span>7 min read</span></div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#1A2A10,#0D1808)">
-            <span class="blog-cat-badge" style="background:#3B6D11;color:#fff">Agricultural</span>
-            <span style="font-size:2rem;">🌿</span>
-          </div>
-          <div class="blog-body">
-            <div class="blog-title">Farm Land Investment in Ghana — Soil, ROI &amp; Best Regions</div>
-            <div class="blog-meta"><span>Apr 10, 2026</span><span>10 min read</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="blog-nav-row">
-      <button class="blog-nav-btn" id="blogPrev">‹</button>
-      <button class="blog-nav-btn" id="blogNext">›</button>
     </div>
   </div>
 </div>
@@ -1758,29 +2107,32 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
       <span class="footer-link" style="font-size:10px;">Home</span>
       <span class="footer-link" style="font-size:10px;">Listings</span>
-      <span class="footer-link" style="font-size:10px;">Investors</span>
       <span class="footer-link" style="font-size:10px;">Newsletter</span>
       <span class="footer-link" style="font-size:10px;">Blog</span>
+      <span class="footer-link" style="font-size:10px;">Investors</span>
     </div>
     <div class="footer-wa"><i class="ti ti-brand-whatsapp" style="font-size:14px;color:#25D366" aria-hidden="true"></i><span>+233 506 192 097</span></div>
   </div>
 </div>
 
-<!-- ── C34: BOTTOM NAV — Home · Listings · Investors · Newsletter · Blog ── -->
+<!-- ── C34: BOTTOM NAV — Home · Listings · Newsletter · Blog · Investors ── -->
 <div class="bottom-nav">
   <div class="bnav act"><i class="ti ti-home-2" aria-hidden="true"></i><span>Home</span></div>
   <div class="bnav"><i class="ti ti-list" aria-hidden="true"></i><span>Listings</span></div>
-  <div class="bnav"><i class="ti ti-chart-bar" aria-hidden="true"></i><span>Investors</span></div>
   <div class="bnav"><i class="ti ti-mail" aria-hidden="true"></i><span>Newsletter</span></div>
-  <div class="bnav"><i class="ti ti-pencil" aria-hidden="true"></i><span>Blog</span></div>
+  <div class="bnav" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth'})"><i class="ti ti-pencil" aria-hidden="true"></i><span>Blog</span></div>
+  <div class="bnav"><i class="ti ti-chart-bar" aria-hidden="true"></i><span>Investors</span></div>
 </div>
 
 <script>
-  // ── C2: Transparent → solid nav on scroll ──────────────
+  // ── Transparent → solid nav on scroll ──────────────
   const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  function updateNav() {
+    const scrolled = window.scrollY > 20;
+    nav.classList.toggle('scrolled', scrolled);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav(); // run once on load in case page is already scrolled
 
   // ── Hamburger menu ─────────────────────────────────────
   const hamburger = document.getElementById('hamburger');
@@ -1796,21 +2148,27 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     }
   });
 
-  // ── C5: Search transaction tabs ─────────────────────────
-  document.querySelectorAll('.ptab').forEach(t => {
-    t.addEventListener('click', () => {
-      document.querySelectorAll('.ptab').forEach(x => x.classList.remove('act'));
-      t.classList.add('act');
+  // ── Transaction tabs (row 1) — scoped to #purposeTabs ──────
+  const purposeTabs = document.getElementById('purposeTabs');
+  if (purposeTabs) {
+    purposeTabs.querySelectorAll('.ptab').forEach(t => {
+      t.addEventListener('click', () => {
+        purposeTabs.querySelectorAll('.ptab').forEach(x => x.classList.remove('act'));
+        t.classList.add('act');
+      });
     });
-  });
+  }
 
-  // ── C6: Property type pills ─────────────────────────────
-  document.querySelectorAll('.fchip').forEach(c => {
-    c.addEventListener('click', () => {
-      document.querySelectorAll('.fchip').forEach(x => x.classList.remove('act'));
-      c.classList.add('act');
+  // ── Property type chips (row 2) — scoped to #propTypeChips ──
+  const propTypeChips = document.getElementById('propTypeChips');
+  if (propTypeChips) {
+    propTypeChips.querySelectorAll('.fchip').forEach(c => {
+      c.addEventListener('click', () => {
+        propTypeChips.querySelectorAll('.fchip').forEach(x => x.classList.remove('act'));
+        c.classList.add('act');
+      });
     });
-  });
+  }
 
   // ── Hero cinematic slideshow ─────────────────────────────
   (function() {
@@ -1839,21 +2197,36 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     startTimer();
   })();
 
-  // ── Featured Banner Carousel (below hero) ────────────────
+  // ── Featured Banner Carousel — 15s autoplay, independent ───
   (function() {
-    const slides  = document.querySelectorAll('.fb-slide');
-    const dots    = document.querySelectorAll('.fb-dot');
-    const prevBtn = document.getElementById('fbPrev');
-    const nextBtn = document.getElementById('fbNext');
-    const track   = document.getElementById('fbSlides');
+    const slides   = document.querySelectorAll('.fb-slide');
+    const dots     = document.querySelectorAll('.fb-dot');
+    const prevBtn  = document.getElementById('fbPrev');
+    const nextBtn  = document.getElementById('fbNext');
+    const track    = document.getElementById('fbSlides');
+    const progBar  = document.getElementById('fbProgressBar');
     if (!slides.length || !track) return;
+
+    const INTERVAL = 15000; // 15 seconds — Featured Ads
     let idx = 0, timer;
+
+    function resetProgress() {
+      if (!progBar) return;
+      progBar.style.animation = 'none';
+      progBar.offsetHeight; // force reflow
+      progBar.style.animationDuration = '15s';
+      progBar.style.animation = 'fbProgress 15s linear forwards';
+    }
     function goTo(n) {
       idx = (n + slides.length) % slides.length;
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
       dots.forEach((d, i) => d.classList.toggle('act', i === idx));
+      resetProgress();
     }
-    function startTimer() { clearInterval(timer); timer = setInterval(() => goTo(idx + 1), 10000); }
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(idx + 1), INTERVAL);
+    }
     if (prevBtn) prevBtn.addEventListener('click', () => { goTo(idx - 1); startTimer(); });
     if (nextBtn) nextBtn.addEventListener('click', () => { goTo(idx + 1); startTimer(); });
     dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); startTimer(); }));
@@ -1863,6 +2236,50 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
       const dx = e.changedTouches[0].clientX - touchX;
       if (Math.abs(dx) > 40) { dx < 0 ? goTo(idx + 1) : goTo(idx - 1); startTimer(); }
     }, { passive: true });
+    resetProgress();
+    startTimer();
+  })();
+
+  // ── VPOD Video Carousel — 10s autoplay, independent ─────────
+  (function() {
+    const track   = document.getElementById('vpodTrack');
+    const prevBtn = document.getElementById('vpodPrev');
+    const nextBtn = document.getElementById('vpodNext');
+    const dots    = document.querySelectorAll('.vpod-dot');
+    const progBar = document.getElementById('vpodProgressBar');
+    if (!track) return;
+
+    const pages   = track.querySelectorAll('.vpod-page');
+    const INTERVAL = 10000; // 10 seconds — VPOD
+    let idx = 0, timer;
+
+    function resetProgress() {
+      if (!progBar) return;
+      progBar.style.animation = 'none';
+      progBar.offsetHeight;
+      progBar.style.animationDuration = '10s';
+      progBar.style.animation = 'fbProgress 10s linear forwards';
+    }
+    function goTo(n) {
+      idx = (n + pages.length) % pages.length;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('act', i === idx));
+      resetProgress();
+    }
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(idx + 1), INTERVAL);
+    }
+    if (prevBtn) prevBtn.addEventListener('click', () => { goTo(idx - 1); startTimer(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { goTo(idx + 1); startTimer(); });
+    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); startTimer(); }));
+    let touchX = 0;
+    track.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) { dx < 0 ? goTo(idx + 1) : goTo(idx - 1); startTimer(); }
+    }, { passive: true });
+    resetProgress();
     startTimer();
   })();
 
