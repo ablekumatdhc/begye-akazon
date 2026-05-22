@@ -65,6 +65,247 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .nav-link.act{color:#fff;border-bottom-color:var(--gold);}
 .nav-private{color:var(--gold-light)!important;letter-spacing:0.02em;}
 .nav-private:hover{color:#fff!important;}
+
+/* Co-Agent Office nav link */
+.nav-coagent{
+  color:rgba(196,146,42,0.75)!important;
+  letter-spacing:0.02em;
+  display:flex!important;align-items:center;gap:5px;
+  border-left:0.5px solid rgba(196,146,42,0.2)!important;
+  margin-left:4px;padding-left:16px!important;
+}
+.nav-coagent:hover{color:var(--gold-light)!important;}
+
+/* ── CO-AGENT OFFICE — full section ── */
+#coAgentOffice{
+  scroll-margin-top:72px;
+}
+
+/* Auth gate wall */
+.coa-gate{
+  background:linear-gradient(160deg,#0A0D08 0%,#131A0E 60%,#0D1208 100%);
+  border:1px solid rgba(196,146,42,0.22);
+  border-radius:14px;
+  padding:40px 28px 36px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.coa-gate::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(196,146,42,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.coa-gate-lock{
+  width:56px;height:56px;border-radius:14px;
+  background:rgba(196,146,42,0.1);
+  border:1px solid rgba(196,146,42,0.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+}
+.coa-gate-eyebrow{
+  font-size:9px;font-weight:700;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:8px;
+}
+.coa-gate-title{
+  font-family:var(--font-serif);font-size:22px;font-weight:700;
+  color:#F0EDE6;line-height:1.2;margin-bottom:8px;
+}
+.coa-gate-title em{color:var(--gold-light);font-style:normal;}
+.coa-gate-desc{
+  font-size:11px;color:rgba(255,255,255,0.42);
+  line-height:1.8;margin-bottom:20px;max-width:460px;margin-left:auto;margin-right:auto;
+}
+.coa-gate-features{
+  display:flex;flex-wrap:wrap;gap:7px;justify-content:center;
+  margin-bottom:24px;
+}
+.coa-gate-feat{
+  font-size:9px;font-weight:500;letter-spacing:0.03em;
+  padding:5px 12px;border-radius:99px;
+  background:rgba(255,255,255,0.04);
+  border:0.5px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.45);
+  display:flex;align-items:center;gap:5px;
+}
+.coa-gate-feat.gold{
+  background:rgba(196,146,42,0.1);
+  border-color:rgba(196,146,42,0.3);
+  color:var(--gold-light);
+}
+.coa-gate-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.coa-btn-primary{
+  background:var(--gold);color:#0D0F0A;
+  font-size:12px;font-weight:700;letter-spacing:0.04em;
+  padding:11px 26px;border-radius:8px;border:none;
+  cursor:pointer;font-family:var(--font-sans);
+  transition:background 0.2s,box-shadow 0.2s;
+  box-shadow:0 2px 16px rgba(196,146,42,0.3);
+  display:flex;align-items:center;gap:8px;
+}
+.coa-btn-primary:hover{background:var(--gold-light);box-shadow:0 3px 24px rgba(196,146,42,0.5);}
+.coa-btn-secondary{
+  background:transparent;color:rgba(255,255,255,0.55);
+  font-size:12px;font-weight:500;
+  padding:11px 22px;border-radius:8px;
+  border:1px solid rgba(255,255,255,0.15);
+  cursor:pointer;font-family:var(--font-sans);
+  transition:border-color 0.2s,color 0.2s;
+  display:flex;align-items:center;gap:8px;
+}
+.coa-btn-secondary:hover{border-color:rgba(255,255,255,0.35);color:#fff;}
+.coa-gate-note{
+  font-size:9px;color:rgba(255,255,255,0.2);
+  margin-top:16px;display:flex;align-items:center;justify-content:center;gap:5px;
+}
+
+/* Authenticated dashboard */
+.coa-dashboard{display:none;}
+.coa-dashboard.visible{display:block;}
+.coa-gate.hidden{display:none;}
+
+/* Dashboard header bar */
+.coa-dash-header{
+  background:linear-gradient(135deg,#0D1208,#1A1A08);
+  border:1px solid rgba(196,146,42,0.25);
+  border-radius:12px;padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.coa-dash-agent{display:flex;align-items:center;gap:12px;}
+.coa-dash-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#0D0F0A;
+  flex-shrink:0;
+}
+.coa-dash-name{font-size:13px;font-weight:600;color:#F0EDE6;line-height:1.3;}
+.coa-dash-role{font-size:9px;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:5px;margin-top:2px;}
+.coa-verified-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:8px;font-weight:700;color:var(--gold);
+  background:rgba(196,146,42,0.12);
+  border:0.5px solid rgba(196,146,42,0.3);
+  padding:2px 7px;border-radius:99px;
+}
+.coa-dash-stats{display:flex;gap:16px;flex-wrap:wrap;}
+.coa-stat{text-align:center;}
+.coa-stat-num{font-size:16px;font-weight:700;color:var(--gold-light);font-family:var(--font-serif);line-height:1;}
+.coa-stat-lbl{font-size:8px;color:rgba(255,255,255,0.35);margin-top:2px;letter-spacing:0.04em;}
+.coa-dash-signout{
+  font-size:10px;color:rgba(255,255,255,0.35);
+  background:none;border:0.5px solid rgba(255,255,255,0.1);
+  padding:5px 12px;border-radius:5px;cursor:pointer;
+  font-family:var(--font-sans);
+  transition:color 0.2s,border-color 0.2s;
+  display:flex;align-items:center;gap:5px;
+}
+.coa-dash-signout:hover{color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.25);}
+
+/* Tool module grid */
+.coa-modules-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+@media(max-width:860px){.coa-modules-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:580px){.coa-modules-grid{grid-template-columns:1fr;}}
+
+.coa-module{
+  background:rgba(255,255,255,0.03);
+  border:0.5px solid rgba(196,146,42,0.15);
+  border-radius:10px;padding:14px 16px;
+  cursor:pointer;
+  transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.18s;
+  position:relative;overflow:hidden;
+}
+.coa-module::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(196,146,42,0),transparent);
+  transition:background 0.3s;
+}
+.coa-module:hover{
+  border-color:rgba(196,146,42,0.4);
+  background:rgba(196,146,42,0.05);
+  box-shadow:0 4px 18px rgba(0,0,0,0.25);
+  transform:translateY(-1px);
+}
+.coa-module:hover::before{
+  background:linear-gradient(90deg,transparent,rgba(196,146,42,0.4),transparent);
+}
+.coa-module.wide{grid-column:span 2;}
+@media(max-width:580px){.coa-module.wide{grid-column:span 1;}}
+
+.coa-mod-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.coa-mod-icon{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.coa-mod-badge{
+  font-size:7.5px;font-weight:700;letter-spacing:0.06em;
+  padding:2px 7px;border-radius:99px;
+  text-transform:uppercase;
+}
+.coa-mod-badge.active{background:rgba(13,74,40,0.2);color:#1A7A46;border:0.5px solid rgba(13,74,40,0.3);}
+.coa-mod-badge.new{background:rgba(196,146,42,0.15);color:var(--gold-light);border:0.5px solid rgba(196,146,42,0.3);}
+.coa-mod-badge.ai{background:rgba(59,139,212,0.15);color:#3B8BD4;border:0.5px solid rgba(59,139,212,0.25);}
+.coa-mod-badge.pending{background:rgba(204,32,32,0.12);color:#E57373;border:0.5px solid rgba(204,32,32,0.2);}
+
+.coa-mod-title{font-size:12px;font-weight:600;color:#F0EDE6;margin-bottom:4px;line-height:1.3;}
+.coa-mod-desc{font-size:9.5px;color:rgba(255,255,255,0.38);line-height:1.6;}
+.coa-mod-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;padding-top:10px;
+  border-top:0.5px solid rgba(255,255,255,0.06);
+}
+.coa-mod-action{
+  font-size:9.5px;font-weight:600;color:var(--gold);
+  display:flex;align-items:center;gap:4px;
+  transition:gap 0.15s;
+}
+.coa-module:hover .coa-mod-action{gap:7px;}
+.coa-mod-meta{font-size:8.5px;color:rgba(255,255,255,0.2);}
+
+/* AI tool module special */
+.coa-module.ai-module{
+  border-color:rgba(59,139,212,0.2);
+}
+.coa-module.ai-module:hover{
+  border-color:rgba(59,139,212,0.45);
+  background:rgba(59,139,212,0.05);
+}
+
+/* Section divider label */
+.coa-section-lbl{
+  font-size:8.5px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:rgba(255,255,255,0.3);
+  display:flex;align-items:center;gap:8px;
+  margin:14px 0 10px;
+}
+.coa-section-lbl::before,.coa-section-lbl::after{
+  content:'';flex:1;height:0.5px;background:rgba(255,255,255,0.07);
+}
+
+/* Demo auth switch */
+.coa-demo-bar{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:8px 16px;
+  background:rgba(196,146,42,0.06);
+  border:0.5px dashed rgba(196,146,42,0.2);
+  border-radius:8px;margin-bottom:14px;
+  font-size:10px;color:rgba(255,255,255,0.35);
+}
+.coa-demo-btn{
+  font-size:9.5px;font-weight:600;color:var(--gold);
+  background:rgba(196,146,42,0.12);border:0.5px solid rgba(196,146,42,0.3);
+  padding:3px 10px;border-radius:4px;cursor:pointer;
+  font-family:var(--font-sans);transition:background 0.15s;
+}
+.coa-demo-btn:hover{background:rgba(196,146,42,0.22);}
 .nav-mobile{
   display:none;position:fixed;top:56px;left:0;right:0;z-index:199;
   background:rgba(10,12,8,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -553,6 +794,52 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .cat-card:hover .cat-expand-hint,.cat-card.active .cat-expand-hint{color:var(--green2);}
 .cat-expand-chevron{transition:transform 0.3s ease;display:inline-flex;}
 .cat-card.active .cat-expand-chevron{transform:rotate(180deg);}
+
+/* ── Dark variant for Private Listings card ── */
+.cat-card.cat-card-dark{
+  background:linear-gradient(135deg,#0D0F0A,#1A1408);
+  border-color:rgba(196,146,42,0.35);
+  color:#F0EDE6;
+}
+.cat-card.cat-card-dark .cat-name{color:#F0EDE6;}
+.cat-card.cat-card-dark .cat-desc{color:rgba(255,255,255,0.45);}
+.cat-card.cat-card-dark .cat-count{color:var(--gold-light);}
+.cat-card.cat-card-dark:hover{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,#151A0F,#221C08);
+  box-shadow:0 4px 20px rgba(196,146,42,0.2);
+}
+.cat-card.cat-card-dark.active{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,#1A1A08,#221C05);
+  box-shadow:0 0 0 2px rgba(196,146,42,0.2);
+}
+.cat-card.cat-card-dark.active .cat-name{color:var(--gold-light);}
+
+/* ── Private drawer dark theme ── */
+.cat-drawer.private-drawer{
+  background:linear-gradient(135deg,#0D0F0A,#1A1408);
+  border-color:rgba(196,146,42,0.25);
+  color:#F0EDE6;
+}
+.cat-drawer.private-drawer .cat-drawer-title{color:#F0EDE6;}
+.cat-drawer.private-drawer .cat-drawer-desc{color:rgba(255,255,255,0.5);}
+.cat-drawer.private-drawer .cat-drawer-sub-lbl{color:rgba(255,255,255,0.4);}
+.cat-drawer.private-drawer .cat-drawer-sub-lbl::after{background:rgba(255,255,255,0.08);}
+.cat-drawer.private-drawer .cat-dstat{color:rgba(255,255,255,0.6);}
+.cat-drawer.private-drawer .cat-dstat svg path,.cat-drawer.private-drawer .cat-dstat svg circle{stroke:rgba(255,255,255,0.4);}
+.cat-drawer.private-drawer .agent-brand-card{background:rgba(255,255,255,0.05);border-color:rgba(196,146,42,0.2);}
+.cat-drawer.private-drawer .agent-brand-card:hover{background:rgba(196,146,42,0.08);box-shadow:0 4px 14px rgba(196,146,42,0.1);}
+.cat-drawer.private-drawer .agent-brand-name{color:#F0EDE6;}
+.cat-drawer.private-drawer .agent-brand-role{color:rgba(255,255,255,0.4);}
+.cat-drawer.private-drawer .agent-bstat{color:rgba(255,255,255,0.5);}
+.cat-drawer.private-drawer .agent-verified{color:var(--gold-light);}
+.cat-drawer.private-drawer .cat-mini-card{background:rgba(255,255,255,0.04);border-color:rgba(196,146,42,0.15);}
+.cat-drawer.private-drawer .cat-mini-title{color:#F0EDE6;}
+.cat-drawer.private-drawer .cat-mini-price{color:var(--gold-light);}
+.cat-drawer.private-drawer .cat-mini-loc{color:rgba(255,255,255,0.35);}
+.cat-drawer.private-drawer .cat-view-all{background:var(--gold);color:#0D0F0A;}
+.cat-drawer.private-drawer .cat-view-all:hover{background:var(--gold-light);}
 
 /* ── CATEGORY DRAWER — full-width expandable row ── */
 .cat-drawer-row{
@@ -1375,7 +1662,7 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 .svc-name{font-size:10px;color:var(--text);font-weight:500}
 
 /* C21: Agents & Owners portal */
-.portals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.portals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;}
 .portal-box{background:rgba(255,255,255,0.04);border:0.5px solid rgba(196,146,42,0.2);border-radius:10px;padding:16px;}
 .portal-title{font-family:var(--font-serif);font-size:14px;color:var(--gold);margin-bottom:4px;font-weight:500;}
 .portal-sub{font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:12px;line-height:1.6;}
@@ -1506,6 +1793,10 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     <div class="nav-link">Agents</div>
     <div class="nav-link" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth'})">Blog</div>
     <div class="nav-link nav-private">🔒 Private Listings</div>
+    <div class="nav-link nav-coagent" id="navCoAgentLink" onclick="scrollToCoAgent()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Co-Agent Office
+    </div>
   </div>
   <div class="nav-right">
     <div class="btn-gold">Login / Register</div>
@@ -1521,6 +1812,10 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
   <div class="nav-link">Agents</div>
   <div class="nav-link" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth'});document.getElementById('navMobile').classList.remove('open');">Blog</div>
   <div class="nav-link nav-private">🔒 Private Listings</div>
+  <div class="nav-link nav-coagent" onclick="scrollToCoAgent();document.getElementById('navMobile').classList.remove('open');">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    Co-Agent Office
+  </div>
   <div class="nav-link" style="color:var(--gold);font-weight:500;">Login / Register</div>
 </div>
 
@@ -3501,23 +3796,287 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
 <div class="section" style="padding-top:20px;background:var(--dark2);margin:0;padding-left:20px;padding-right:20px;padding-bottom:20px">
   <div class="sec-head" style="margin-bottom:16px">
     <div>
-      <div class="sec-title" style="color:#F0EDE6">Agents &amp; Property Owners Portal</div>
+      <div class="sec-title" style="color:#F0EDE6;display:flex;align-items:center;gap:9px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="rgba(255,255,255,0.6)" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Agents &amp; Property Owners Portal
+      </div>
       <div class="sec-sub" style="color:rgba(255,255,255,0.3)">Your Gateway to Ghana's MLS</div>
     </div>
   </div>
   <div class="portals-grid">
-    <div class="portal-box">
-      <div class="portal-title">🏢 Inter-Agent System</div>
-      <div class="portal-sub">Join Ghana's most professional agent cooperation network. Access MLS listings, earn commissions, and grow your client base.</div>
-      <div class="portal-items">
-        <div class="portal-item"><div class="pi-dot"></div>Agent Registration &amp; License Verification</div>
-        <div class="portal-item"><div class="pi-dot"></div>Agency Agreement &amp; Commission Framework</div>
-        <div class="portal-item"><div class="pi-dot"></div>Professional Conduct Policy</div>
-        <div class="portal-item"><div class="pi-dot"></div>AI Listing Tools &amp; Auto-Description Generator</div>
-        <div class="portal-item"><div class="pi-dot"></div>Leads Dashboard &amp; CRM Access</div>
+
+    <!-- ── CO-AGENT OFFICE — gated, verified agents only ── -->
+    <div id="coAgentOffice">
+
+      <!-- Dev demo toggle bar -->
+      <div class="coa-demo-bar">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="rgba(196,146,42,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Dev preview — auth gate active
+        <button class="coa-demo-btn" onclick="coAgentSignIn()">Preview as Verified Agent</button>
+        <button class="coa-demo-btn" onclick="coAgentSignOut()" style="color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);">Reset Gate</button>
       </div>
-      <button class="btn-portal">Join as Agent →</button>
-    </div>
+
+      <!-- ── AUTH GATE — shown to non-authenticated / unverified users ── -->
+      <div class="coa-gate" id="coaGate">
+        <div class="coa-gate-lock">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="11" width="14" height="10" rx="2" stroke="#C4922A" stroke-width="1.8"/>
+            <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#C4922A" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="16" r="1.5" fill="#C4922A"/>
+          </svg>
+        </div>
+        <div class="coa-gate-eyebrow">Registered &amp; Verified Agents Only</div>
+        <div class="coa-gate-title">Co-Agent <em>Office</em></div>
+        <div class="coa-gate-desc">Ghana's professional agent cooperation workspace. Access MLS tools, lead tracking, CRM, and AI listing generation — exclusively for licensed, Begye-verified agents.</div>
+        <div class="coa-gate-features">
+          <span class="coa-gate-feat gold">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#E8B84B" stroke-width="1.8"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#E8B84B" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Agent Registration
+          </span>
+          <span class="coa-gate-feat gold">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#E8B84B" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#E8B84B" stroke-width="1.5"/></svg>
+            License Verification
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.8"/></svg>
+            Agency Agreement
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Commission Framework
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Professional Conduct
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 1 1 0 20A10 10 0 0 1 12 2z" stroke="#3B8BD4" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="#3B8BD4" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span style="color:#3B8BD4">AI Listing Tool</span>
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#3B8BD4" stroke-width="1.8"/></svg>
+            <span style="color:#3B8BD4">Auto-Description Generator</span>
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Lead Tracking
+          </span>
+          <span class="coa-gate-feat">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="currentColor" stroke-width="1.8"/></svg>
+            CRM Access
+          </span>
+        </div>
+        <div class="coa-gate-actions">
+          <button class="coa-btn-primary" onclick="coAgentSignIn()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#0D0F0A" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#0D0F0A" stroke-width="2" stroke-linecap="round"/></svg>
+            Agent Login
+          </button>
+          <button class="coa-btn-secondary" onclick="coAgentSignIn()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M19 8l2 2-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Register as Agent
+          </button>
+        </div>
+        <div class="coa-gate-note">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="rgba(196,146,42,0.4)"/></svg>
+          License verification required · GRA registration checked · Begye agreement signed
+        </div>
+      </div>
+
+      <!-- ── AUTHENTICATED DASHBOARD — shown only to verified agents ── -->
+      <div class="coa-dashboard" id="coaDashboard">
+
+        <!-- Agent identity bar -->
+        <div class="coa-dash-header">
+          <div class="coa-dash-agent">
+            <div class="coa-dash-avatar">KA</div>
+            <div>
+              <div class="coa-dash-name">Kwame Asante</div>
+              <div class="coa-dash-role">
+                <span class="coa-verified-badge">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#C4922A"/></svg>
+                  Begye Verified
+                </span>
+                Residential &amp; Land Specialist · Lic. GRA-AGT-00892
+              </div>
+            </div>
+          </div>
+          <div class="coa-dash-stats">
+            <div class="coa-stat"><div class="coa-stat-num">24</div><div class="coa-stat-lbl">Active Listings</div></div>
+            <div class="coa-stat"><div class="coa-stat-num">8</div><div class="coa-stat-lbl">Open Leads</div></div>
+            <div class="coa-stat"><div class="coa-stat-num">GH₵48K</div><div class="coa-stat-lbl">Comm. YTD</div></div>
+          </div>
+          <button class="coa-dash-signout" onclick="coAgentSignOut()">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Sign Out
+          </button>
+        </div>
+
+        <!-- Compliance & Registration tools -->
+        <div class="coa-section-lbl">Compliance &amp; Registration</div>
+        <div class="coa-modules-grid">
+
+          <!-- Agent Registration -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#E8F4EC;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#0D4A28" stroke-width="1.8"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#0D4A28" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <span class="coa-mod-badge active">Active</span>
+            </div>
+            <div class="coa-mod-title">Agent Registration</div>
+            <div class="coa-mod-desc">Your Begye agent profile, contact details, specialisations, and service regions. Edit your public-facing brand page.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Manage Profile <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">Last updated 3 days ago</span>
+            </div>
+          </div>
+
+          <!-- License Verification -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#E1F5EE;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#0F6E56" stroke-width="1.5"/></svg>
+              </div>
+              <span class="coa-mod-badge active">Verified</span>
+            </div>
+            <div class="coa-mod-title">License Verification</div>
+            <div class="coa-mod-desc">GRA registration confirmed. Upload renewal documents, track expiry dates, and maintain compliance status for MLS access.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">View Certificate <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">Lic. GRA-AGT-00892 · Exp. Dec 2025</span>
+            </div>
+          </div>
+
+          <!-- Agency Agreement -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#FBF1E0;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#C4922A" stroke-width="1.8"/><path d="M14 2v6h6" stroke="#C4922A" stroke-width="1.8"/><path d="M8 13h8M8 17h5" stroke="#C4922A" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="coa-mod-badge active">Signed</span>
+            </div>
+            <div class="coa-mod-title">Agency Agreement</div>
+            <div class="coa-mod-desc">Your signed Begye Co-Agent cooperation agreement. Review co-listing terms, referral rules, and MLS participation conditions.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Download Agreement <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">Signed 12 Jan 2025</span>
+            </div>
+          </div>
+
+          <!-- Commission Framework -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#FFF3E0;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#E65100" stroke-width="1.8"/><path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6m0-6v-1m4.5 7H9" stroke="#E65100" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+              <span class="coa-mod-badge new">Updated</span>
+            </div>
+            <div class="coa-mod-title">Commission Framework</div>
+            <div class="coa-mod-desc">Tiered commission structures — solo agent, co-agent split, and referral fee schedules. GHS and USD rates with payment timelines.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">View Rates <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">Rate v3.1 — Jan 2025</span>
+            </div>
+          </div>
+
+          <!-- Professional Conduct Policy -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#FBEAF0;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#993556" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="coa-mod-badge active">Acknowledged</span>
+            </div>
+            <div class="coa-mod-title">Professional Conduct Policy</div>
+            <div class="coa-mod-desc">Code of ethics, client confidentiality standards, anti-fraud protocols, and disciplinary procedures for Begye Co-Agent network members.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Read Policy <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">Policy v2.4 — Mandatory annual review</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- AI Tools -->
+        <div class="coa-section-lbl">AI-Powered Listing Tools</div>
+        <div class="coa-modules-grid">
+
+          <!-- AI Listing Tool -->
+          <div class="coa-module ai-module wide">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:rgba(59,139,212,0.12);">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 1 1 0 20A10 10 0 0 1 12 2z" stroke="#3B8BD4" stroke-width="1.8"/><path d="M9.5 9C9.5 7.6 10.6 6.5 12 6.5s2.5 1.1 2.5 2.5c0 1.8-2.5 3-2.5 3" stroke="#3B8BD4" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="#3B8BD4"/></svg>
+              </div>
+              <span class="coa-mod-badge ai">AI Powered</span>
+            </div>
+            <div class="coa-mod-title">AI Listing Tool</div>
+            <div class="coa-mod-desc">Create, price, and publish property listings end-to-end. AI-assisted valuation benchmarking, comparable sales analysis, and one-click MLS submission. Supports GPS boundary tagging and document upload.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Create New Listing <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">24 active · 3 drafts</span>
+            </div>
+          </div>
+
+          <!-- Auto-Description Generator -->
+          <div class="coa-module ai-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:rgba(59,139,212,0.12);">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#3B8BD4" stroke-width="1.8"/></svg>
+              </div>
+              <span class="coa-mod-badge ai">AI Powered</span>
+            </div>
+            <div class="coa-mod-title">Auto-Description Generator</div>
+            <div class="coa-mod-desc">Input key property facts — AI generates compelling, SEO-optimised listing copy in English, Twi, or French. Tailored tone per category: luxury, farm, industrial, off-plan.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Generate Copy <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">147 descriptions generated</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CRM & Lead Tools -->
+        <div class="coa-section-lbl">Lead Management &amp; CRM</div>
+        <div class="coa-modules-grid">
+
+          <!-- Lead Tracking -->
+          <div class="coa-module">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#E6F0FB;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#3B8BD4" stroke-width="1.8"/><circle cx="9" cy="7" r="4" stroke="#3B8BD4" stroke-width="1.8"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#3B8BD4" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <span class="coa-mod-badge pending">8 Active</span>
+            </div>
+            <div class="coa-mod-title">Lead Tracking</div>
+            <div class="coa-mod-desc">Real-time pipeline of inbound buyer and tenant enquiries. Filter by property, status, and urgency. Schedule follow-ups and log call outcomes.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">View Pipeline <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">3 require urgent follow-up</span>
+            </div>
+          </div>
+
+          <!-- CRM Access -->
+          <div class="coa-module wide">
+            <div class="coa-mod-top">
+              <div class="coa-mod-icon" style="background:#E3F2FD;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#1565C0" stroke-width="1.8"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#1565C0" stroke-width="1.8"/><path d="M8 12h8M8 16h5" stroke="#1565C0" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <span class="coa-mod-badge active">Live</span>
+            </div>
+            <div class="coa-mod-title">CRM Access</div>
+            <div class="coa-mod-desc">Full client relationship management — contact records, interaction history, property matches, inspection scheduling, and deal stages. Integrates with WhatsApp and email. Shared with co-agents on joint listings.</div>
+            <div class="coa-mod-footer">
+              <span class="coa-mod-action">Open CRM <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#C4922A" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="coa-mod-meta">62 contacts · 4 deals closing soon</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- /coa-dashboard -->
+    </div><!-- /coAgentOffice -->
+
+    <!-- Property Owners Portal (unchanged) -->
     <div class="portal-box">
       <div class="portal-title">🏠 Property Owners Portal</div>
       <div class="portal-sub">List your property with Ghana's most trusted real estate platform. Submit confidentially or publicly. Reach diaspora and international investors.</div>
@@ -3530,6 +4089,7 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
       </div>
       <button class="btn-portal">List Your Property →</button>
     </div>
+
   </div>
 </div>
 
@@ -4179,48 +4739,113 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
       mortgage:'3', auction:'3', commercial:'3', private:'3'
     };
 
+    // ── Per-category SVG icons for drawer header ──────────
+    const CAT_ICONS = {
+      house:      `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="COLOR" stroke-width="1.8"/><path d="M9 22V12h6v10" stroke="COLOR" stroke-width="1.8"/>`,
+      land:       `<path d="M3 17l5-8 4 5 3-3 6 6H3z" stroke="COLOR" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="7.5" r="2" stroke="COLOR" stroke-width="1.8"/>`,
+      shortstay:  `<path d="M2 12h20M2 12l4-4M2 12l4 4M22 12l-4-4M22 12l-4 4" stroke="COLOR" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="COLOR" stroke-width="1.8"/>`,
+      fixflip:    `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="COLOR" stroke-width="1.8"/>`,
+      farm:       `<path d="M12 22V12M12 12C12 12 7 9 4 4c5 0 8 4 8 8zM12 12C12 12 17 9 20 4c-5 0-8 4-8 8z" stroke="COLOR" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      industrial: `<rect x="2" y="3" width="20" height="18" rx="2" stroke="COLOR" stroke-width="1.8"/><path d="M2 9h20M8 3v6M16 3v6" stroke="COLOR" stroke-width="1.4"/>`,
+      jv:         `<circle cx="8" cy="12" r="4" stroke="COLOR" stroke-width="1.8"/><circle cx="16" cy="12" r="4" stroke="COLOR" stroke-width="1.8"/><path d="M12 8.8v6.4" stroke="COLOR" stroke-width="1.5" stroke-linecap="round"/>`,
+      offplan:    `<rect x="3" y="3" width="18" height="18" rx="1" stroke="COLOR" stroke-width="1.8"/><path d="M3 8h18M8 3v18" stroke="COLOR" stroke-width="1.4"/><circle cx="5.5" cy="5.5" r="1" fill="COLOR"/>`,
+      mortgage:   `<circle cx="12" cy="12" r="9" stroke="COLOR" stroke-width="1.8"/><path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6m0-6v-1m4.5 7H9" stroke="COLOR" stroke-width="1.6" stroke-linecap="round"/>`,
+      auction:    `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="COLOR" stroke-width="1.8"/><circle cx="19" cy="5" r="2.5" fill="COLOR"/>`,
+      commercial: `<rect x="2" y="7" width="20" height="14" rx="2" stroke="COLOR" stroke-width="1.8"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="COLOR" stroke-width="1.8"/><path d="M8 12h8M8 16h5" stroke="COLOR" stroke-width="1.4" stroke-linecap="round"/>`,
+      private:    `<rect x="5" y="11" width="14" height="10" rx="2" stroke="COLOR" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="COLOR" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="COLOR"/>`,
+    };
+
+    // ── Per-category mini listing icons ────────────────────
+    const CAT_MINI_ICONS = {
+      house:      `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/><path d="M9 22V12h6v10" stroke="#fff" stroke-width="1.5"/>`,
+      land:       `<path d="M3 17l5-8 4 5 3-3 6 6H3z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>`,
+      shortstay:  `<path d="M2 12h20M2 12l4-4M2 12l4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.5"/>`,
+      fixflip:    `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#fff" stroke-width="1.5"/>`,
+      farm:       `<path d="M12 22V12M12 12C12 12 7 9 4 4c5 0 8 4 8 8z" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>`,
+      industrial: `<rect x="2" y="3" width="20" height="18" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M2 9h20M8 3v6" stroke="#fff" stroke-width="1.3"/>`,
+      jv:         `<circle cx="8" cy="12" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="16" cy="12" r="4" stroke="#fff" stroke-width="1.5"/>`,
+      offplan:    `<rect x="3" y="3" width="18" height="18" rx="1" stroke="#fff" stroke-width="1.5"/><path d="M3 8h18M8 3v18" stroke="#fff" stroke-width="1.3"/>`,
+      mortgage:   `<circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.5"/><path d="M9 9h3.5a1.5 1.5 0 0 1 0 3H9m0-3v6" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>`,
+      auction:    `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#fff" stroke-width="1.5"/>`,
+      commercial: `<rect x="2" y="7" width="20" height="14" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#fff" stroke-width="1.5"/>`,
+      private:    `<rect x="5" y="11" width="14" height="10" rx="2" stroke="#fff" stroke-width="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>`,
+    };
+
     // ── Build drawer HTML ─────────────────────────────────
     function buildDrawer(d, catKey) {
+      const isPrivate = catKey === 'private';
+      const iconSvg = (CAT_ICONS[catKey] || CAT_ICONS.house).replace(/COLOR/g, d.iconColor);
+      const miniIconSvg = CAT_MINI_ICONS[catKey] || CAT_MINI_ICONS.house;
+      const statColor = isPrivate ? 'rgba(255,255,255,0.5)' : '#374151';
+      const verifiedColor = isPrivate ? '#C4922A' : '#0D4A28';
+      const verifiedStarFill = isPrivate ? '#C4922A' : '#0D4A28';
+
       const agents = d.agentsList.map(a => `
         <a class="agent-brand-card" href="/agents/${a.name.toLowerCase().replace(/ /g,'-')}">
           <div class="agent-brand-top">
             <div class="agent-avatar" style="background:${a.color}">${a.name.split(' ').map(w=>w[0]).join('')}</div>
-            <div><div class="agent-brand-name">${a.name}</div><div class="agent-brand-role">${a.role}</div></div>
+            <div>
+              <div class="agent-brand-name">${a.name}</div>
+              <div class="agent-brand-role">${a.role}</div>
+            </div>
           </div>
           <div class="agent-brand-stats">
-            <span class="agent-bstat"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#9CA3AF" stroke-width="1.8"/></svg>${a.listings} listings</span>
-            <span class="agent-bstat"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#0D4A28" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#0D4A28" stroke-width="1.5"/></svg>${a.sales} sold</span>
+            <span class="agent-bstat">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#9CA3AF" stroke-width="1.8"/></svg>
+              ${a.listings} listings
+            </span>
+            <span class="agent-bstat">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="${verifiedColor}" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="${verifiedColor}" stroke-width="1.5"/></svg>
+              ${a.sales} sold
+            </span>
           </div>
-          <div class="agent-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="#0D4A28"/></svg>Begye Verified</div>
+          <div class="agent-verified" style="color:${verifiedColor}">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5L12 17l-5.5 3 1-6.5L3 9l6-1z" fill="${verifiedStarFill}"/></svg>
+            Begye Verified
+          </div>
         </a>`).join('');
 
       const listings = d.listings.map(l => `
         <a class="cat-mini-card" href="/listings?cat=${catKey}">
           <div class="cat-mini-img" style="background:${l.bg}">
-            <svg class="cat-mini-img-icon" width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" stroke-width="1.5"/></svg>
+            <svg class="cat-mini-img-icon" width="44" height="44" viewBox="0 0 24 24" fill="none">${miniIconSvg}</svg>
             <span class="cat-mini-badge lbadge ${l.badgeCls}">${l.badge}</span>
           </div>
           <div class="cat-mini-body">
             <div class="cat-mini-title">${l.title}</div>
             <div class="cat-mini-price">${l.price}</div>
-            <div class="cat-mini-loc"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#9CA3AF"/></svg>${l.loc}</div>
+            <div class="cat-mini-loc">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="${isPrivate ? 'rgba(255,255,255,0.3)' : '#9CA3AF'}"/></svg>
+              ${l.loc}
+            </div>
           </div>
         </a>`).join('');
+
+      const viewAllArrowColor = isPrivate ? '#0D0F0A' : '#fff';
 
       return `
         <div class="cat-drawer-head">
           <div class="cat-drawer-icon" style="background:${d.iconBg}">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${d.iconColor}" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="${d.iconColor}" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">${iconSvg}</svg>
           </div>
           <div class="cat-drawer-info">
             <div class="cat-drawer-title">${d.title}</div>
             <div class="cat-drawer-desc">${d.desc}</div>
             <div class="cat-drawer-stats">
-              <span class="cat-dstat"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#374151" stroke-width="1.8"/></svg>${d.count} listings</span>
-              <span class="cat-dstat"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#374151" stroke-width="1.8"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#374151" stroke-width="1.8" stroke-linecap="round"/></svg>${d.agents} agents specialise here</span>
+              <span class="cat-dstat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="${statColor}" stroke-width="1.8"/></svg>
+                ${d.count} listings
+              </span>
+              <span class="cat-dstat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="${statColor}" stroke-width="1.8"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="${statColor}" stroke-width="1.8" stroke-linecap="round"/></svg>
+                ${d.agents} agents specialise here
+              </span>
             </div>
           </div>
-          <a class="cat-view-all" href="${d.link}">View All <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="cat-view-all" href="${d.link}" style="${isPrivate ? 'background:var(--gold);color:#0D0F0A;' : ''}">
+            View All
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="${viewAllArrowColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
         <div class="cat-drawer-sub-lbl">Agents specialising in ${d.title}</div>
         <div class="cat-agents-row">${agents}</div>
@@ -4250,7 +4875,8 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
         grid.querySelectorAll('.cat-drawer-row.open').forEach(r => r.classList.remove('open'));
 
         // Populate and open
-        drawerRow.innerHTML = `<div class="cat-drawer">${buildDrawer(DATA[key], key)}</div>`;
+        const drawerClass = key === 'private' ? 'cat-drawer private-drawer' : 'cat-drawer';
+        drawerRow.innerHTML = `<div class="${drawerClass}">${buildDrawer(DATA[key], key)}</div>`;
         card.classList.add('active');
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
@@ -4327,13 +4953,65 @@ body{font-family:var(--font-sans);background:var(--dark);color:var(--text);font-
     });
   });
 
-  // ── Nav link active state ────────────────────────────────
+  // ── Nav active state ────────────────────────────────────
   document.querySelectorAll('.nav-link').forEach(l => {
     l.addEventListener('click', () => {
       document.querySelectorAll('.nav-link').forEach(x => x.classList.remove('act'));
       l.classList.add('act');
     });
   });
+
+  // ── Co-Agent Office — auth gate ─────────────────────────
+  function scrollToCoAgent() {
+    const el = document.getElementById('coAgentOffice');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Reads persisted session state (sessionStorage simulates auth)
+  function coAgentIsAuthed() {
+    try { return sessionStorage.getItem('coa_authed') === '1'; } catch(e) { return false; }
+  }
+
+  function coAgentApplyState() {
+    const gate   = document.getElementById('coaGate');
+    const dash   = document.getElementById('coaDashboard');
+    const navLink = document.getElementById('navCoAgentLink');
+    const authed = coAgentIsAuthed();
+    if (!gate || !dash) return;
+    if (authed) {
+      gate.classList.add('hidden');
+      dash.classList.add('visible');
+      if (navLink) {
+        navLink.style.color = 'var(--gold-light)';
+        navLink.title = 'Co-Agent Office — signed in';
+      }
+    } else {
+      gate.classList.remove('hidden');
+      dash.classList.remove('visible');
+      if (navLink) {
+        navLink.style.color = '';
+        navLink.title = '';
+      }
+    }
+  }
+
+  function coAgentSignIn() {
+    try { sessionStorage.setItem('coa_authed', '1'); } catch(e) {}
+    coAgentApplyState();
+    // Scroll into dashboard after short delay so transition is visible
+    setTimeout(() => {
+      const dash = document.getElementById('coaDashboard');
+      if (dash) dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 120);
+  }
+
+  function coAgentSignOut() {
+    try { sessionStorage.removeItem('coa_authed'); } catch(e) {}
+    coAgentApplyState();
+  }
+
+  // Apply on load (in case of back-navigation with session intact)
+  coAgentApplyState();
 
   // ── Scroll-reveal animation ──────────────────────────────
   if ('IntersectionObserver' in window) {
